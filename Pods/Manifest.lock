@@ -1,0 +1,92 @@
+PODS:
+  - Alamofire (5.6.4)
+  - AlamofireImage (4.2.0):
+    - Alamofire (~> 5.4)
+  - Differentiator (5.0.0)
+  - InputMask (6.1.0)
+  - IQKeyboardManagerSwift (6.5.10)
+  - Moya/Core (15.0.0):
+    - Alamofire (~> 5.0)
+  - Moya/RxSwift (15.0.0):
+    - Moya/Core
+    - RxSwift (~> 6.0)
+  - Resolver (1.5.0)
+  - RxCocoa (6.5.0):
+    - RxRelay (= 6.5.0)
+    - RxSwift (= 6.5.0)
+  - RxDataSources (5.0.0):
+    - Differentiator (~> 5.0)
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxGesture (4.0.4):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxOptional (5.0.2):
+    - RxCocoa (~> 6.0)
+    - RxSwift (~> 6.0)
+  - RxRelay (6.5.0):
+    - RxSwift (= 6.5.0)
+  - RxSwift (6.5.0)
+  - RxSwiftExt (6.0.1):
+    - RxSwiftExt/Core (= 6.0.1)
+    - RxSwiftExt/RxCocoa (= 6.0.1)
+  - RxSwiftExt/Core (6.0.1):
+    - RxSwift (~> 6.0)
+  - RxSwiftExt/RxCocoa (6.0.1):
+    - RxCocoa (~> 6.0)
+    - RxSwiftExt/Core
+  - SnapKit (5.6.0)
+
+DEPENDENCIES:
+  - Alamofire
+  - AlamofireImage
+  - InputMask
+  - IQKeyboardManagerSwift
+  - Moya/RxSwift
+  - Resolver
+  - RxCocoa
+  - RxDataSources
+  - RxGesture
+  - RxOptional
+  - RxSwift
+  - RxSwiftExt
+  - SnapKit
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - AlamofireImage
+    - Differentiator
+    - InputMask
+    - IQKeyboardManagerSwift
+    - Moya
+    - Resolver
+    - RxCocoa
+    - RxDataSources
+    - RxGesture
+    - RxOptional
+    - RxRelay
+    - RxSwift
+    - RxSwiftExt
+    - SnapKit
+
+SPEC CHECKSUMS:
+  Alamofire: 4e95d97098eacb88856099c4fc79b526a299e48c
+  AlamofireImage: 34a2d90b0e5fe6a5605f85ae4b7b01e784c60192
+  Differentiator: e8497ceab83c1b10ca233716d547b9af21b9344d
+  InputMask: 71d291dc54d2deaeac6512afb6ec2304228c0bb7
+  IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
+  Moya: 138f0573e53411fb3dc17016add0b748dfbd78ee
+  Resolver: 68984624572763018fd8ec7b8e3e8df0e3b6bba5
+  RxCocoa: 94f817b71c07517321eb4f9ad299112ca8af743b
+  RxDataSources: aa47cc1ed6c500fa0dfecac5c979b723542d79cf
+  RxGesture: f3efb47ed2d26a8082f7b660d4a59970e275a7f8
+  RxOptional: 3664964c96b69dd20c9cf78bdfe546615e26eca8
+  RxRelay: 1de1523e604c72b6c68feadedd1af3b1b4d0ecbd
+  RxSwift: 5710a9e6b17f3c3d6e40d6e559b9fa1e813b2ef8
+  RxSwiftExt: d61c4b9b06e0a448041b1c659e0f1b5c5a035afc
+  SnapKit: e01d52ebb8ddbc333eefe2132acf85c8227d9c25
+
+PODFILE CHECKSUM: 401ecb1fac7a648577b87166da7b345967056388
+
+COCOAPODS: 1.11.3

@@ -1,0 +1,6 @@
+framework module Pods_SNGoalsTests {
+  umbrella header "Pods-SNGoalsTests-umbrella.h"
+
+  export *
+  module * { export * }
+}

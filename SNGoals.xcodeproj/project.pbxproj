@@ -13,6 +13,7 @@
 		160D55BC296CB1EA00BA385A /* CreateGoalsModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55BB296CB1EA00BA385A /* CreateGoalsModel.swift */; };
 		160D55BD296D851100BA385A /* CreateGoalsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16306C822968804E0076FC72 /* CreateGoalsViewController.swift */; };
 		160D55BF296D9DD600BA385A /* CollectionHeaderProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55BE296D9DD600BA385A /* CollectionHeaderProtocol.swift */; };
+		160D55C1296E3D1800BA385A /* CreateGoalsRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55C0296E3D1800BA385A /* CreateGoalsRequest.swift */; };
 		16306BF12967580A0076FC72 /* SNRefresher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16306BDE2967580A0076FC72 /* SNRefresher.swift */; };
 		16306BF22967580A0076FC72 /* SNRefreshTokenModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16306BDF2967580A0076FC72 /* SNRefreshTokenModel.swift */; };
 		16306BF32967580A0076FC72 /* SNRefreshTokenService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16306BE02967580A0076FC72 /* SNRefreshTokenService.swift */; };
@@ -99,6 +100,8 @@
 		167C4843296740C8009861B3 /* SNGoalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C4842296740C8009861B3 /* SNGoalsTests.swift */; };
 		167C484D296740C8009861B3 /* SNGoalsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C484C296740C8009861B3 /* SNGoalsUITests.swift */; };
 		167C484F296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C484E296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift */; };
+		16B5561F296ED51400F79A7A /* CreateGoalsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5561E296ED51400F79A7A /* CreateGoalsCollectionView.swift */; };
+		16B55622296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B55621296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift */; };
 		17E0080240FACAC3F99C1F69 /* Pods_SNGoals.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF6EBB8C9EE6DDE33EB8EFB /* Pods_SNGoals.framework */; };
 		4BC6CD738B5C01A845BD5F33 /* Pods_SNGoalsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71D113BE28A175FCBE063A1B /* Pods_SNGoalsTests.framework */; };
 		4D3E0E69F802F0EFE6F91849 /* Pods_SNGoals_SNGoalsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E0371891239EC80BF497998 /* Pods_SNGoals_SNGoalsUITests.framework */; };
@@ -127,6 +130,7 @@
 		160D55B9296CA5D700BA385A /* CollectionIconProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionIconProtocol.swift; sourceTree = "<group>"; };
 		160D55BB296CB1EA00BA385A /* CreateGoalsModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalsModel.swift; sourceTree = "<group>"; };
 		160D55BE296D9DD600BA385A /* CollectionHeaderProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionHeaderProtocol.swift; sourceTree = "<group>"; };
+		160D55C0296E3D1800BA385A /* CreateGoalsRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalsRequest.swift; sourceTree = "<group>"; };
 		16306BDE2967580A0076FC72 /* SNRefresher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SNRefresher.swift; sourceTree = "<group>"; };
 		16306BDF2967580A0076FC72 /* SNRefreshTokenModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SNRefreshTokenModel.swift; sourceTree = "<group>"; };
 		16306BE02967580A0076FC72 /* SNRefreshTokenService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SNRefreshTokenService.swift; sourceTree = "<group>"; };
@@ -217,6 +221,8 @@
 		167C4848296740C8009861B3 /* SNGoalsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNGoalsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		167C484C296740C8009861B3 /* SNGoalsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNGoalsUITests.swift; sourceTree = "<group>"; };
 		167C484E296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNGoalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		16B5561E296ED51400F79A7A /* CreateGoalsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalsCollectionView.swift; sourceTree = "<group>"; };
+		16B55621296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalsCollectionInteractor.swift; sourceTree = "<group>"; };
 		1E99F5BD76A616D8B95EEE1F /* Pods-SNGoalsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNGoalsTests.debug.xcconfig"; path = "Target Support Files/Pods-SNGoalsTests/Pods-SNGoalsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C058C4DE3BDB3D9966CC6B1 /* Pods-SNGoals.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNGoals.debug.xcconfig"; path = "Target Support Files/Pods-SNGoals/Pods-SNGoals.debug.xcconfig"; sourceTree = "<group>"; };
 		71D113BE28A175FCBE063A1B /* Pods_SNGoalsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SNGoalsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -560,6 +566,7 @@
 			isa = PBXGroup;
 			children = (
 				16306C7929686C310076FC72 /* GoalsModel.swift */,
+				160D55C0296E3D1800BA385A /* CreateGoalsRequest.swift */,
 			);
 			path = Goals;
 			sourceTree = "<group>";
@@ -718,6 +725,7 @@
 				16306C15296758A90076FC72 /* Core */,
 				16306C01296758290076FC72 /* Extensions */,
 				16306C3529675A990076FC72 /* Models */,
+				16B55620296EDB6F00F79A7A /* Collection */,
 				16306C862968804E0076FC72 /* Collection Cells */,
 				16306C2C296759B80076FC72 /* Scenes */,
 				167C4834296740C8009861B3 /* Assets.xcassets */,
@@ -742,6 +750,15 @@
 				167C484E296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift */,
 			);
 			path = SNGoalsUITests;
+			sourceTree = "<group>";
+		};
+		16B55620296EDB6F00F79A7A /* Collection */ = {
+			isa = PBXGroup;
+			children = (
+				16B5561E296ED51400F79A7A /* CreateGoalsCollectionView.swift */,
+				16B55621296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift */,
+			);
+			path = Collection;
 			sourceTree = "<group>";
 		};
 		3CE8E85E346846A639924A19 /* Frameworks */ = {
@@ -1019,10 +1036,12 @@
 				16306BF92967580A0076FC72 /* SNRequestable.swift in Sources */,
 				16306C8029686CFA0076FC72 /* Alias.swift in Sources */,
 				16306BFA2967580A0076FC72 /* SNCoordinator.swift in Sources */,
+				160D55C1296E3D1800BA385A /* CreateGoalsRequest.swift in Sources */,
 				16306C0E296758290076FC72 /* Extension + String.swift in Sources */,
 				16306C23296759470076FC72 /* Listeners.swift in Sources */,
 				16306BF32967580A0076FC72 /* SNRefreshTokenService.swift in Sources */,
 				16306CAB296894AD0076FC72 /* TextFieldCollectionViewCell.swift in Sources */,
+				16B5561F296ED51400F79A7A /* CreateGoalsCollectionView.swift in Sources */,
 				16306C55296768810076FC72 /* GoalsViewController.swift in Sources */,
 				16306C6F29686A160076FC72 /* GoalCell.swift in Sources */,
 				16306BF62967580A0076FC72 /* SNNetworkManager.swift in Sources */,
@@ -1038,6 +1057,7 @@
 				16306C9C296885AA0076FC72 /* CreateGoalsProtocol.swift in Sources */,
 				16306C0B296758290076FC72 /* Extension + Decimal.swift in Sources */,
 				160D55BF296D9DD600BA385A /* CollectionHeaderProtocol.swift in Sources */,
+				16B55622296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift in Sources */,
 				16306C22296759470076FC72 /* CameraHandler.swift in Sources */,
 				16306BF42967580A0076FC72 /* Sanada.swift in Sources */,
 				16306C11296758290076FC72 /* Extension + UIImage.swift in Sources */,

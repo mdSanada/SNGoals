@@ -4,6 +4,7 @@
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21505"/>
         <capability name="Image references" minToolsVersion="12.0"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -117,8 +118,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BNE-GJ-kRb">
-                                <rect key="frame" x="0.0" y="79" width="393" height="773"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BNE-GJ-kRb" customClass="CreateGoalsCollectionView" customModule="SNGoals" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="79" width="393" height="664.66666666666663"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="97w-gX-pVU">
                                     <size key="itemSize" width="128" height="128"/>
@@ -132,17 +133,50 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                             </collectionView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="5bJ-4g-60s">
+                                <rect key="frame" x="143" y="763.66666666666663" width="230" height="34.333333333333371"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C2F-iK-FEt">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="34.333333333333336"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="Xdj-Pe-8sB"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="opaqueSeparatorColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Cancelar"/>
+                                        <connections>
+                                            <action selector="actionCancel:" destination="UvF-jY-Gvc" eventType="touchUpInside" id="Qdv-Ju-256"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Fzn-Wu-fKk">
+                                        <rect key="frame" x="110" y="0.0" width="120" height="34.333333333333336"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="wYn-Ql-kSg"/>
+                                        </constraints>
+                                        <color key="tintColor" name="AccentColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Salvar"/>
+                                        <connections>
+                                            <action selector="actionSave:" destination="UvF-jY-Gvc" eventType="touchUpInside" id="4ya-Vc-Hv5"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Lf6-rn-q1k"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="Lf6-rn-q1k" firstAttribute="trailing" secondItem="5bJ-4g-60s" secondAttribute="trailing" constant="20" id="Eqb-rc-itb"/>
+                            <constraint firstItem="Lf6-rn-q1k" firstAttribute="bottom" secondItem="5bJ-4g-60s" secondAttribute="bottom" constant="20" id="F5j-Kn-RIr"/>
                             <constraint firstItem="BNE-GJ-kRb" firstAttribute="leading" secondItem="Lf6-rn-q1k" secondAttribute="leading" id="LDZ-M9-M2B"/>
-                            <constraint firstAttribute="bottom" secondItem="BNE-GJ-kRb" secondAttribute="bottom" id="VXk-L5-q7L"/>
+                            <constraint firstItem="5bJ-4g-60s" firstAttribute="top" secondItem="BNE-GJ-kRb" secondAttribute="bottom" constant="20" id="dJf-06-YyN"/>
                             <constraint firstItem="BNE-GJ-kRb" firstAttribute="trailing" secondItem="Lf6-rn-q1k" secondAttribute="trailing" id="fZh-IE-ldn"/>
                             <constraint firstItem="BNE-GJ-kRb" firstAttribute="top" secondItem="Lf6-rn-q1k" secondAttribute="top" constant="20" id="tRC-Iw-DLL"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="buttonCancel" destination="C2F-iK-FEt" id="rty-2H-iUw"/>
+                        <outlet property="buttonSave" destination="Fzn-Wu-fKk" id="R33-Fj-4bw"/>
                         <outlet property="collectionCreateGoals" destination="BNE-GJ-kRb" id="c3Q-Tr-ffw"/>
                         <outlet property="collectionFlowLayout" destination="97w-gX-pVU" id="c9R-w5-beb"/>
                     </connections>
@@ -186,6 +220,12 @@
     </scenes>
     <resources>
         <image name="plus.circle.fill" catalog="system" width="128" height="123"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.92500001192092896" blue="0.75700002908706665" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="opaqueSeparatorColor">
+            <color red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="secondarySystemBackgroundColor">
             <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

@@ -138,6 +138,33 @@ extension Array where Element: CreateModel {
             return nil
         }
     }
+    
+    func save() -> CreateGoalsRequest {
+        // TODO: - Add Owner
+        var result = CreateGoalsRequest(name: "",
+                                        color: "",
+                                        iconGroup: "",
+                                        icon: "",
+                                        owner: nil,
+                                        shared: nil,
+                                        date: nil)
+        self.forEach { goal in
+            switch goal.type {
+            case .text(let text):
+                result.name = text.first?.text
+            case .date(let date):
+                result.date = date.first?.date ?? Date()
+            case .color(let color):
+                result.color = color.first(where: { $0.isSelected })?.color
+            case .icon(let icon):
+                let selectedGroup = icon.first(where: { $0.isSelected })
+                result.iconGroup = selectedGroup?.group
+                result.icon = selectedGroup?.icons.first(where: { $0.isSelected })?.icon
+            }
+        }
+        
+        return result
+    }
 }
 
 extension CreateModel {

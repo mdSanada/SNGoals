@@ -17,14 +17,6 @@
 		1604D84729719CB00042EE36 /* GoalDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D84529719CB00042EE36 /* GoalDetailViewModel.swift */; };
 		1604D84B2971A4400042EE36 /* GoalDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D8492971A4400042EE36 /* GoalDetailCoordinator.swift */; };
 		1604D84C2971A4400042EE36 /* GoalDetailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D84A2971A4400042EE36 /* GoalDetailProtocol.swift */; };
-		1604D85029720E940042EE36 /* LoginRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D84F29720E940042EE36 /* LoginRepository.swift */; };
-		1604D85229720E9D0042EE36 /* LoginService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D85129720E9D0042EE36 /* LoginService.swift */; };
-		1604D85429720EAA0042EE36 /* GoalsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D85329720EAA0042EE36 /* GoalsRepository.swift */; };
-		1604D85629720EB50042EE36 /* GoalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D85529720EB40042EE36 /* GoalRepository.swift */; };
-		1604D85829720EC00042EE36 /* SharedGoalsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D85729720EC00042EE36 /* SharedGoalsRepository.swift */; };
-		1604D85A29720ECF0042EE36 /* GoalsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D85929720ECF0042EE36 /* GoalsService.swift */; };
-		1604D85C29720ED60042EE36 /* GoalService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D85B29720ED60042EE36 /* GoalService.swift */; };
-		1604D85E29720EE30042EE36 /* SharedGoalsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D85D29720EE30042EE36 /* SharedGoalsService.swift */; };
 		160D55B0296C344F00BA385A /* CollectionDateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55AF296C344F00BA385A /* CollectionDateProtocol.swift */; };
 		160D55B8296C9A0A00BA385A /* CollectionColorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55B7296C9A0A00BA385A /* CollectionColorProtocol.swift */; };
 		160D55BA296CA5D700BA385A /* CollectionIconProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55B9296CA5D700BA385A /* CollectionIconProtocol.swift */; };
@@ -152,14 +144,6 @@
 		1604D84529719CB00042EE36 /* GoalDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailViewModel.swift; sourceTree = "<group>"; };
 		1604D8492971A4400042EE36 /* GoalDetailCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailCoordinator.swift; sourceTree = "<group>"; };
 		1604D84A2971A4400042EE36 /* GoalDetailProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailProtocol.swift; sourceTree = "<group>"; };
-		1604D84F29720E940042EE36 /* LoginRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginRepository.swift; sourceTree = "<group>"; };
-		1604D85129720E9D0042EE36 /* LoginService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginService.swift; sourceTree = "<group>"; };
-		1604D85329720EAA0042EE36 /* GoalsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsRepository.swift; sourceTree = "<group>"; };
-		1604D85529720EB40042EE36 /* GoalRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalRepository.swift; sourceTree = "<group>"; };
-		1604D85729720EC00042EE36 /* SharedGoalsRepository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedGoalsRepository.swift; sourceTree = "<group>"; };
-		1604D85929720ECF0042EE36 /* GoalsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalsService.swift; sourceTree = "<group>"; };
-		1604D85B29720ED60042EE36 /* GoalService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalService.swift; sourceTree = "<group>"; };
-		1604D85D29720EE30042EE36 /* SharedGoalsService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedGoalsService.swift; sourceTree = "<group>"; };
 		160D55AF296C344F00BA385A /* CollectionDateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDateProtocol.swift; sourceTree = "<group>"; };
 		160D55B7296C9A0A00BA385A /* CollectionColorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionColorProtocol.swift; sourceTree = "<group>"; };
 		160D55B9296CA5D700BA385A /* CollectionIconProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionIconProtocol.swift; sourceTree = "<group>"; };
@@ -344,28 +328,6 @@
 				1604D84A2971A4400042EE36 /* GoalDetailProtocol.swift */,
 			);
 			path = Coordinator;
-			sourceTree = "<group>";
-		};
-		1604D84D29720E780042EE36 /* Repositories */ = {
-			isa = PBXGroup;
-			children = (
-				1604D84F29720E940042EE36 /* LoginRepository.swift */,
-				1604D85329720EAA0042EE36 /* GoalsRepository.swift */,
-				1604D85529720EB40042EE36 /* GoalRepository.swift */,
-				1604D85729720EC00042EE36 /* SharedGoalsRepository.swift */,
-			);
-			path = Repositories;
-			sourceTree = "<group>";
-		};
-		1604D84E29720E830042EE36 /* Services */ = {
-			isa = PBXGroup;
-			children = (
-				1604D85129720E9D0042EE36 /* LoginService.swift */,
-				1604D85929720ECF0042EE36 /* GoalsService.swift */,
-				1604D85B29720ED60042EE36 /* GoalService.swift */,
-				1604D85D29720EE30042EE36 /* SharedGoalsService.swift */,
-			);
-			path = Services;
 			sourceTree = "<group>";
 		};
 		16306BDC2967580A0076FC72 /* Base */ = {
@@ -830,8 +792,6 @@
 				16306C3529675A990076FC72 /* Models */,
 				16B55620296EDB6F00F79A7A /* Collections */,
 				16306C862968804E0076FC72 /* Collection Cells */,
-				1604D84E29720E830042EE36 /* Services */,
-				1604D84D29720E780042EE36 /* Repositories */,
 				16306C2C296759B80076FC72 /* Scenes */,
 				167C4834296740C8009861B3 /* Assets.xcassets */,
 				167C4836296740C8009861B3 /* LaunchScreen.storyboard */,
@@ -1150,13 +1110,11 @@
 				1604D83F297187470042EE36 /* CreateGoalsCoordinator.swift in Sources */,
 				16306C7D29686C910076FC72 /* GoalModel.swift in Sources */,
 				16306C6229677DD90076FC72 /* GoalsCell.swift in Sources */,
-				1604D85829720EC00042EE36 /* SharedGoalsRepository.swift in Sources */,
 				16306C53296768810076FC72 /* GoalsCoordinator.swift in Sources */,
 				16306BF92967580A0076FC72 /* SNRequestable.swift in Sources */,
 				16306C8029686CFA0076FC72 /* Alias.swift in Sources */,
 				16306BFA2967580A0076FC72 /* SNCoordinator.swift in Sources */,
 				160D55C1296E3D1800BA385A /* CreateGoalsRequest.swift in Sources */,
-				1604D85E29720EE30042EE36 /* SharedGoalsService.swift in Sources */,
 				16306C0E296758290076FC72 /* Extension + String.swift in Sources */,
 				16306C23296759470076FC72 /* Listeners.swift in Sources */,
 				16306BF32967580A0076FC72 /* SNRefreshTokenService.swift in Sources */,
@@ -1184,20 +1142,17 @@
 				16306BF42967580A0076FC72 /* Sanada.swift in Sources */,
 				16306C11296758290076FC72 /* Extension + UIImage.swift in Sources */,
 				1604D83C297184DB0042EE36 /* NavMenuActions.swift in Sources */,
-				1604D85C29720ED60042EE36 /* GoalService.swift in Sources */,
 				16306C0F296758290076FC72 /* Extension + Table.swift in Sources */,
 				1604D84229718C2A0042EE36 /* CreateActions.swift in Sources */,
 				16306C57296768810076FC72 /* SettingsCoordinator.swift in Sources */,
 				16306C28296759970076FC72 /* Registering.swift in Sources */,
 				16A7D5102970A25700C64350 /* TextFieldCollectionViewCell.swift in Sources */,
 				16306C8F2968804E0076FC72 /* CreateGoalsViewModel.swift in Sources */,
-				1604D85429720EAA0042EE36 /* GoalsRepository.swift in Sources */,
 				167C482E296740C6009861B3 /* SceneDelegate.swift in Sources */,
 				16306C7729686BE90076FC72 /* MockHelper.swift in Sources */,
 				16306BF52967580A0076FC72 /* SNImageDownloader.swift in Sources */,
 				16306C7A29686C310076FC72 /* GoalsModel.swift in Sources */,
 				16306C7429686AC90076FC72 /* GoalsViewModel.swift in Sources */,
-				1604D85A29720ECF0042EE36 /* GoalsService.swift in Sources */,
 				16306BFF2967580A0076FC72 /* SNViewModel.swift in Sources */,
 				16306CAF296894B70076FC72 /* DateCollectionViewCell.swift in Sources */,
 				16306C1A296758D50076FC72 /* DateHelper.swift in Sources */,
@@ -1214,7 +1169,6 @@
 				16306C6C29686A160076FC72 /* GoalCoordinator.swift in Sources */,
 				16306C5E296769730076FC72 /* GoalsProtocol.swift in Sources */,
 				16306C9A296881190076FC72 /* CreateGoalViewModel.swift in Sources */,
-				1604D85029720E940042EE36 /* LoginRepository.swift in Sources */,
 				16306C98296881190076FC72 /* CreateGoalProtocol.swift in Sources */,
 				16306C97296881190076FC72 /* CreateGoalCoordinator.swift in Sources */,
 				16306BF72967580A0076FC72 /* SNNetworkMethod.swift in Sources */,
@@ -1233,7 +1187,6 @@
 				1604D8392970A2C20042EE36 /* CollectionSegmentedProtocol.swift in Sources */,
 				16306CA029688BA70076FC72 /* CollectionHeader.swift in Sources */,
 				16306BFC2967580A0076FC72 /* SNViewController.swift in Sources */,
-				1604D85629720EB50042EE36 /* GoalRepository.swift in Sources */,
 				16306C3829675AA70076FC72 /* LoginModel.swift in Sources */,
 				1604D84729719CB00042EE36 /* GoalDetailViewModel.swift in Sources */,
 				16306C4F296768810076FC72 /* MainCoordinator.swift in Sources */,
@@ -1244,7 +1197,6 @@
 				16306BF12967580A0076FC72 /* SNRefresher.swift in Sources */,
 				16306C3429675A670076FC72 /* LoginViewModel.swift in Sources */,
 				16306C0A296758290076FC72 /* Extension + Data.swift in Sources */,
-				1604D85229720E9D0042EE36 /* LoginService.swift in Sources */,
 				16306CB7296894D60076FC72 /* IconCollectionViewCell.swift in Sources */,
 				1604D84C2971A4400042EE36 /* GoalDetailProtocol.swift in Sources */,
 			);

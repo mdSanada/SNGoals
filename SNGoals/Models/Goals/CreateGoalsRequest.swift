@@ -8,7 +8,8 @@
 import Foundation
 
 struct CreateGoalsRequest: Codable {
-    var name, color: String?
+    var name: String?
+    var color: HEXColor?
     var iconGroup, icon: String?
     var owner: FirestoreId?
     var shared: [FirestoreId]?

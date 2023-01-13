@@ -11,13 +11,10 @@ import RxCocoa
 import RxGesture
 
 class IconCollectionViewCell: UICollectionViewCell {
-    static let identifier = "Icon"
-    static let nib = UINib(nibName: "IconCollectionViewCell", bundle: nil)
-    
     @IBOutlet weak var viewCircle: UIView!
     @IBOutlet weak var imageCell: UIImageView!
     
-    private var delegate: CollectionIconProtocol?
+    private weak var delegate: CollectionIconProtocol?
     private var indexPath: IndexPath?
     private var indexPathSubject = PublishSubject<IndexPath>()
     private var iconSubject = PublishSubject<String>()
@@ -66,7 +63,7 @@ class IconCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(delegate: CollectionIconProtocol, indexPath: IndexPath, icon: String, isSelected: Bool, tint color: String?) {
+    func configure(delegate: CollectionIconProtocol, indexPath: IndexPath, icon: String, isSelected: Bool, tint color: HEXColor?) {
         if let color = color {
             self.color = UIColor.fromHex(color)
         }

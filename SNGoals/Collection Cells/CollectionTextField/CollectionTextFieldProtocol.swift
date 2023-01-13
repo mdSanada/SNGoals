@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol CollectionTextFieldProtocol {
+protocol CollectionTextFieldProtocol: AnyObject {
     func collectionViewCell(changed value: String?, from indexPath: IndexPath)
 }

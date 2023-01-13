@@ -8,12 +8,10 @@
 import UIKit
 
 class DateCollectionViewCell: UICollectionViewCell {
-    static let identifier = "Date"
-    static let nib = UINib(nibName: "DateCollectionViewCell", bundle: nil)
     
     @IBOutlet weak var datePicker: UIDatePicker!
 
-    private var delegate: CollectionDateProtocol?
+    private weak var delegate: CollectionDateProtocol?
     private var indexPath: IndexPath?
     
     override func awakeFromNib() {
@@ -32,7 +30,7 @@ class DateCollectionViewCell: UICollectionViewCell {
         delegate?.collectionViewCell(changed: picker.date, from: indexPath)
     }
         
-    func configure(delegate: CollectionDateProtocol, indexPath: IndexPath, date: Date?, tint color: String?) {
+    func configure(delegate: CollectionDateProtocol, indexPath: IndexPath, date: Date?, tint color: HEXColor?) {
         self.delegate = delegate
         self.indexPath = indexPath
         self.datePicker.minimumDate = Date()

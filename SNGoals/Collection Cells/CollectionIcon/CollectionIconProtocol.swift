@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol CollectionIconProtocol {
+protocol CollectionIconProtocol: AnyObject {
     func collectionViewCell(_ cell: IconCollectionViewCell, changed icon: String?, from indexPath: IndexPath)
 }

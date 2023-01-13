@@ -13,9 +13,10 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
     weak var delegate: GoalProtocol?
     fileprivate let searchText = PublishSubject<String>()
     private let searchController = UISearchController()
+    @IBOutlet weak var buttonNewGoal: UIButton!
     private var disposeBag = DisposeBag()
     @IBOutlet weak var tableGoal: UITableView!
-    var color: String?
+    var color: HEXColor?
     var dataBase: [GoalModel] = []
     
     override func viewDidLoad() {
@@ -49,7 +50,9 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
     }
     
     override func configureViews() {
-        
+        guard let color = color else { return }
+        buttonNewGoal.tintColor = UIColor.fromHex(color)
+        buttonNewGoal.imageView?.contentMode = .scaleAspectFit
     }
     
     override func configureBindings() {
@@ -68,6 +71,10 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
         } else {
             print("Will filter: \(text)")
         }
+    }
+    
+    @IBAction func actionAddGoal(_ sender: UIButton) {
+        delegate?.addGoal()
     }
 }
 

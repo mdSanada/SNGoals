@@ -11,6 +11,7 @@ class CreateGoalCoordinator: SNCoordinator {
     var parent: MainCoordinator?
     var presenter: UIViewController
     var child: SNCoordinator?
+    var group: GoalsModel
         
     lazy var storyboard: UIStoryboard = {
         return .init(name: "MainStoryboard", bundle: nil)
@@ -20,25 +21,21 @@ class CreateGoalCoordinator: SNCoordinator {
         Sanada.print("Deinitializing \(self)")
     }
 
-    init() {
+    init(group model: GoalsModel, navigation: UINavigationController) {
+        self.group = model
+        self.presenter = navigation
+    }
+
+    func start() {
         let viewModel = CreateGoalViewModel()
-        guard let viewController = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "CreateGoal") as? CreateGoalViewController else {
-            presenter = UINavigationController()
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: "CreateGoal") as? CreateGoalViewController else {
             return
         }
         viewController.set(viewModel: viewModel)
         
-        let navigation = UINavigationController(rootViewController: viewController)
-        navigation.tabBarItem.image = UIImage.init(systemName: "cart")
-        navigation.tabBarItem.title = "CreateGoal"
-        navigation.navigationBar.prefersLargeTitles = true
-        viewController.title = "CreateGoal"
-        
-        self.presenter = navigation
+        viewController.group = group
         viewController.delegate = self
-    }
-
-    func start() {
+        navigation?.present(viewController, animated: true)
     }
 
     func back() {
@@ -46,4 +43,7 @@ class CreateGoalCoordinator: SNCoordinator {
     }
 }
 extension CreateGoalCoordinator: CreateGoalProtocol {
+    func dismiss() {
+        navigation?.dismiss(animated: true)
+    }
 }

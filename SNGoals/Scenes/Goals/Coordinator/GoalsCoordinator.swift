@@ -61,13 +61,14 @@ extension GoalsCoordinator: GoalsProtocol {
         }
         viewController.set(viewModel: viewModel)
         viewController.delegate = self
-        if let sheet = viewController.sheetPresentationController {
-            sheet.prefersGrabberVisible = true
-        }
-        navigation?.present(viewController, animated: true)
+        viewController.hidesBottomBarWhenPushed = true
+
+        navigation?.pushFromBottom(viewController)
     }
 }
 
 extension GoalsCoordinator: CreateGoalsProtocol {
-    
+    func dismiss() {
+        navigation?.popToBottom()
+    }
 }

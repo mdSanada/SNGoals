@@ -38,8 +38,11 @@
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n4P-8v-2DV">
-                                <rect key="frame" x="323.33333333333331" y="763.66666666666663" width="49.666666666666686" height="34.333333333333371"/>
-                                <buttonConfiguration key="configuration" style="plain">
+                                <rect key="frame" x="292.66666666666669" y="748" width="80.333333333333314" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="IOh-9F-vms"/>
+                                </constraints>
+                                <buttonConfiguration key="configuration" style="plain" title="Add">
                                     <imageReference key="image" image="plus.circle.fill" catalog="system" symbolScale="large"/>
                                 </buttonConfiguration>
                                 <connections>
@@ -60,6 +63,7 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="bSJ-fd-HZH"/>
                     <connections>
+                        <outlet property="buttonAdd" destination="n4P-8v-2DV" id="SVc-5c-J51"/>
                         <outlet property="tableGoals" destination="zcZ-q1-YZ6" id="k6j-or-nlk"/>
                     </connections>
                 </viewController>
@@ -119,7 +123,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BNE-GJ-kRb" customClass="CreateGoalsCollectionView" customModule="SNGoals" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="79" width="393" height="664.66666666666663"/>
+                                <rect key="frame" x="0.0" y="79" width="393" height="679.66666666666663"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="97w-gX-pVU">
                                     <size key="itemSize" width="128" height="128"/>
@@ -143,7 +147,9 @@
                                         </constraints>
                                         <color key="tintColor" systemColor="opaqueSeparatorColor"/>
                                         <state key="normal" title="Button"/>
-                                        <buttonConfiguration key="configuration" style="filled" title="Cancelar"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Cancelar">
+                                            <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
+                                        </buttonConfiguration>
                                         <connections>
                                             <action selector="actionCancel:" destination="UvF-jY-Gvc" eventType="touchUpInside" id="Qdv-Ju-256"/>
                                         </connections>
@@ -169,7 +175,7 @@
                             <constraint firstItem="Lf6-rn-q1k" firstAttribute="trailing" secondItem="5bJ-4g-60s" secondAttribute="trailing" constant="20" id="Eqb-rc-itb"/>
                             <constraint firstItem="Lf6-rn-q1k" firstAttribute="bottom" secondItem="5bJ-4g-60s" secondAttribute="bottom" constant="20" id="F5j-Kn-RIr"/>
                             <constraint firstItem="BNE-GJ-kRb" firstAttribute="leading" secondItem="Lf6-rn-q1k" secondAttribute="leading" id="LDZ-M9-M2B"/>
-                            <constraint firstItem="5bJ-4g-60s" firstAttribute="top" secondItem="BNE-GJ-kRb" secondAttribute="bottom" constant="20" id="dJf-06-YyN"/>
+                            <constraint firstItem="5bJ-4g-60s" firstAttribute="top" secondItem="BNE-GJ-kRb" secondAttribute="bottom" constant="5" id="dJf-06-YyN"/>
                             <constraint firstItem="BNE-GJ-kRb" firstAttribute="trailing" secondItem="Lf6-rn-q1k" secondAttribute="trailing" id="fZh-IE-ldn"/>
                             <constraint firstItem="BNE-GJ-kRb" firstAttribute="top" secondItem="Lf6-rn-q1k" secondAttribute="top" constant="20" id="tRC-Iw-DLL"/>
                         </constraints>
@@ -179,6 +185,8 @@
                         <outlet property="buttonSave" destination="Fzn-Wu-fKk" id="R33-Fj-4bw"/>
                         <outlet property="collectionCreateGoals" destination="BNE-GJ-kRb" id="c3Q-Tr-ffw"/>
                         <outlet property="collectionFlowLayout" destination="97w-gX-pVU" id="c9R-w5-beb"/>
+                        <outlet property="constraintBottomStack" destination="F5j-Kn-RIr" id="IEm-6W-M1H"/>
+                        <outlet property="stackButtons" destination="5bJ-4g-60s" id="TEd-fs-ryU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VCq-Bm-iqj" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -198,6 +206,20 @@
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Yd0-Fx-k48">
+                                <rect key="frame" x="323" y="748" width="50" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="50" id="gLf-V2-3fY"/>
+                                    <constraint firstAttribute="height" constant="50" id="oO5-QF-rHQ"/>
+                                </constraints>
+                                <buttonConfiguration key="configuration" style="plain">
+                                    <imageReference key="image" image="plus.circle.fill" catalog="system" symbolScale="large"/>
+                                </buttonConfiguration>
+                                <connections>
+                                    <action selector="actionAddGoal:" destination="039-Du-Uf6" eventType="touchUpInside" id="gqR-mb-LOh"/>
+                                    <action selector="createNewGoal:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="1xu-7N-t0F"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="SPR-LJ-RoK"/>
                         <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
@@ -205,17 +227,98 @@
                             <constraint firstAttribute="bottom" secondItem="ph4-9i-0II" secondAttribute="bottom" id="UCX-OP-4oo"/>
                             <constraint firstItem="SPR-LJ-RoK" firstAttribute="trailing" secondItem="ph4-9i-0II" secondAttribute="trailing" id="Ug8-8E-zrU"/>
                             <constraint firstItem="ph4-9i-0II" firstAttribute="leading" secondItem="SPR-LJ-RoK" secondAttribute="leading" id="V5z-rr-uzU"/>
+                            <constraint firstItem="SPR-LJ-RoK" firstAttribute="bottom" secondItem="Yd0-Fx-k48" secondAttribute="bottom" constant="20" id="VbS-iE-pr7"/>
                             <constraint firstItem="ph4-9i-0II" firstAttribute="top" secondItem="SPR-LJ-RoK" secondAttribute="top" id="Wg6-FY-7HX"/>
+                            <constraint firstItem="SPR-LJ-RoK" firstAttribute="trailing" secondItem="Yd0-Fx-k48" secondAttribute="trailing" constant="20" id="dXf-do-xDd"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Item" id="UWX-XB-akZ"/>
                     <connections>
+                        <outlet property="buttonNewGoal" destination="Yd0-Fx-k48" id="Jlh-aE-j6K"/>
                         <outlet property="tableGoal" destination="ph4-9i-0II" id="rss-bv-C4w"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="A0Y-L1-cIm" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-2160" y="1320"/>
+        </scene>
+        <!--Create Goal View Controller-->
+        <scene sceneID="vzj-7q-JbV">
+            <objects>
+                <viewController storyboardIdentifier="CreateGoal" id="6fw-hy-eIF" customClass="CreateGoalViewController" customModule="SNGoals" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Fmr-Jv-WXe">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="TRi-i3-qmb" customClass="CreateGoalsCollectionView" customModule="SNGoals" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="79" width="393" height="679.66666666666663"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="wah-OS-yfo">
+                                    <size key="itemSize" width="128" height="128"/>
+                                    <size key="headerReferenceSize" width="50" height="50"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells/>
+                                <collectionReusableView key="sectionHeaderView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" reuseIdentifier="CollectionHeader" id="ogv-M4-cr7">
+                                    <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </collectionReusableView>
+                            </collectionView>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="ZCi-EB-7cP">
+                                <rect key="frame" x="143" y="763.66666666666663" width="230" height="34.333333333333371"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vDm-q6-Tcg">
+                                        <rect key="frame" x="0.0" y="0.0" width="100" height="34.333333333333336"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="100" id="ubW-xu-vMW"/>
+                                        </constraints>
+                                        <color key="tintColor" systemColor="opaqueSeparatorColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Cancelar">
+                                            <color key="baseBackgroundColor" systemColor="opaqueSeparatorColor"/>
+                                        </buttonConfiguration>
+                                        <connections>
+                                            <action selector="actionCancel:" destination="6fw-hy-eIF" eventType="touchUpInside" id="eUE-8V-aQA"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ysf-ZG-Fsq">
+                                        <rect key="frame" x="110" y="0.0" width="120" height="34.333333333333336"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="120" id="hSC-8c-bDO"/>
+                                        </constraints>
+                                        <color key="tintColor" name="AccentColor"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="filled" title="Salvar"/>
+                                        <connections>
+                                            <action selector="actionSave:" destination="6fw-hy-eIF" eventType="touchUpInside" id="nLX-rk-y1i"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BEc-jx-Wre"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="TRi-i3-qmb" firstAttribute="top" secondItem="BEc-jx-Wre" secondAttribute="top" constant="20" id="58O-19-3a5"/>
+                            <constraint firstItem="TRi-i3-qmb" firstAttribute="trailing" secondItem="BEc-jx-Wre" secondAttribute="trailing" id="5mI-ky-FCp"/>
+                            <constraint firstItem="BEc-jx-Wre" firstAttribute="trailing" secondItem="ZCi-EB-7cP" secondAttribute="trailing" constant="20" id="ADD-po-ZX7"/>
+                            <constraint firstItem="ZCi-EB-7cP" firstAttribute="top" secondItem="TRi-i3-qmb" secondAttribute="bottom" constant="5" id="UTL-ed-P0P"/>
+                            <constraint firstItem="BEc-jx-Wre" firstAttribute="bottom" secondItem="ZCi-EB-7cP" secondAttribute="bottom" constant="20" id="t20-Ce-Egw"/>
+                            <constraint firstItem="TRi-i3-qmb" firstAttribute="leading" secondItem="BEc-jx-Wre" secondAttribute="leading" id="uRL-qw-oEa"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="buttonCancel" destination="vDm-q6-Tcg" id="VKQ-eY-8sf"/>
+                        <outlet property="buttonSave" destination="Ysf-ZG-Fsq" id="d21-OG-mVq"/>
+                        <outlet property="collectionCreateGoal" destination="TRi-i3-qmb" id="y3P-ns-djE"/>
+                        <outlet property="constraintBottomStack" destination="t20-Ce-Egw" id="Zes-Qz-sGU"/>
+                        <outlet property="stackButtons" destination="ZCi-EB-7cP" id="kWX-UT-IzN"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="WPh-K7-dtT" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2161" y="1991"/>
         </scene>
     </scenes>
     <resources>

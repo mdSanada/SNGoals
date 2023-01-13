@@ -8,4 +8,5 @@
 import Foundation
 
 protocol CreateGoalsProtocol: AnyObject {
+    func dismiss()
 }

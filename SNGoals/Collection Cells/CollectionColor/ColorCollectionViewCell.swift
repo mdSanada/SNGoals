@@ -11,12 +11,9 @@ import RxCocoa
 import RxGesture
 
 class ColorCollectionViewCell: UICollectionViewCell {
-    static let identifier = "Color"
-    static let nib = UINib(nibName: "ColorCollectionViewCell", bundle: nil)
-    
     @IBOutlet weak var viewCircle: UIView!
     
-    private var delegate: CollectionColorProtocol?
+    private weak var delegate: CollectionColorProtocol?
     private var indexPath: IndexPath?
     private var isSelectedCell: Bool? {
         didSet {
@@ -78,7 +75,7 @@ class ColorCollectionViewCell: UICollectionViewCell {
         }
     }
     
-    func configure(delegate: CollectionColorProtocol, indexPath: IndexPath, color: String, isSelected: Bool) {
+    func configure(delegate: CollectionColorProtocol, indexPath: IndexPath, color: HEXColor, isSelected: Bool) {
         self.delegate = delegate
         self.indexPath = indexPath
         self.indexPathSubject.onNext(indexPath)

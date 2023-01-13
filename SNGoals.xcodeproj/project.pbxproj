@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1604D8372970A2BB0042EE36 /* SegmentedCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7D50D2970A23A00C64350 /* SegmentedCollectionViewCell.swift */; };
+		1604D8382970A2BF0042EE36 /* SegmentedCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16A7D50E2970A23A00C64350 /* SegmentedCollectionViewCell.xib */; };
+		1604D8392970A2C20042EE36 /* CollectionSegmentedProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7D50F2970A23B00C64350 /* CollectionSegmentedProtocol.swift */; };
 		160D55B0296C344F00BA385A /* CollectionDateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55AF296C344F00BA385A /* CollectionDateProtocol.swift */; };
 		160D55B8296C9A0A00BA385A /* CollectionColorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55B7296C9A0A00BA385A /* CollectionColorProtocol.swift */; };
 		160D55BA296CA5D700BA385A /* CollectionIconProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55B9296CA5D700BA385A /* CollectionIconProtocol.swift */; };
@@ -82,7 +85,6 @@
 		16306C9A296881190076FC72 /* CreateGoalViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16306C96296881190076FC72 /* CreateGoalViewModel.swift */; };
 		16306C9C296885AA0076FC72 /* CreateGoalsProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16306C9B296885AA0076FC72 /* CreateGoalsProtocol.swift */; };
 		16306CA029688BA70076FC72 /* CollectionHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16306C9E29688BA70076FC72 /* CollectionHeader.swift */; };
-		16306CAB296894AD0076FC72 /* TextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16306CA9296894AD0076FC72 /* TextFieldCollectionViewCell.swift */; };
 		16306CAF296894B70076FC72 /* DateCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16306CAD296894B70076FC72 /* DateCollectionViewCell.swift */; };
 		16306CB3296894C00076FC72 /* ColorCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16306CB1296894C00076FC72 /* ColorCollectionViewCell.swift */; };
 		16306CB4296894C00076FC72 /* ColorCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16306CB2296894C00076FC72 /* ColorCollectionViewCell.xib */; };
@@ -90,7 +92,6 @@
 		16306CB8296894D60076FC72 /* IconCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16306CB6296894D60076FC72 /* IconCollectionViewCell.xib */; };
 		16306CBA2968A0050076FC72 /* TextFieldCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16306CB929689FDE0076FC72 /* TextFieldCollectionViewCell.xib */; };
 		16306CBC2968A2E60076FC72 /* DateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16306CBB2968A2D00076FC72 /* DateCollectionViewCell.xib */; };
-		16306CBE2968A3FC0076FC72 /* CollectionTextFieldProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16306CBD2968A3FC0076FC72 /* CollectionTextFieldProtocol.swift */; };
 		167C482C296740C6009861B3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C482B296740C6009861B3 /* AppDelegate.swift */; };
 		167C482E296740C6009861B3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C482D296740C6009861B3 /* SceneDelegate.swift */; };
 		167C4830296740C6009861B3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C482F296740C6009861B3 /* LoginViewController.swift */; };
@@ -100,8 +101,12 @@
 		167C4843296740C8009861B3 /* SNGoalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C4842296740C8009861B3 /* SNGoalsTests.swift */; };
 		167C484D296740C8009861B3 /* SNGoalsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C484C296740C8009861B3 /* SNGoalsUITests.swift */; };
 		167C484F296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C484E296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift */; };
+		16A7D5102970A25700C64350 /* TextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7D50B2970A23A00C64350 /* TextFieldCollectionViewCell.swift */; };
+		16A7D5112970A25E00C64350 /* CollectionTextFieldProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7D50A2970A23A00C64350 /* CollectionTextFieldProtocol.swift */; };
 		16B5561F296ED51400F79A7A /* CreateGoalsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5561E296ED51400F79A7A /* CreateGoalsCollectionView.swift */; };
 		16B55622296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B55621296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift */; };
+		16B55624296EFFD600F79A7A /* Extension + UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B55623296EFFD600F79A7A /* Extension + UINavigationController.swift */; };
+		16B55626296F028D00F79A7A /* CreateGroupCollectionStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B55625296F028D00F79A7A /* CreateGroupCollectionStatic.swift */; };
 		17E0080240FACAC3F99C1F69 /* Pods_SNGoals.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF6EBB8C9EE6DDE33EB8EFB /* Pods_SNGoals.framework */; };
 		4BC6CD738B5C01A845BD5F33 /* Pods_SNGoalsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71D113BE28A175FCBE063A1B /* Pods_SNGoalsTests.framework */; };
 		4D3E0E69F802F0EFE6F91849 /* Pods_SNGoals_SNGoalsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E0371891239EC80BF497998 /* Pods_SNGoals_SNGoalsUITests.framework */; };
@@ -199,7 +204,6 @@
 		16306C96296881190076FC72 /* CreateGoalViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGoalViewModel.swift; sourceTree = "<group>"; };
 		16306C9B296885AA0076FC72 /* CreateGoalsProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateGoalsProtocol.swift; sourceTree = "<group>"; };
 		16306C9E29688BA70076FC72 /* CollectionHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionHeader.swift; sourceTree = "<group>"; };
-		16306CA9296894AD0076FC72 /* TextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		16306CAD296894B70076FC72 /* DateCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateCollectionViewCell.swift; sourceTree = "<group>"; };
 		16306CB1296894C00076FC72 /* ColorCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorCollectionViewCell.swift; sourceTree = "<group>"; };
 		16306CB2296894C00076FC72 /* ColorCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ColorCollectionViewCell.xib; sourceTree = "<group>"; };
@@ -207,7 +211,6 @@
 		16306CB6296894D60076FC72 /* IconCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconCollectionViewCell.xib; sourceTree = "<group>"; };
 		16306CB929689FDE0076FC72 /* TextFieldCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldCollectionViewCell.xib; sourceTree = "<group>"; };
 		16306CBB2968A2D00076FC72 /* DateCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateCollectionViewCell.xib; sourceTree = "<group>"; };
-		16306CBD2968A3FC0076FC72 /* CollectionTextFieldProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTextFieldProtocol.swift; sourceTree = "<group>"; };
 		167C4828296740C6009861B3 /* SNGoals.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SNGoals.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		167C482B296740C6009861B3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		167C482D296740C6009861B3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -221,8 +224,15 @@
 		167C4848296740C8009861B3 /* SNGoalsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNGoalsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		167C484C296740C8009861B3 /* SNGoalsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNGoalsUITests.swift; sourceTree = "<group>"; };
 		167C484E296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNGoalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		16A7D50A2970A23A00C64350 /* CollectionTextFieldProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTextFieldProtocol.swift; sourceTree = "<group>"; };
+		16A7D50B2970A23A00C64350 /* TextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
+		16A7D50D2970A23A00C64350 /* SegmentedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCollectionViewCell.swift; sourceTree = "<group>"; };
+		16A7D50E2970A23A00C64350 /* SegmentedCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SegmentedCollectionViewCell.xib; sourceTree = "<group>"; };
+		16A7D50F2970A23B00C64350 /* CollectionSegmentedProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionSegmentedProtocol.swift; sourceTree = "<group>"; };
 		16B5561E296ED51400F79A7A /* CreateGoalsCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalsCollectionView.swift; sourceTree = "<group>"; };
 		16B55621296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalsCollectionInteractor.swift; sourceTree = "<group>"; };
+		16B55623296EFFD600F79A7A /* Extension + UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UINavigationController.swift"; sourceTree = "<group>"; };
+		16B55625296F028D00F79A7A /* CreateGroupCollectionStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupCollectionStatic.swift; sourceTree = "<group>"; };
 		1E99F5BD76A616D8B95EEE1F /* Pods-SNGoalsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNGoalsTests.debug.xcconfig"; path = "Target Support Files/Pods-SNGoalsTests/Pods-SNGoalsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C058C4DE3BDB3D9966CC6B1 /* Pods-SNGoals.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNGoals.debug.xcconfig"; path = "Target Support Files/Pods-SNGoals/Pods-SNGoals.debug.xcconfig"; sourceTree = "<group>"; };
 		71D113BE28A175FCBE063A1B /* Pods_SNGoalsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SNGoalsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -329,6 +339,7 @@
 				16306C08296758290076FC72 /* Extension + UIColor.swift */,
 				16306C09296758290076FC72 /* Extension + UIImage.swift */,
 				16306C3929675AC10076FC72 /* Extension + UIView.swift */,
+				16B55623296EFFD600F79A7A /* Extension + UINavigationController.swift */,
 			);
 			path = Extensions;
 			sourceTree = SOURCE_ROOT;
@@ -605,6 +616,7 @@
 				16306CA5296894530076FC72 /* CollectionColor */,
 				16306CA42968944C0076FC72 /* CollectionDate */,
 				16306CA3296894440076FC72 /* CollectionTextField */,
+				16A7D5092970A23A00C64350 /* CollectionSegmented */,
 				16306CA22968943C0076FC72 /* CollectionHeader */,
 			);
 			path = "Collection Cells";
@@ -657,9 +669,9 @@
 		16306CA3296894440076FC72 /* CollectionTextField */ = {
 			isa = PBXGroup;
 			children = (
-				16306CA9296894AD0076FC72 /* TextFieldCollectionViewCell.swift */,
+				16A7D50B2970A23A00C64350 /* TextFieldCollectionViewCell.swift */,
+				16A7D50A2970A23A00C64350 /* CollectionTextFieldProtocol.swift */,
 				16306CB929689FDE0076FC72 /* TextFieldCollectionViewCell.xib */,
-				16306CBD2968A3FC0076FC72 /* CollectionTextFieldProtocol.swift */,
 			);
 			path = CollectionTextField;
 			sourceTree = "<group>";
@@ -725,7 +737,7 @@
 				16306C15296758A90076FC72 /* Core */,
 				16306C01296758290076FC72 /* Extensions */,
 				16306C3529675A990076FC72 /* Models */,
-				16B55620296EDB6F00F79A7A /* Collection */,
+				16B55620296EDB6F00F79A7A /* Collections */,
 				16306C862968804E0076FC72 /* Collection Cells */,
 				16306C2C296759B80076FC72 /* Scenes */,
 				167C4834296740C8009861B3 /* Assets.xcassets */,
@@ -752,13 +764,24 @@
 			path = SNGoalsUITests;
 			sourceTree = "<group>";
 		};
-		16B55620296EDB6F00F79A7A /* Collection */ = {
+		16A7D5092970A23A00C64350 /* CollectionSegmented */ = {
+			isa = PBXGroup;
+			children = (
+				16A7D50E2970A23A00C64350 /* SegmentedCollectionViewCell.xib */,
+				16A7D50D2970A23A00C64350 /* SegmentedCollectionViewCell.swift */,
+				16A7D50F2970A23B00C64350 /* CollectionSegmentedProtocol.swift */,
+			);
+			path = CollectionSegmented;
+			sourceTree = "<group>";
+		};
+		16B55620296EDB6F00F79A7A /* Collections */ = {
 			isa = PBXGroup;
 			children = (
 				16B5561E296ED51400F79A7A /* CreateGoalsCollectionView.swift */,
+				16B55625296F028D00F79A7A /* CreateGroupCollectionStatic.swift */,
 				16B55621296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift */,
 			);
-			path = Collection;
+			path = Collections;
 			sourceTree = "<group>";
 		};
 		3CE8E85E346846A639924A19 /* Frameworks */ = {
@@ -895,6 +918,7 @@
 			files = (
 				16306CB4296894C00076FC72 /* ColorCollectionViewCell.xib in Resources */,
 				167C4838296740C8009861B3 /* LaunchScreen.storyboard in Resources */,
+				1604D8382970A2BF0042EE36 /* SegmentedCollectionViewCell.xib in Resources */,
 				16306C56296768810076FC72 /* MainStoryboard.storyboard in Resources */,
 				167C4835296740C8009861B3 /* Assets.xcassets in Resources */,
 				16306CB8296894D60076FC72 /* IconCollectionViewCell.xib in Resources */,
@@ -1040,11 +1064,11 @@
 				16306C0E296758290076FC72 /* Extension + String.swift in Sources */,
 				16306C23296759470076FC72 /* Listeners.swift in Sources */,
 				16306BF32967580A0076FC72 /* SNRefreshTokenService.swift in Sources */,
-				16306CAB296894AD0076FC72 /* TextFieldCollectionViewCell.swift in Sources */,
 				16B5561F296ED51400F79A7A /* CreateGoalsCollectionView.swift in Sources */,
 				16306C55296768810076FC72 /* GoalsViewController.swift in Sources */,
 				16306C6F29686A160076FC72 /* GoalCell.swift in Sources */,
 				16306BF62967580A0076FC72 /* SNNetworkManager.swift in Sources */,
+				16B55624296EFFD600F79A7A /* Extension + UINavigationController.swift in Sources */,
 				16306C6E29686A160076FC72 /* GoalViewController.swift in Sources */,
 				160D55B8296C9A0A00BA385A /* CollectionColorProtocol.swift in Sources */,
 				16306C3129675A280076FC72 /* LoginCoordinator.swift in Sources */,
@@ -1052,6 +1076,7 @@
 				160D55BA296CA5D700BA385A /* CollectionIconProtocol.swift in Sources */,
 				167C482C296740C6009861B3 /* AppDelegate.swift in Sources */,
 				160D55BC296CB1EA00BA385A /* CreateGoalsModel.swift in Sources */,
+				16B55626296F028D00F79A7A /* CreateGroupCollectionStatic.swift in Sources */,
 				16306C7229686A3B0076FC72 /* GoalViewModel.swift in Sources */,
 				16306C3229675A280076FC72 /* LoginProtocol.swift in Sources */,
 				16306C9C296885AA0076FC72 /* CreateGoalsProtocol.swift in Sources */,
@@ -1064,6 +1089,7 @@
 				16306C0F296758290076FC72 /* Extension + Table.swift in Sources */,
 				16306C57296768810076FC72 /* SettingsCoordinator.swift in Sources */,
 				16306C28296759970076FC72 /* Registering.swift in Sources */,
+				16A7D5102970A25700C64350 /* TextFieldCollectionViewCell.swift in Sources */,
 				16306C8F2968804E0076FC72 /* CreateGoalsViewModel.swift in Sources */,
 				167C482E296740C6009861B3 /* SceneDelegate.swift in Sources */,
 				16306C7729686BE90076FC72 /* MockHelper.swift in Sources */,
@@ -1089,6 +1115,7 @@
 				16306C97296881190076FC72 /* CreateGoalCoordinator.swift in Sources */,
 				16306BF72967580A0076FC72 /* SNNetworkMethod.swift in Sources */,
 				16306C8A2968804E0076FC72 /* CreateGoalsViewController.swift in Sources */,
+				16A7D5112970A25E00C64350 /* CollectionTextFieldProtocol.swift in Sources */,
 				16306C59296768810076FC72 /* SettingsViewController.swift in Sources */,
 				16306BFB2967580A0076FC72 /* SNStateful.swift in Sources */,
 				16306C1D296759220076FC72 /* Validator.swift in Sources */,
@@ -1099,12 +1126,13 @@
 				16306C58296768810076FC72 /* SettingsProtocol.swift in Sources */,
 				16306C10296758290076FC72 /* Extension + UIColor.swift in Sources */,
 				16306C0D296758290076FC72 /* Extension + Double.swift in Sources */,
+				1604D8392970A2C20042EE36 /* CollectionSegmentedProtocol.swift in Sources */,
 				16306CA029688BA70076FC72 /* CollectionHeader.swift in Sources */,
-				16306CBE2968A3FC0076FC72 /* CollectionTextFieldProtocol.swift in Sources */,
 				16306BFC2967580A0076FC72 /* SNViewController.swift in Sources */,
 				16306C3829675AA70076FC72 /* LoginModel.swift in Sources */,
 				16306C4F296768810076FC72 /* MainCoordinator.swift in Sources */,
 				16306C2B296759AA0076FC72 /* Validator.swift in Sources */,
+				1604D8372970A2BB0042EE36 /* SegmentedCollectionViewCell.swift in Sources */,
 				16306C3A29675AC10076FC72 /* Extension + UIView.swift in Sources */,
 				16306C50296768810076FC72 /* MainProtocol.swift in Sources */,
 				16306BF12967580A0076FC72 /* SNRefresher.swift in Sources */,

@@ -8,9 +8,6 @@
 import UIKit
 
 class CollectionHeader: UICollectionReusableView {
-    static let identifier = "CollectionHeader"
-    static let element = UICollectionView.elementKindSectionHeader
-    
     private weak var delegate: CollectionHeaderProtocol?
     
     var stack: UIStackView = {
@@ -40,7 +37,6 @@ class CollectionHeader: UICollectionReusableView {
         let list = UIMenu(title: "",
                           options: .singleSelection,
                           children: [UIAction(title: "teste", handler: { _ in
-            Sanada.print("teste")
         })])
         
         return list
@@ -65,7 +61,7 @@ class CollectionHeader: UICollectionReusableView {
                        at indexPath: IndexPath,
                        items: [String],
                        selected: String,
-                       tint color: String?) {
+                       tint color: HEXColor?) {
         self.delegate = delegate
         button.isHidden = false
         button.setTitle(selected, for: .normal)

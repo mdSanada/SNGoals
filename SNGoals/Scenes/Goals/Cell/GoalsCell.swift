@@ -23,7 +23,7 @@ class GoalsCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func render(title: String, date: Date, image: String, color: String) {
+    func render(title: String, date: Date, image: String, color: HEXColor) {
         self.labelTitle.text = title
         self.labelDescription.text = date.string(pattern: .complete)
         self.imageItem.image = UIImage(systemName: image)

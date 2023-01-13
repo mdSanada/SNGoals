@@ -25,7 +25,7 @@ class GoalCell: UITableViewCell {
         // Configure the view for the selected state
     }
     
-    func render(title: String, image: String, color: String, type: String, value: Double, goal: Double) {
+    func render(title: String, image: String, color: HEXColor, type: GoalType, value: Double, goal: Double) {
         self.labelTitle.text = title
         self.imageItem.image = UIImage(systemName: image)
         self.viewIconBackground.backgroundColor = UIColor.fromHex(color)
@@ -33,7 +33,7 @@ class GoalCell: UITableViewCell {
         configureLabels(type: type, value: value, goal: goal)
     }
     
-    private func configureLabels(type: String, value: Double, goal: Double) {
+    private func configureLabels(type: GoalType, value: Double, goal: Double) {
         if type == "MONEY" {
             labelValue.text = value.asMoney()
             labelGoal.text = "/ \(goal.asMoney())"
@@ -43,7 +43,7 @@ class GoalCell: UITableViewCell {
         }
     }
     
-    private func configureProgress(color: String, value: Double, goal: Double) {
+    private func configureProgress(color: HEXColor, value: Double, goal: Double) {
         self.progressGoal.tintColor = UIColor.secondarySystemBackground
         self.progressGoal.progressTintColor = UIColor.fromHex(color)
         self.progressGoal.progress = Float(value / goal)

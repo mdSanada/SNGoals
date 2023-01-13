@@ -10,7 +10,8 @@ import Foundation
 // MARK: - GoalsModel
 struct GoalsModel: Codable {
     let uuid: FirestoreId?
-    let name, color: String?
+    let name: String?
+    let color: HEXColor?
     let iconGroup, icon: String?
     let owner: FirestoreId?
     let shared: [FirestoreId]?

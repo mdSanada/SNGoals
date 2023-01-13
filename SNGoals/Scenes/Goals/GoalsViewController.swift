@@ -14,6 +14,7 @@ class GoalsViewController: SNViewController<GoalsStates, GoalsViewModel> {
     fileprivate let searchText = PublishSubject<String>()
     private let searchController = UISearchController()
     private var disposeBag = DisposeBag()
+    @IBOutlet weak var buttonAdd: UIButton!
     @IBOutlet weak var tableGoals: UITableView!
     fileprivate var dataBase: [GoalsModel] = []
     
@@ -37,9 +38,14 @@ class GoalsViewController: SNViewController<GoalsStates, GoalsViewModel> {
         tableGoals.register(type: GoalsCell.self)
     }
     
+    override func configureViews() {
+        buttonAdd.imageView?.contentMode = .scaleAspectFit
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .automatic
+        navigationController?.navigationBar.tintColor = .accent
     }
     
     override func viewWillDisappear(_ animated: Bool) {

@@ -8,3 +8,5 @@
 import Foundation
 
 typealias FirestoreId = String
+typealias HEXColor = String
+typealias GoalType = String

@@ -10,34 +10,41 @@ import UIKit
 class CreateGoalsCollectionView: UICollectionView {
     private var dataBase: [CreateModel] = []
     private let sectionInsets = UIEdgeInsets(top: 0, left: 20.0, bottom: 20.0, right: 20.0)
-    public var interactor: CreateGoalsCollectionInteractor?
+    public weak var interactor: CreateGoalsCollectionInteractor?
+    private(set) var selectionColor: HEXColor? = nil
 
     private func configureCollection() {
         self.delegate = self
         self.dataSource = self
         
-        self.register(TextFieldCollectionViewCell.nib,
-                      forCellWithReuseIdentifier: TextFieldCollectionViewCell.identifier)
-        self.register(DateCollectionViewCell.nib,
-                      forCellWithReuseIdentifier: DateCollectionViewCell.identifier)
-        self.register(ColorCollectionViewCell.nib,
-                      forCellWithReuseIdentifier: ColorCollectionViewCell.identifier)
-        self.register(IconCollectionViewCell.nib,
-                      forCellWithReuseIdentifier: IconCollectionViewCell.identifier)
-        
+        self.register(UINib(nibName: CreateGroupCollection.Text.nib, bundle: nil),
+                      forCellWithReuseIdentifier: CreateGroupCollection.Text.identifier)
+        self.register(UINib(nibName: CreateGroupCollection.Date.nib, bundle: nil),
+                      forCellWithReuseIdentifier: CreateGroupCollection.Date.identifier)
+        self.register(UINib(nibName: CreateGroupCollection.Color.nib, bundle: nil),
+                      forCellWithReuseIdentifier: CreateGroupCollection.Color.identifier)
+        self.register(UINib(nibName: CreateGroupCollection.Icon.nib, bundle: nil),
+                      forCellWithReuseIdentifier: CreateGroupCollection.Icon.identifier)
+        self.register(UINib(nibName: CreateGroupCollection.Segmented.nib, bundle: nil),
+                      forCellWithReuseIdentifier: CreateGroupCollection.Segmented.identifier)
+
         self.register(CollectionHeader.self,
-                      forSupplementaryViewOfKind: CollectionHeader.element,
-                      withReuseIdentifier: CollectionHeader.identifier)
+                      forSupplementaryViewOfKind: CreateGroupCollection.Header.element,
+                      withReuseIdentifier: CreateGroupCollection.Header.identifier)
     }
     
     public func register() {
         configureCollection()
     }
     
+    public func force(selection colorHex: HEXColor?) {
+        selectionColor = colorHex
+    }
+    
     public func set(_ dataBase: [CreateModel]) {
         self.dataBase = dataBase
         let accent = UIColor.accent.toHex()
-        self.interactor?.collectionView(self, didChange: dataBase.selectedColor() ?? accent)
+        self.interactor?.collectionView(self, didChange: (selectionColor ?? dataBase.selectedColor()) ?? accent)
         self.reloadData()
     }
     
@@ -54,10 +61,12 @@ extension CreateGoalsCollectionView: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         let item = dataBase[section]
         switch item.type {
-        case .text(let texts):
-            return texts.count
-        case .date(let dates):
-            return dates.count
+        case .text:
+            return 1
+        case .date:
+            return 1
+        case .segmented:
+            return 1
         case .color(let colors):
             return colors.count
         case .icon(let icons):
@@ -73,7 +82,7 @@ extension CreateGoalsCollectionView: UICollectionViewDelegate, UICollectionViewD
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CollectionHeader.identifier, for: indexPath) as? CollectionHeader else { return UICollectionReusableView() }
+        guard let sectionHeader = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: CreateGroupCollection.Header.identifier, for: indexPath) as? CollectionHeader else { return UICollectionReusableView() }
         
         let item = dataBase[indexPath.section]
         sectionHeader.label.text = item.section
@@ -90,7 +99,7 @@ extension CreateGoalsCollectionView: UICollectionViewDelegate, UICollectionViewD
             sectionHeader.configureMenu(delegate: self,
                                         at: indexPath,items: menu,
                                         selected: selected.group,
-                                        tint: dataBase.selectedColor())
+                                        tint: selectionColor ?? dataBase.selectedColor())
         default:
             sectionHeader.removeMenu()
         }
@@ -100,25 +109,31 @@ extension CreateGoalsCollectionView: UICollectionViewDelegate, UICollectionViewD
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let item = dataBase[indexPath.section].type
         switch item {
-        case .text(let texts):
-            let text = texts[indexPath.row]
-            let cell: TextFieldCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: TextFieldCollectionViewCell.identifier, for: indexPath) as! TextFieldCollectionViewCell
+        case .text(let text):
+            let cell: TextFieldCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: CreateGroupCollection.Text.identifier, for: indexPath) as! TextFieldCollectionViewCell
             cell.configure(delegate: self,
                            indexPath: indexPath,
                            text: text.text,
-                           tint: dataBase.selectedColor())
+                           tint: selectionColor ?? dataBase.selectedColor())
             return cell
-        case .date(let dates):
-            let date = dates[indexPath.row]
-            let cell: DateCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: DateCollectionViewCell.identifier, for: indexPath) as! DateCollectionViewCell
+        case .date(let date):
+            let cell: DateCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: CreateGroupCollection.Date.identifier, for: indexPath) as! DateCollectionViewCell
             cell.configure(delegate: self,
                            indexPath: indexPath,
                            date: date.date,
-                           tint: dataBase.selectedColor())
+                           tint: selectionColor ?? dataBase.selectedColor())
+            return cell
+        case .segmented(let segmented):
+            let cell: SegmentedCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: CreateGroupCollection.Segmented.identifier, for: indexPath) as! SegmentedCollectionViewCell
+            cell.configure(delegate: self,
+                           indexPath: indexPath,
+                           segments: segmented.segmenteds,
+                           selected: segmented.selected,
+                           tint: selectionColor ?? dataBase.selectedColor())
             return cell
         case .color(let colors):
             let color = colors[indexPath.row]
-            let cell: ColorCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: ColorCollectionViewCell.identifier, for: indexPath) as! ColorCollectionViewCell
+            let cell: ColorCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: CreateGroupCollection.Color.identifier, for: indexPath) as! ColorCollectionViewCell
             cell.configure(delegate: self,
                            indexPath: indexPath,
                            color: color.color,
@@ -126,12 +141,12 @@ extension CreateGoalsCollectionView: UICollectionViewDelegate, UICollectionViewD
             return cell
         case .icon(let icons):
             guard let icon = icons.first(where: { $0.isSelected })?.icons[indexPath.row] else { return UICollectionViewCell() }
-            let cell: IconCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: IconCollectionViewCell.identifier, for: indexPath) as! IconCollectionViewCell
+            let cell: IconCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: CreateGroupCollection.Icon.identifier, for: indexPath) as! IconCollectionViewCell
             cell.configure(delegate: self,
                            indexPath: indexPath,
                            icon: icon.icon,
                            isSelected: icon.isSelected,
-                           tint: dataBase.selectedColor())
+                           tint: selectionColor ?? dataBase.selectedColor())
             return cell
         }
     }
@@ -151,6 +166,12 @@ extension CreateGoalsCollectionView: UICollectionViewDelegateFlowLayout {
             width = availableWidth / itemsPerRow
             height = 42
         case .date:
+            itemsPerRow = 1
+            let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
+            let availableWidth = self.frame.width - paddingSpace
+            width = availableWidth / itemsPerRow
+            height = 42
+        case .segmented:
             itemsPerRow = 1
             let paddingSpace = sectionInsets.left * (itemsPerRow + 1)
             let availableWidth = self.frame.width - paddingSpace
@@ -189,8 +210,15 @@ extension CreateGoalsCollectionView: CollectionDateProtocol {
     }
 }
 
+extension CreateGoalsCollectionView: CollectionSegmentedProtocol {
+    func collectionViewCell(changed segment: Int?, from indexPath: IndexPath) {
+        guard let segment = segment else { return }
+        dataBase[indexPath.section].type.change(segmented: segment, at: indexPath)
+    }
+}
+
 extension CreateGoalsCollectionView: CollectionColorProtocol {
-    func collectionViewCell(_ cell: ColorCollectionViewCell, changed color: String?, from indexPath: IndexPath) {
+    func collectionViewCell(_ cell: ColorCollectionViewCell, changed color: HEXColor?, from indexPath: IndexPath) {
         guard let color = color else { return }
         dataBase[indexPath.section].type.change(color: color, at: indexPath)
         interactor?.collectionView(self, didChange: color)

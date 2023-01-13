@@ -11,42 +11,81 @@ import RxCocoa
 
 class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalViewModel> {
     weak var delegate: CreateGoalProtocol?
-    private var disposeBag = DisposeBag()
+    @IBOutlet weak var collectionCreateGoal: CreateGoalsCollectionView!
+    
+    @IBOutlet weak var stackButtons: UIStackView!
+    @IBOutlet weak var constraintBottomStack: NSLayoutConstraint!
+    @IBOutlet weak var buttonSave: UIButton!
+    @IBOutlet weak var buttonCancel: UIButton!
+    
+    var group: GoalsModel?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBindings()
-        configureTable()
+        configureCollection()
         mock()
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    deinit {
+        Sanada.print("deinit: \(self)")
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
+        NotificationCenter.default.removeObserver(UIResponder.keyboardWillChangeFrameNotification)
+    }
+    
+    @objc func keyboardWillChange(notification: Notification) {
+        guard let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else { return }
+
+        if notification.name == UIResponder.keyboardWillChangeFrameNotification || notification.name == UIResponder.keyboardWillShowNotification {
+            let safeArea = self.view.safeAreaInsets.bottom
+            constraintBottomStack.constant = keyboardSize.height - safeArea + 5
+        } else {
+            constraintBottomStack.constant = 20
+        }
     }
     
     private func mock() {
     }
     
-    private func configureTable() {
+    private func configureCollection() {
+        collectionCreateGoal.register()
+        collectionCreateGoal.force(selection: group?.color)
+        collectionCreateGoal.set(CreateModel.createGoal())
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        navigationItem.largeTitleDisplayMode = .automatic
+        navigationItem.largeTitleDisplayMode = .never
+        navigationController?.setNavigationBarHidden(true, animated: false)
+    }
+    
+    override func viewWillLayoutSubviews() {
+        super.viewWillLayoutSubviews()
+        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationItem.largeTitleDisplayMode = .automatic
     }
     
     override func configureBindings() {
     }
     
-}
-
-extension CreateGoalViewController: UICollectionViewDelegate, UICollectionViewDataSource {
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 0
+    override func configureViews() {
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        return UICollectionViewCell()
+    @IBAction func actionCancel(_ sender: UIButton) {
+//        delegate?.dismiss()
+    }
+    
+    @IBAction func actionSave(_ sender: UIButton) {
+        Sanada.print(collectionCreateGoal.getData())
     }
 }

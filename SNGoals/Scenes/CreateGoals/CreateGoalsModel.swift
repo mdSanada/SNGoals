@@ -8,8 +8,9 @@
 import Foundation
 
 enum CreateType: Equatable {
-    case text([TextStateful])
-    case date([DateStateful])
+    case text(TextStateful)
+    case date(DateStateful)
+    case segmented(SegmentedStateful)
     case color([ColorStateful])
     case icon([IconsStateful])
     
@@ -30,9 +31,20 @@ enum CreateType: Equatable {
     
     mutating func change(text value: String, at index: IndexPath) {
         switch self {
-        case .text(var texts):
-            texts[index.row].text = value
-            self = .text(texts)
+        case .text(var text):
+            text.text = value
+            self = .text(text)
+        default:
+            return
+        }
+    }
+    
+    mutating func change(segmented value: Int, at index: IndexPath) {
+        switch self {
+        case .segmented(var segmented):
+            segmented.selected = value
+            segmented.segment = segmented.segmenteds[value]
+            self = .segmented(segmented)
         default:
             return
         }
@@ -40,15 +52,15 @@ enum CreateType: Equatable {
     
     mutating func change(date value: Date, at index: IndexPath) {
         switch self {
-        case .date(var dates):
-            dates[index.row].date = value
-            self = .date(dates)
+        case .date(var date):
+            date.date = value
+            self = .date(date)
         default:
             return
         }
     }
     
-    mutating func change(color value: String, at index: IndexPath) {
+    mutating func change(color value: HEXColor, at index: IndexPath) {
         switch self {
         case .color(var colors):
             for (index, _) in colors.enumerated() {
@@ -98,12 +110,18 @@ struct TextStateful {
     var text: String?
 }
 
+struct SegmentedStateful {
+    var segment: GoalType?
+    var segmenteds: [String]
+    var selected: Int
+}
+
 struct DateStateful {
     var date: Date?
 }
 
 struct ColorStateful {
-    let color: String
+    let color: HEXColor
     var isSelected: Bool
 }
 
@@ -151,15 +169,17 @@ extension Array where Element: CreateModel {
         self.forEach { goal in
             switch goal.type {
             case .text(let text):
-                result.name = text.first?.text
+                result.name = text.text
             case .date(let date):
-                result.date = date.first?.date ?? Date()
+                result.date = date.date ?? Date()
             case .color(let color):
                 result.color = color.first(where: { $0.isSelected })?.color
             case .icon(let icon):
                 let selectedGroup = icon.first(where: { $0.isSelected })
                 result.iconGroup = selectedGroup?.group
                 result.icon = selectedGroup?.icons.first(where: { $0.isSelected })?.icon
+            case .segmented(_):
+                break
             }
         }
         
@@ -171,9 +191,9 @@ extension CreateModel {
     static func create() -> [CreateModel] {
         var models: [CreateModel] = []
         models.append(CreateModel(section: "Nome",
-                                  type: .text([TextStateful()])))
+                                  type: .text(TextStateful())))
         models.append(CreateModel(section: "Data",
-                                  type: .date([DateStateful()])))
+                                  type: .date(DateStateful())))
         
         let colors = MockHelper.getColors().enumerated().map { ColorStateful(color: $0.element,
                                                                              isSelected: $0.offset == 0) }
@@ -197,4 +217,33 @@ extension CreateModel {
                                   type: .icon(typeIcons)))
         return models
     }
+    
+    static func createGoal() -> [CreateModel] {
+        var models: [CreateModel] = []
+        models.append(CreateModel(section: "Nome",
+                                  type: .text(TextStateful())))
+        
+        models.append(CreateModel(section: "Tipo",
+                                  type: .segmented(SegmentedStateful(segmenteds: ["Número", "Valor"],
+                                                                     selected: 0))))
+        
+        models.append(CreateModel(section: "Valor",
+                                  type: .text(TextStateful())))
+        
+        var typeIcons: [IconsStateful] = []
+        let icons = MockHelper.getIcons()
+        icons.enumerated().forEach { (index, icon) in
+            typeIcons.append(IconsStateful(group: icon.section,
+                                           icons: icon.items.enumerated().map { IconStateful(icon: $0.element,
+                                                                                             isSelected: $0.offset == 0)},
+                                           isSelected: index == 0))
+        }
+        
+        
+        models.append(CreateModel(section: "Ícone",
+                                  type: .icon(typeIcons)))
+        return models
+    }
+    
+    
 }

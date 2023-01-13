@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol CollectionColorProtocol {
-    func collectionViewCell(_ cell: ColorCollectionViewCell, changed color: String?, from indexPath: IndexPath)
+protocol CollectionColorProtocol: AnyObject {
+    func collectionViewCell(_ cell: ColorCollectionViewCell, changed color: HEXColor?, from indexPath: IndexPath)
 }

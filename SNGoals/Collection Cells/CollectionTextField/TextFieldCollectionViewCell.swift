@@ -11,11 +11,9 @@ import RxCocoa
 import RxGesture
 
 class TextFieldCollectionViewCell: UICollectionViewCell, UITextFieldDelegate {
-    static let identifier = "TextField"
-    static let nib = UINib(nibName: "TextFieldCollectionViewCell", bundle: nil)
     
     @IBOutlet weak var textField: UITextField!
-    private var delegate: CollectionTextFieldProtocol?
+    private weak var delegate: CollectionTextFieldProtocol?
     private var indexPath: IndexPath?
     
     override func awakeFromNib() {
@@ -25,7 +23,7 @@ class TextFieldCollectionViewCell: UICollectionViewCell, UITextFieldDelegate {
         textField.delegate = self
     }
     
-    func configure(delegate: CollectionTextFieldProtocol, indexPath: IndexPath, text: String?, tint color: String?) {
+    func configure(delegate: CollectionTextFieldProtocol, indexPath: IndexPath, text: String?, tint color: HEXColor?) {
         self.delegate = delegate
         self.indexPath = indexPath
         self.textField.text = text

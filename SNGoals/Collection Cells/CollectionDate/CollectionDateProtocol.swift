@@ -7,6 +7,6 @@
 
 import UIKit
 
-protocol CollectionDateProtocol {
+protocol CollectionDateProtocol: AnyObject {
     func collectionViewCell(changed date: Date?, from indexPath: IndexPath)
 }

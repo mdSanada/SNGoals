@@ -156,47 +156,25 @@ extension Array where Element: CreateModel {
             return nil
         }
     }
-    
-    func save() -> CreateGoalsRequest {
-        // TODO: - Add Owner
-        var result = CreateGoalsRequest(name: "",
-                                        color: "",
-                                        iconGroup: "",
-                                        icon: "",
-                                        owner: nil,
-                                        shared: nil,
-                                        date: nil)
-        self.forEach { goal in
-            switch goal.type {
-            case .text(let text):
-                result.name = text.text
-            case .date(let date):
-                result.date = date.date ?? Date()
-            case .color(let color):
-                result.color = color.first(where: { $0.isSelected })?.color
-            case .icon(let icon):
-                let selectedGroup = icon.first(where: { $0.isSelected })
-                result.iconGroup = selectedGroup?.group
-                result.icon = selectedGroup?.icons.first(where: { $0.isSelected })?.icon
-            case .segmented(_):
-                break
-            }
-        }
-        
-        return result
-    }
 }
 
 extension CreateModel {
-    static func create() -> [CreateModel] {
+    static func create(goals: GoalsModel?) -> [CreateModel] {
         var models: [CreateModel] = []
         models.append(CreateModel(section: "Nome",
-                                  type: .text(TextStateful())))
+                                  type: .text(TextStateful(text: goals?.name))))
         models.append(CreateModel(section: "Data",
-                                  type: .date(DateStateful())))
+                                  type: .date(DateStateful(date: goals?.date))))
         
-        let colors = MockHelper.getColors().enumerated().map { ColorStateful(color: $0.element,
-                                                                             isSelected: $0.offset == 0) }
+        let enumeratedColors = MockHelper.getColors().enumerated()
+        let selectedColorsIndex = enumeratedColors.first(where: { element in
+            return element.element == goals?.color
+        }).map { $0.offset } ?? 0
+        
+        let colors = enumeratedColors.map { ColorStateful(color: $0.element,
+                                                          isSelected: goals == nil
+                                                          ? ($0.offset == 0)
+                                                          : ($0.offset == selectedColorsIndex)) }
         models.append(CreateModel(section: "Cor",
                                   type: .color(colors)))
         
@@ -205,11 +183,25 @@ extension CreateModel {
         var typeIcons: [IconsStateful] = []
         let icons = MockHelper.getIcons()
         
+        let enumeratedIconGroup = icons.enumerated()
+        let selectedGroupIndex = enumeratedIconGroup.first(where: { element in
+            return element.element.section == goals?.iconGroup
+        }).map { $0.offset } ?? 0
         icons.enumerated().forEach { (index, icon) in
+            let enumeratedIcon = icon.items.enumerated()
+            let selectedIconIndex = enumeratedIcon.first(where: { element in
+                return element.element == goals?.icon
+            }).map { $0.offset } ?? 0
+            
+            let icons = enumeratedIcon.map { IconStateful(icon: $0.element,
+                                                          isSelected: goals == nil
+                                                          ? ($0.offset == 0)
+                                                          : ($0.offset == selectedIconIndex))}
             typeIcons.append(IconsStateful(group: icon.section,
-                                           icons: icon.items.enumerated().map { IconStateful(icon: $0.element,
-                                                                                             isSelected: $0.offset == 0)},
-                                           isSelected: index == 0))
+                                           icons: icons,
+                                           isSelected: goals == nil
+                                           ? (index == 0)
+                                           : (index == selectedGroupIndex)))
         }
         
         

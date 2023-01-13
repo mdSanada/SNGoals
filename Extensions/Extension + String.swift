@@ -101,13 +101,13 @@ extension String {
         return formatter.string(from: number)!
     }
     
-    func percentFormatting() -> String {
+    func percentFormatting(digits: Int = 2, minimum: Int = 2) -> String {
         var number: NSNumber!
         let formatter = NumberFormatter()
         formatter.numberStyle = .percent
         formatter.locale = Locale(identifier: "pt_BR")
-        formatter.maximumFractionDigits = 2
-        formatter.minimumFractionDigits = 2
+        formatter.maximumFractionDigits = digits
+        formatter.minimumFractionDigits = minimum
         
         var amountWithPrefix = self
         

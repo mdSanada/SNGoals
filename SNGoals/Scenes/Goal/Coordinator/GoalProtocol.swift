@@ -9,4 +9,6 @@ import UIKit
 
 protocol GoalProtocol: AnyObject {
     func addGoal()
+    func presentEditGroup()
+    func detail(goal: GoalModel)
 }

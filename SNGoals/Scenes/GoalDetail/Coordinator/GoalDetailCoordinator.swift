@@ -7,11 +7,12 @@
 
 import UIKit
 
-class CreateGoalCoordinator: SNCoordinator {
+class GoalDetailCoordinator: SNCoordinator {
     var parent: MainCoordinator?
     var presenter: UIViewController
     var child: SNCoordinator?
     var group: GoalsModel
+    var goal: GoalModel
     var actions: CreateActions
     
     lazy var storyboard: UIStoryboard = {
@@ -22,23 +23,24 @@ class CreateGoalCoordinator: SNCoordinator {
         Sanada.print("Deinitializing \(self)")
     }
 
-    init(group model: GoalsModel, action: CreateActions, navigation: UINavigationController) {
+    init(group model: GoalsModel, goal: GoalModel, action: CreateActions, navigation: UINavigationController) {
         self.group = model
+        self.goal = goal
         self.presenter = navigation
         self.actions = action
     }
 
     func start() {
-        let viewModel = CreateGoalViewModel()
-        guard let viewController = storyboard.instantiateViewController(withIdentifier: "CreateGoal") as? CreateGoalViewController else {
+        let viewModel = GoalDetailViewModel()
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: "GoalDetail") as? GoalDetailViewController else {
             return
         }
         viewController.set(viewModel: viewModel)
         
         viewController.group = group
+        viewController.goal = goal
+        viewController.action = actions
         viewController.delegate = self
-        viewController.title = "Criar nova meta"
-        viewController.actions = actions
         
         if let sheet = viewController.sheetPresentationController {
             sheet.prefersGrabberVisible = true
@@ -51,7 +53,7 @@ class CreateGoalCoordinator: SNCoordinator {
         self.navigation?.popViewController(animated: true)
     }
 }
-extension CreateGoalCoordinator: CreateGoalProtocol {
+extension GoalDetailCoordinator: GoalDetailProtocol {
     func dismiss() {
         navigation?.dismiss(animated: true)
     }

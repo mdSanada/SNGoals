@@ -10,4 +10,5 @@ import Foundation
 protocol GoalsProtocol: AnyObject {
     func pushGoal(from group: GoalsModel)
     func presentCreateNewGoals()
+    func presentEditGoal(goal: GoalsModel)
 }

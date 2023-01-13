@@ -18,6 +18,7 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     @IBOutlet weak var buttonSave: UIButton!
     @IBOutlet weak var buttonCancel: UIButton!
     
+    var actions: CreateActions?
     var group: GoalsModel?
     
     override func viewDidLoad() {
@@ -79,13 +80,37 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     }
     
     override func configureViews() {
+        if let color = group?.color {
+            buttonSave.tintColor = UIColor.fromHex(color)
+        }
+    }
+    
+    override func render(states: CreateGoalStates) {
+        switch states {
+        case .success(let string):
+            Sanada.print(string)
+        case .loading(let loading):
+            view.isUserInteractionEnabled = !loading
+            buttonIsLoading(loading)
+        case .error(let string):
+            Sanada.print(string)
+        }
+    }
+    
+    private func buttonIsLoading(_ loading: Bool) {
+        buttonSave.isEnabled = !loading
+        buttonCancel.isEnabled = !loading
+        self.isModalInPresentation = loading
+        
+        buttonSave.configuration?.showsActivityIndicator = loading
     }
     
     @IBAction func actionCancel(_ sender: UIButton) {
-//        delegate?.dismiss()
+        delegate?.dismiss()
     }
     
     @IBAction func actionSave(_ sender: UIButton) {
-        Sanada.print(collectionCreateGoal.getData())
+        guard let action = actions else { return }
+        viewModel?.save.onNext((action: action, data: collectionCreateGoal.getData()))
     }
 }

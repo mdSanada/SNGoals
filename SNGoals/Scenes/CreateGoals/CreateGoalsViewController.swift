@@ -19,6 +19,9 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
     @IBOutlet weak var buttonSave: UIButton!
     @IBOutlet weak var buttonCancel: UIButton!
     
+    var actions: CreateActions?
+    var goals: GoalsModel?
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBindings()
@@ -54,23 +57,20 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
     private func configureCollection() {
         collectionCreateGoals.register()
         collectionCreateGoals.interactor = self
-        collectionCreateGoals.set(CreateModel.create())
+        collectionCreateGoals.set(CreateModel.create(goals: goals))
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .never
-        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationItem.largeTitleDisplayMode = .automatic
     }
     
@@ -78,6 +78,34 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
     }
     
     override func configureViews() {
+        if let actions = actions {
+            switch actions {
+            case .create:
+                buttonSave.setTitle("Salvar", for: .normal)
+            case .edit:
+                buttonSave.setTitle("Editar", for: .normal)
+            }
+        }
+    }
+    
+    override func render(states: CreateGoalsStates) {
+        switch states {
+        case .success(let string):
+            Sanada.print(string)
+        case .loading(let loading):
+            view.isUserInteractionEnabled = !loading
+            buttonIsLoading(loading)
+        case .error(let string):
+            Sanada.print(string)
+        }
+    }
+    
+    private func buttonIsLoading(_ loading: Bool) {
+        buttonSave.isEnabled = !loading
+        buttonCancel.isEnabled = !loading
+        self.isModalInPresentation = loading
+        
+        buttonSave.configuration?.showsActivityIndicator = loading
     }
     
     @IBAction func actionCancel(_ sender: UIButton) {
@@ -85,7 +113,8 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
     }
     
     @IBAction func actionSave(_ sender: UIButton) {
-        Sanada.print(collectionCreateGoals.getData())
+        guard let action = actions else { return }
+        viewModel?.save.onNext((action: action, data: collectionCreateGoals.getData()))
     }
 }
 

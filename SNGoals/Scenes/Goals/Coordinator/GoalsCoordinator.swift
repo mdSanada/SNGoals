@@ -54,21 +54,17 @@ extension GoalsCoordinator: GoalsProtocol {
     }
     
     func presentCreateNewGoals() {
-        let viewModel = CreateGoalsViewModel()
-        guard let viewController = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "CreateGoals") as? CreateGoalsViewController else {
-            presenter = UINavigationController()
-            return
-        }
-        viewController.set(viewModel: viewModel)
-        viewController.delegate = self
-        viewController.hidesBottomBarWhenPushed = true
-
-        navigation?.pushFromBottom(viewController)
+        guard let navigation = navigation else { return }
+        let coordinator = CreateGoalsCoordinator(type: .create, navigation: navigation)
+        child = coordinator
+        child?.start()
     }
-}
-
-extension GoalsCoordinator: CreateGoalsProtocol {
-    func dismiss() {
-        navigation?.popToBottom()
+    
+    
+    func presentEditGoal(goal: GoalsModel) {
+        guard let navigation = navigation else { return }
+        let coordinator = CreateGoalsCoordinator(type: .edit, navigation: navigation, goals: goal)
+        child = coordinator
+        child?.start()
     }
 }

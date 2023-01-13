@@ -10,15 +10,24 @@ import RxSwift
 import RxCocoa
 
 class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
+    @IBOutlet weak var buttonNewGoal: UIButton!
+    @IBOutlet weak var tableGoal: UITableView!
+
     weak var delegate: GoalProtocol?
+    
     fileprivate let searchText = PublishSubject<String>()
     private let searchController = UISearchController()
-    @IBOutlet weak var buttonNewGoal: UIButton!
-    private var disposeBag = DisposeBag()
-    @IBOutlet weak var tableGoal: UITableView!
+    
     var color: HEXColor?
     var dataBase: [GoalModel] = []
+    private var disposeBag = DisposeBag()
     
+    private var rightButton: UIBarButtonItem = {
+        let image = UIImage(systemName: "ellipsis.circle")
+        let button = UIBarButtonItem(image: image)
+        return button
+    }()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         searchController.searchResultsUpdater = self
@@ -50,9 +59,46 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
     }
     
     override func configureViews() {
-        guard let color = color else { return }
-        buttonNewGoal.tintColor = UIColor.fromHex(color)
-        buttonNewGoal.imageView?.contentMode = .scaleAspectFit
+        configureNavigationButton()
+        if let color = color {
+            buttonNewGoal.tintColor = UIColor.fromHex(color)
+            buttonNewGoal.imageView?.contentMode = .scaleAspectFit
+        }
+    }
+    
+    private func configureNavigationButton() {
+        self.navigationItem.rightBarButtonItems = [rightButton]
+        rightButton.menu = createMenu()
+    }
+    
+    private func createMenu() -> UIMenu {
+        let menu = UIMenu(options: .destructive, children: createMenuActions())
+        return menu
+    }
+    
+    private func createMenuActions() -> [UIAction] {
+        let stringActions = NavMenuActions.allCases
+        var actions: [UIAction] = []
+        stringActions.forEach { action in
+            let newElement = UIAction(title: action.title(),
+                                      image: action.image(),
+                                      attributes: action.attributes()) { [weak self] _ in
+                self?.handlerMenu(action: action)
+            }
+            actions.append(newElement)
+        }
+        return actions
+    }
+    
+    private func handlerMenu(action: NavMenuActions) {
+        switch action {
+        case .edit:
+            delegate?.presentEditGroup()
+        case .share:
+            break
+        case .delete:
+            break
+        }
     }
     
     override func configureBindings() {
@@ -64,6 +110,7 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
             })
             .disposed(by: disposeBag)
     }
+
     
     private func filter(text: String) {
         if text.isEmpty {
@@ -108,5 +155,8 @@ extension GoalViewController: UITableViewDelegate, UITableViewDataSource {
         return cell
     }
     
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let goal = dataBase[indexPath.row]
+        delegate?.detail(goal: goal)
+    }
 }

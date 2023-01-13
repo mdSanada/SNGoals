@@ -49,11 +49,25 @@ class GoalCoordinator: SNCoordinator {
 extension GoalCoordinator: GoalProtocol {
     func addGoal() {
         guard let groupGoals = groupGoals, let navigation = navigation else { return }
-        let coordinator = CreateGoalCoordinator(group: groupGoals, navigation: navigation)
+        let coordinator = CreateGoalCoordinator(group: groupGoals, action: .create, navigation: navigation)
         child = coordinator
         child?.start()
     }
     
-    func pushDetailed() {
+    func presentEditGroup() {
+        guard let navigation = navigation else { return }
+        let coordinator = CreateGoalsCoordinator(type: .edit, navigation: navigation, goals: groupGoals)
+        child = coordinator
+        child?.start()
+    }
+    
+    func detail(goal: GoalModel) {
+        guard let navigation = navigation, let groupGoals = groupGoals else { return }
+        let coordinator = GoalDetailCoordinator(group: groupGoals,
+                                                goal: goal,
+                                                action: .create,
+                                                navigation: navigation)
+        child = coordinator
+        child?.start()
     }
 }

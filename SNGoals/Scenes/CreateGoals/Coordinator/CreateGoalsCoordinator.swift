@@ -7,13 +7,13 @@
 
 import UIKit
 
-class CreateGoalCoordinator: SNCoordinator {
+class CreateGoalsCoordinator: SNCoordinator {
     var parent: MainCoordinator?
     var presenter: UIViewController
     var child: SNCoordinator?
-    var group: GoalsModel
     var actions: CreateActions
-    
+    var goals: GoalsModel?
+        
     lazy var storyboard: UIStoryboard = {
         return .init(name: "MainStoryboard", bundle: nil)
     }()
@@ -22,28 +22,27 @@ class CreateGoalCoordinator: SNCoordinator {
         Sanada.print("Deinitializing \(self)")
     }
 
-    init(group model: GoalsModel, action: CreateActions, navigation: UINavigationController) {
-        self.group = model
+    init(type: CreateActions, navigation: UINavigationController, goals: GoalsModel? = nil) {
+        self.actions = type
         self.presenter = navigation
-        self.actions = action
+        self.goals = goals
     }
 
     func start() {
-        let viewModel = CreateGoalViewModel()
-        guard let viewController = storyboard.instantiateViewController(withIdentifier: "CreateGoal") as? CreateGoalViewController else {
+        let viewModel = CreateGoalsViewModel()
+        guard let viewController = UIStoryboard(name: "MainStoryboard", bundle: nil).instantiateViewController(withIdentifier: "CreateGoals") as? CreateGoalsViewController else {
+            presenter = UINavigationController()
             return
         }
         viewController.set(viewModel: viewModel)
-        
-        viewController.group = group
         viewController.delegate = self
-        viewController.title = "Criar nova meta"
+        viewController.title = "Criar novo grupo"
+        viewController.goals = goals
         viewController.actions = actions
-        
         if let sheet = viewController.sheetPresentationController {
             sheet.prefersGrabberVisible = true
         }
-        
+
         navigation?.present(viewController, animated: true)
     }
 
@@ -51,7 +50,7 @@ class CreateGoalCoordinator: SNCoordinator {
         self.navigation?.popViewController(animated: true)
     }
 }
-extension CreateGoalCoordinator: CreateGoalProtocol {
+extension CreateGoalsCoordinator: CreateGoalsProtocol {
     func dismiss() {
         navigation?.dismiss(animated: true)
     }

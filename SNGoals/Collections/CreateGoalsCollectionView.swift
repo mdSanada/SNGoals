@@ -48,8 +48,8 @@ class CreateGoalsCollectionView: UICollectionView {
         self.reloadData()
     }
     
-    public func getData() -> CreateGoalsRequest {
-        return dataBase.save()
+    public func getData() -> [CreateModel] {
+        return dataBase
     }
 }
 

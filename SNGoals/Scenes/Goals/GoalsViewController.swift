@@ -46,6 +46,7 @@ class GoalsViewController: SNViewController<GoalsStates, GoalsViewModel> {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .automatic
         navigationController?.navigationBar.tintColor = .accent
+        viewModel?.request.onNext(())
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -73,6 +74,10 @@ class GoalsViewController: SNViewController<GoalsStates, GoalsViewModel> {
         } else {
             print("Will filter: \(text)")
         }
+    }
+    
+    override func render(states: GoalsStates) {
+        print(states)
     }
 }
 

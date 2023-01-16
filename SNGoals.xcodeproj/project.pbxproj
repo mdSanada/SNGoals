@@ -17,6 +17,15 @@
 		1604D84729719CB00042EE36 /* GoalDetailViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D84529719CB00042EE36 /* GoalDetailViewModel.swift */; };
 		1604D84B2971A4400042EE36 /* GoalDetailCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D8492971A4400042EE36 /* GoalDetailCoordinator.swift */; };
 		1604D84C2971A4400042EE36 /* GoalDetailProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D84A2971A4400042EE36 /* GoalDetailProtocol.swift */; };
+		1604D86D29720F3C0042EE36 /* GoalRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D86529720F3C0042EE36 /* GoalRepository.swift */; };
+		1604D86E29720F3C0042EE36 /* GoalsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D86629720F3C0042EE36 /* GoalsRepository.swift */; };
+		1604D86F29720F3C0042EE36 /* AuthRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D86729720F3C0042EE36 /* AuthRepository.swift */; };
+		1604D87029720F3C0042EE36 /* SharedGoalsRepository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D86829720F3C0042EE36 /* SharedGoalsRepository.swift */; };
+		1604D872297211C80042EE36 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1604D871297211C80042EE36 /* GoogleService-Info.plist */; };
+		1604D874297212A00042EE36 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D873297212A00042EE36 /* Service.swift */; };
+		1604D877297216E50042EE36 /* Repository.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D876297216E50042EE36 /* Repository.swift */; };
+		1604D879297217060042EE36 /* RepositoryProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D878297217060042EE36 /* RepositoryProtocol.swift */; };
+		1604D87C297233110042EE36 /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1604D87B297233110042EE36 /* Storage.swift */; };
 		160D55B0296C344F00BA385A /* CollectionDateProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55AF296C344F00BA385A /* CollectionDateProtocol.swift */; };
 		160D55B8296C9A0A00BA385A /* CollectionColorProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55B7296C9A0A00BA385A /* CollectionColorProtocol.swift */; };
 		160D55BA296CA5D700BA385A /* CollectionIconProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 160D55B9296CA5D700BA385A /* CollectionIconProtocol.swift */; };
@@ -144,6 +153,15 @@
 		1604D84529719CB00042EE36 /* GoalDetailViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailViewModel.swift; sourceTree = "<group>"; };
 		1604D8492971A4400042EE36 /* GoalDetailCoordinator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailCoordinator.swift; sourceTree = "<group>"; };
 		1604D84A2971A4400042EE36 /* GoalDetailProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalDetailProtocol.swift; sourceTree = "<group>"; };
+		1604D86529720F3C0042EE36 /* GoalRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalRepository.swift; sourceTree = "<group>"; };
+		1604D86629720F3C0042EE36 /* GoalsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GoalsRepository.swift; sourceTree = "<group>"; };
+		1604D86729720F3C0042EE36 /* AuthRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthRepository.swift; sourceTree = "<group>"; };
+		1604D86829720F3C0042EE36 /* SharedGoalsRepository.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SharedGoalsRepository.swift; sourceTree = "<group>"; };
+		1604D871297211C80042EE36 /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		1604D873297212A00042EE36 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
+		1604D876297216E50042EE36 /* Repository.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Repository.swift; sourceTree = "<group>"; };
+		1604D878297217060042EE36 /* RepositoryProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RepositoryProtocol.swift; sourceTree = "<group>"; };
+		1604D87B297233110042EE36 /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 		160D55AF296C344F00BA385A /* CollectionDateProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionDateProtocol.swift; sourceTree = "<group>"; };
 		160D55B7296C9A0A00BA385A /* CollectionColorProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionColorProtocol.swift; sourceTree = "<group>"; };
 		160D55B9296CA5D700BA385A /* CollectionIconProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionIconProtocol.swift; sourceTree = "<group>"; };
@@ -328,6 +346,35 @@
 				1604D84A2971A4400042EE36 /* GoalDetailProtocol.swift */,
 			);
 			path = Coordinator;
+			sourceTree = "<group>";
+		};
+		1604D85F29720F3C0042EE36 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				1604D873297212A00042EE36 /* Service.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		1604D86429720F3C0042EE36 /* Repositories */ = {
+			isa = PBXGroup;
+			children = (
+				1604D876297216E50042EE36 /* Repository.swift */,
+				1604D878297217060042EE36 /* RepositoryProtocol.swift */,
+				1604D86529720F3C0042EE36 /* GoalRepository.swift */,
+				1604D86629720F3C0042EE36 /* GoalsRepository.swift */,
+				1604D86729720F3C0042EE36 /* AuthRepository.swift */,
+				1604D86829720F3C0042EE36 /* SharedGoalsRepository.swift */,
+			);
+			path = Repositories;
+			sourceTree = "<group>";
+		};
+		1604D87A297233010042EE36 /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				1604D87B297233110042EE36 /* Storage.swift */,
+			);
+			path = Storage;
 			sourceTree = "<group>";
 		};
 		16306BDC2967580A0076FC72 /* Base */ = {
@@ -784,6 +831,7 @@
 		167C482A296740C6009861B3 /* SNGoals */ = {
 			isa = PBXGroup;
 			children = (
+				1604D871297211C80042EE36 /* GoogleService-Info.plist */,
 				167C482B296740C6009861B3 /* AppDelegate.swift */,
 				167C482D296740C6009861B3 /* SceneDelegate.swift */,
 				16306C7529686BD90076FC72 /* Mock */,
@@ -792,6 +840,9 @@
 				16306C3529675A990076FC72 /* Models */,
 				16B55620296EDB6F00F79A7A /* Collections */,
 				16306C862968804E0076FC72 /* Collection Cells */,
+				1604D85F29720F3C0042EE36 /* Services */,
+				1604D87A297233010042EE36 /* Storage */,
+				1604D86429720F3C0042EE36 /* Repositories */,
 				16306C2C296759B80076FC72 /* Scenes */,
 				167C4834296740C8009861B3 /* Assets.xcassets */,
 				167C4836296740C8009861B3 /* LaunchScreen.storyboard */,
@@ -974,6 +1025,7 @@
 				1604D8382970A2BF0042EE36 /* SegmentedCollectionViewCell.xib in Resources */,
 				16306C56296768810076FC72 /* MainStoryboard.storyboard in Resources */,
 				167C4835296740C8009861B3 /* Assets.xcassets in Resources */,
+				1604D872297211C80042EE36 /* GoogleService-Info.plist in Resources */,
 				16306CB8296894D60076FC72 /* IconCollectionViewCell.xib in Resources */,
 				167C4833296740C6009861B3 /* Login.storyboard in Resources */,
 				16306C7029686A160076FC72 /* GoalCell.xib in Resources */,
@@ -1116,8 +1168,10 @@
 				16306BFA2967580A0076FC72 /* SNCoordinator.swift in Sources */,
 				160D55C1296E3D1800BA385A /* CreateGoalsRequest.swift in Sources */,
 				16306C0E296758290076FC72 /* Extension + String.swift in Sources */,
+				1604D87C297233110042EE36 /* Storage.swift in Sources */,
 				16306C23296759470076FC72 /* Listeners.swift in Sources */,
 				16306BF32967580A0076FC72 /* SNRefreshTokenService.swift in Sources */,
+				1604D86E29720F3C0042EE36 /* GoalsRepository.swift in Sources */,
 				16B5561F296ED51400F79A7A /* CreateGoalsCollectionView.swift in Sources */,
 				16306C55296768810076FC72 /* GoalsViewController.swift in Sources */,
 				16306C6F29686A160076FC72 /* GoalCell.swift in Sources */,
@@ -1134,6 +1188,7 @@
 				16B55626296F028D00F79A7A /* CreateGroupCollectionStatic.swift in Sources */,
 				16306C7229686A3B0076FC72 /* GoalViewModel.swift in Sources */,
 				16306C3229675A280076FC72 /* LoginProtocol.swift in Sources */,
+				1604D877297216E50042EE36 /* Repository.swift in Sources */,
 				16306C9C296885AA0076FC72 /* CreateGoalsProtocol.swift in Sources */,
 				16306C0B296758290076FC72 /* Extension + Decimal.swift in Sources */,
 				160D55BF296D9DD600BA385A /* CollectionHeaderProtocol.swift in Sources */,
@@ -1144,6 +1199,7 @@
 				1604D83C297184DB0042EE36 /* NavMenuActions.swift in Sources */,
 				16306C0F296758290076FC72 /* Extension + Table.swift in Sources */,
 				1604D84229718C2A0042EE36 /* CreateActions.swift in Sources */,
+				1604D87029720F3C0042EE36 /* SharedGoalsRepository.swift in Sources */,
 				16306C57296768810076FC72 /* SettingsCoordinator.swift in Sources */,
 				16306C28296759970076FC72 /* Registering.swift in Sources */,
 				16A7D5102970A25700C64350 /* TextFieldCollectionViewCell.swift in Sources */,
@@ -1164,6 +1220,7 @@
 				16306C17296758B10076FC72 /* AppLauncher.swift in Sources */,
 				16306BF22967580A0076FC72 /* SNRefreshTokenModel.swift in Sources */,
 				16306BFD2967580A0076FC72 /* SNViewControllerProtocol.swift in Sources */,
+				1604D86F29720F3C0042EE36 /* AuthRepository.swift in Sources */,
 				16306CB3296894C00076FC72 /* ColorCollectionViewCell.swift in Sources */,
 				16306C99296881190076FC72 /* CreateGoalViewController.swift in Sources */,
 				16306C6C29686A160076FC72 /* GoalCoordinator.swift in Sources */,
@@ -1175,6 +1232,7 @@
 				16306C8A2968804E0076FC72 /* CreateGoalsViewController.swift in Sources */,
 				16A7D5112970A25E00C64350 /* CollectionTextFieldProtocol.swift in Sources */,
 				16306C59296768810076FC72 /* SettingsViewController.swift in Sources */,
+				1604D879297217060042EE36 /* RepositoryProtocol.swift in Sources */,
 				16306BFB2967580A0076FC72 /* SNStateful.swift in Sources */,
 				16306C1D296759220076FC72 /* Validator.swift in Sources */,
 				16306C25296759720076FC72 /* Launcher.swift in Sources */,
@@ -1185,6 +1243,7 @@
 				16306C10296758290076FC72 /* Extension + UIColor.swift in Sources */,
 				16306C0D296758290076FC72 /* Extension + Double.swift in Sources */,
 				1604D8392970A2C20042EE36 /* CollectionSegmentedProtocol.swift in Sources */,
+				1604D86D29720F3C0042EE36 /* GoalRepository.swift in Sources */,
 				16306CA029688BA70076FC72 /* CollectionHeader.swift in Sources */,
 				16306BFC2967580A0076FC72 /* SNViewController.swift in Sources */,
 				16306C3829675AA70076FC72 /* LoginModel.swift in Sources */,
@@ -1194,6 +1253,7 @@
 				1604D8372970A2BB0042EE36 /* SegmentedCollectionViewCell.swift in Sources */,
 				16306C3A29675AC10076FC72 /* Extension + UIView.swift in Sources */,
 				16306C50296768810076FC72 /* MainProtocol.swift in Sources */,
+				1604D874297212A00042EE36 /* Service.swift in Sources */,
 				16306BF12967580A0076FC72 /* SNRefresher.swift in Sources */,
 				16306C3429675A670076FC72 /* LoginViewModel.swift in Sources */,
 				16306C0A296758290076FC72 /* Extension + Data.swift in Sources */,

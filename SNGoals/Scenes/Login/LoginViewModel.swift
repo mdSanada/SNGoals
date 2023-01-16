@@ -16,6 +16,7 @@ enum LoginStates: SNStateful {
 }
 
 class LoginViewModel: SNViewModel<LoginStates> {
+    let repository = AuthRepository()
     let login = PublishSubject<(LoginModel)>()
     var disposeBag = DisposeBag()
 
@@ -23,10 +24,16 @@ class LoginViewModel: SNViewModel<LoginStates> {
         login
             .subscribe(onNext: { [weak self] login in
                 self?.emit(.loading(true))
-                DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-                    self?.emit(.success("Autenticado com sucesso!"))
+                self?.repository.authenticate(with: login.email,
+                                              and: login.password,
+                                              completion: { success in
                     self?.emit(.loading(false))
-                }
+                    if success {
+                        self?.emit(.success("Autenticado com sucesso!"))
+                    } else {
+                        self?.emit(.error("Email ou senha incorreto."))
+                    }
+                })
             })
             .disposed(by: disposeBag)
     }

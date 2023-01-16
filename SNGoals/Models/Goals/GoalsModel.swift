@@ -7,9 +7,13 @@
 
 import Foundation
 
+protocol FirestoreModel {
+    var uuid: FirestoreId? { get set }
+}
+
 // MARK: - GoalsModel
-struct GoalsModel: Codable {
-    let uuid: FirestoreId?
+struct GoalsModel: Codable, FirestoreModel {
+    var uuid: FirestoreId?
     let name: String?
     let color: HEXColor?
     let iconGroup, icon: String?

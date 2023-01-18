@@ -33,7 +33,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="zcZ-q1-YZ6">
-                                <rect key="frame" x="0.0" y="59" width="393" height="793"/>
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="sectionIndexBackgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
@@ -66,7 +66,7 @@
                             <constraint firstItem="zcZ-q1-YZ6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="4FG-db-dov"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="n4P-8v-2DV" secondAttribute="bottom" constant="20" id="AWn-xa-H7R"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="zcZ-q1-YZ6" secondAttribute="trailing" id="PxU-hE-B7a"/>
-                            <constraint firstItem="zcZ-q1-YZ6" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="WW1-jz-eeM"/>
+                            <constraint firstItem="zcZ-q1-YZ6" firstAttribute="top" secondItem="5EZ-qb-Rvc" secondAttribute="top" id="WW1-jz-eeM"/>
                             <constraint firstItem="n4P-8v-2DV" firstAttribute="trailing" secondItem="vDu-zF-Fre" secondAttribute="trailing" constant="-20" id="dpV-yM-ISF"/>
                             <constraint firstAttribute="bottom" secondItem="zcZ-q1-YZ6" secondAttribute="bottom" id="iM6-ts-T0z"/>
                         </constraints>
@@ -313,10 +313,10 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="Sxj-MX-ff2">
-                                        <rect key="frame" x="0.0" y="147.33333333333334" width="353" height="40"/>
+                                        <rect key="frame" x="0.0" y="147.33333333333334" width="353" height="199.00000000000003"/>
                                         <subviews>
                                             <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="aMe-9A-8dS">
-                                                <rect key="frame" x="0.0" y="0.0" width="249" height="40"/>
+                                                <rect key="frame" x="0.0" y="79.666666666666657" width="249" height="40"/>
                                                 <color key="backgroundColor" systemColor="secondarySystemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="40" id="qlr-Gh-GPS"/>
@@ -331,7 +331,7 @@
                                                 </userDefinedRuntimeAttributes>
                                             </textField>
                                             <stepper opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" maximumValue="100" translatesAutoresizingMaskIntoConstraints="NO" id="cPq-5o-SAb">
-                                                <rect key="frame" x="259" y="4" width="94" height="32"/>
+                                                <rect key="frame" x="259" y="83.666666666666657" width="94" height="32"/>
                                                 <connections>
                                                     <action selector="actionStepper:" destination="Er5-SS-ZGF" eventType="valueChanged" id="f3w-Pv-JN2"/>
                                                 </connections>
@@ -339,7 +339,7 @@
                                         </subviews>
                                     </stackView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="euC-z7-6iF">
-                                        <rect key="frame" x="0.0" y="197.33333333333331" width="353" height="541.66666666666674"/>
+                                        <rect key="frame" x="0.0" y="356.33333333333326" width="353" height="382.66666666666674"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </view>
                                 </subviews>

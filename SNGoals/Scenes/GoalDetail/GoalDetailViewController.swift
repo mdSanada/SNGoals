@@ -18,7 +18,11 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
     @IBOutlet weak var textFieldValue: UITextField!
     @IBOutlet weak var stepper: UIStepper!
     
-    var group: GoalsModel?
+    var group: GoalsModel? {
+        didSet {
+            configureColor()
+        }
+    }
     var goal: GoalModel?
     var action: CreateActions?
     private var disposeBag = DisposeBag()
@@ -52,7 +56,6 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
     }
     
     override func configureViews() {
-        configureColor()
         configureLabels()
         configureTextField()
     }

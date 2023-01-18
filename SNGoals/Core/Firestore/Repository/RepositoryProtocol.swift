@@ -95,22 +95,6 @@ internal protocol RepositoryProtocol {
 }
 
 extension RepositoryProtocol {
-    //        collection.getDocuments(source: .default) { query, error in
-    //            if let query = query {
-    //                query.documents.forEach { document in
-    //                    let data = query.documents.compactMap { response -> T? in
-    //                        var dict = response.data()
-    //                        dict["firestoreId"] = response.documentID
-    //
-    //                        guard let taxes = dict.data?.map(to: map.self) else { return nil }
-    ////                        FirestoreInteractor.shared.taxesDict[response.documentID] = taxes
-    //                        return taxes
-    //                    }.compactMap { $0 }
-    ////                    FirestoreInteractor.shared.taxes = data
-    //                }
-    //            } else {
-    //            }
-    //        }
     var auth: AuthRepository {
         return AuthRepository()
     }
@@ -127,16 +111,15 @@ extension RepositoryProtocol {
         onLoading(true)
         query.getDocuments(source: .default) { query, error in
             if let query = query {
-                query.documents.forEach { document in
-                    let data = query.documents.compactMap { response -> T? in
-                        var dict = response.data()
-                        dict["uuid"] = response.documentID
-                        
-                        guard let result = dict.data?.map(to: T.self) else { return nil }
-                        return result
-                    }.compactMap { $0 }
-                    onSuccess(data)
-                }
+                let data = query.documents.compactMap { response -> T? in
+                    var dict = response.data()
+                    dict["uuid"] = response.documentID
+                    
+                    guard let result = dict.data?.map(to: T.self) else { return nil }
+                    return result
+                }.compactMap { $0 }
+                onLoading(false)
+                onSuccess(data)
             } else {
                 onLoading(false)
                 onError(NSError(domain: "", code: 1, userInfo: [:]) as! Error)
@@ -153,16 +136,15 @@ extension RepositoryProtocol {
         onLoading(true)
         collection.getDocuments(source: .default) { query, error in
             if let query = query {
-                query.documents.forEach { document in
-                    let data = query.documents.compactMap { response -> T? in
-                        var dict = response.data()
-                        dict["firestoreId"] = response.documentID
-                        
-                        guard let result = dict.data?.map(to: T.self) else { return nil }
-                        return result
-                    }.compactMap { $0 }
-                    onSuccess(data)
-                }
+                let data = query.documents.compactMap { response -> T? in
+                    var dict = response.data()
+                    dict["uuid"] = response.documentID
+                    
+                    guard let result = dict.data?.map(to: T.self) else { return nil }
+                    return result
+                }.compactMap { $0 }
+                onLoading(false)
+                onSuccess(data)
             } else {
                 onLoading(false)
                 onError(NSError(domain: "", code: 1, userInfo: [:]) as! Error)
@@ -185,26 +167,4 @@ extension RepositoryProtocol {
     func delete<T>(document: DocumentReference, onLoading: @escaping ((Bool) -> ()), onSuccess: @escaping ((T) -> ()), onError: @escaping ((Error) -> ())) where T : Decodable {
         
     }
-    
-    //        let token = AuthRepository().token()
-    //        let collection = service.dataBase.collection(service.collection).whereField("owner",
-    //                                                                                    arrayContains: auth.token())
-    //
-    //        collection.getDocuments(source: .default) { query, error in
-    //            if let query = query {
-    //                query.documents.forEach { document in
-    //                    let data = query.documents.compactMap { response -> T? in
-    //                        var dict = response.data()
-    //                        dict["firestoreId"] = response.documentID
-    //
-    //                        guard let taxes = dict.data?.map(to: map.self) else { return nil }
-    ////                        FirestoreInteractor.shared.taxesDict[response.documentID] = taxes
-    //                        return taxes
-    //                    }.compactMap { $0 }
-    ////                    FirestoreInteractor.shared.taxes = data
-    //                }
-    //            } else {
-    //            }
-    //        }
-    
 }

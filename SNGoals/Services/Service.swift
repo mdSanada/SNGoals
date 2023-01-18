@@ -7,10 +7,6 @@
 
 import Foundation
 
-public protocol ServiceProtocol {
-    var collection: String { get }
-}
-
 enum Service: ServiceProtocol {
     case goals
 }

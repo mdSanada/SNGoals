@@ -10,9 +10,10 @@ import Foundation
 struct Storage {
     static var shared = Storage()
     
-    public var goals: [String] = [] {
+    public var goals: [GoalsModel] = [] {
         didSet {
-//            SNNotificationCenter.post(notification: SNNotificationCenter.materials.notification, arguments: ["key": "goals"])
+            SNNotificationCenter.post(notification: SNNotificationCenter.goals.notification,
+                                      arguments: ["key": "goals"])
         }
     }
 }

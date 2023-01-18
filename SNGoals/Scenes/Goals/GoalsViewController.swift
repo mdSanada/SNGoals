@@ -10,12 +10,16 @@ import RxSwift
 import RxCocoa
 
 class GoalsViewController: SNViewController<GoalsStates, GoalsViewModel> {
-    weak var delegate: GoalsProtocol?
-    fileprivate let searchText = PublishSubject<String>()
-    private let searchController = UISearchController()
-    private var disposeBag = DisposeBag()
     @IBOutlet weak var buttonAdd: UIButton!
     @IBOutlet weak var tableGoals: UITableView!
+
+    weak var delegate: GoalsProtocol?
+    
+    private let searchController = UISearchController()
+    private let refreshControl = UIRefreshControl()
+    private var disposeBag = DisposeBag()
+
+    fileprivate let searchText = PublishSubject<String>()
     fileprivate var dataBase: [GoalsModel] = []
     
     override func viewDidLoad() {
@@ -24,18 +28,28 @@ class GoalsViewController: SNViewController<GoalsStates, GoalsViewModel> {
         navigationItem.searchController = searchController
         configureBindings()
         configureTable()
+        configureRefreshControl()
         mock()
     }
     
     private func mock() {
-        dataBase = MockHelper.createGoals()
-        tableGoals.reloadData()
     }
     
     private func configureTable() {
         tableGoals.delegate = self
         tableGoals.dataSource = self
         tableGoals.register(type: GoalsCell.self)
+        tableGoals.remembersLastFocusedIndexPath = true
+    }
+    
+    private func configureRefreshControl() {
+        refreshControl.tintColor = .accent
+        tableGoals.refreshControl = refreshControl
+        tableGoals.refreshControl?.addTarget(self, action: #selector(refresh(_:)), for: .valueChanged)
+    }
+    
+    @objc private func refresh(_ sender: Any) {
+        viewModel?.refresh.onNext(())
     }
     
     override func configureViews() {
@@ -46,7 +60,6 @@ class GoalsViewController: SNViewController<GoalsStates, GoalsViewModel> {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .automatic
         navigationController?.navigationBar.tintColor = .accent
-        viewModel?.request.onNext(())
     }
     
     override func viewWillDisappear(_ animated: Bool) {
@@ -77,7 +90,20 @@ class GoalsViewController: SNViewController<GoalsStates, GoalsViewModel> {
     }
     
     override func render(states: GoalsStates) {
-        print(states)
+        switch states {
+        case .goals(let goals):
+            self.dataBase = goals
+            self.tableGoals.reloadData()
+        case .refresh(let goals):
+            dataBase = goals
+            tableGoals.reloadData()
+        case .loading(let loading):
+            if !loading {
+                tableGoals.refreshControl?.endRefreshing()
+            }
+        case .error(let message):
+            Sanada.print(message)
+        }
     }
 }
 

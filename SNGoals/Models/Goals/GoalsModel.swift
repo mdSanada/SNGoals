@@ -7,12 +7,8 @@
 
 import Foundation
 
-protocol FirestoreModel {
-    var uuid: FirestoreId? { get set }
-}
-
 // MARK: - GoalsModel
-struct GoalsModel: Codable, FirestoreModel {
+struct GoalsModel: FIRResponse {
     var uuid: FirestoreId?
     let name: String?
     let color: HEXColor?

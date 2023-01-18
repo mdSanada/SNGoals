@@ -60,7 +60,6 @@ extension GoalsCoordinator: GoalsProtocol {
         child?.start()
     }
     
-    
     func presentEditGoal(goal: GoalsModel) {
         guard let navigation = navigation else { return }
         let coordinator = CreateGoalsCoordinator(type: .edit, navigation: navigation, goals: goal)

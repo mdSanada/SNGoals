@@ -34,7 +34,7 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
     }
     
     deinit {
-        Sanada.print("deinit: \(self)")
+        Sanada.print("Deinitializing: \(self)")
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillChangeFrameNotification)
@@ -110,6 +110,7 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
     
     @IBAction func actionCancel(_ sender: UIButton) {
         delegate?.dismiss()
+        collectionCreateGoals.interactor = nil
     }
     
     @IBAction func actionSave(_ sender: UIButton) {

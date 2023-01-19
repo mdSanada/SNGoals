@@ -10,7 +10,11 @@ import FirebaseFirestore
 
 internal class GoalsRepository {
     private let manager = Repository(service: .goals)
-    private var listeners: [ListenerRegistration] = []
+    private var listeners: [ListenerRegistration] = [] {
+        didSet {
+            Sanada.print("Add New Listener: \(listeners)")
+        }
+    }
     
     deinit {
         Sanada.print("Deinitializing \(self)")
@@ -43,17 +47,49 @@ internal class GoalsRepository {
                                onSuccess: @escaping (([GoalsModel]) -> ()),
                                onError: @escaping ((Error) -> ())) {
         let filteredCollection = collectionPath()
-
-        let listener = filteredCollection.addSnapshotListener { [weak self] querySnapshot, error in
+        
+        let listener = filteredCollection.addSnapshotListener(includeMetadataChanges: true) { [weak self] querySnapshot, error in
             guard error == nil else {
                 return
             }
             self?.manager.readCollection(query: filteredCollection,
-                                        map: GoalsModel.self,
-                                        onLoading: onLoading,
-                                        onSuccess: onSuccess,
-                                        onError: onError)
+                                         map: GoalsModel.self,
+                                         onLoading: onLoading,
+                                         onSuccess: onSuccess,
+                                         onError: onError)
         }
         listeners.append(listener)
+    }
+    
+    func save(goals: CreateGoalsRequest,
+              onLoading: @escaping ((Bool) -> ()),
+              onSuccess: @escaping ((GoalsModel) -> ()),
+              onError: @escaping ((Error) -> ())) {
+        var _goals = goals
+        let collection = manager.dataBase.collection(manager.colletion)
+        _goals.owner = manager.auth.token()
+        manager.save(document: _goals,
+                     in: collection,
+                     map: GoalsModel.self,
+                     onLoading: onLoading,
+                     onSuccess: onSuccess,
+                     onError: onError)
+    }
+    
+    func edit(goals: CreateGoalsRequest,
+              with uuid: FirestoreId,
+              onLoading: @escaping ((Bool) -> ()),
+              onSuccess: @escaping ((GoalsModel) -> ()),
+              onError: @escaping ((Error) -> ())) {
+        var _goals = goals
+        let collection = manager.dataBase.collection(manager.colletion)
+        _goals.owner = manager.auth.token()
+        manager.update(document: _goals,
+                       with: uuid,
+                       in: collection,
+                       map: GoalsModel.self,
+                       onLoading: onLoading,
+                       onSuccess: onSuccess,
+                       onError: onError)
     }
 }

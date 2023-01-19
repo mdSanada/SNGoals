@@ -12,8 +12,8 @@ struct Storage {
     
     public var goals: [GoalsModel] = [] {
         didSet {
-            SNNotificationCenter.post(notification: SNNotificationCenter.goals.notification,
-                                      arguments: ["key": "goals"])
+//            SNNotificationCenter.post(notification: SNNotificationCenter.goals.notification,
+//                                      arguments: ["key": "goals"])
         }
     }
 }

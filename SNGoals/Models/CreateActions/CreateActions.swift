@@ -9,5 +9,5 @@ import Foundation
 
 enum CreateActions {
     case create
-    case edit
+    case edit(uuid: FirestoreId)
 }

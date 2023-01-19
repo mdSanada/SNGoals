@@ -43,7 +43,7 @@ extension CreateGoalViewModel {
             case .text(let text):
                 result.name = text.text
             case .date(let date):
-                result.date = date.date ?? Date()
+                result.date = (date.date ?? Date()).string(pattern: .api)
             case .color(let color):
                 result.color = color.first(where: { $0.isSelected })?.color
             case .icon(let icon):

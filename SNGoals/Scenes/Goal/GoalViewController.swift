@@ -19,6 +19,7 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
     private let searchController = UISearchController()
     
     var color: HEXColor?
+    var group: GoalsModel?
     var dataBase: [GoalModel] = []
     private var disposeBag = DisposeBag()
     
@@ -32,13 +33,38 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
         super.viewDidLoad()
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
+        addNotification()
         configureBindings()
         configureTable()
+        configureFromGoal()
         mock()
+    }
+    
+    private func addNotification() {
+        SNNotificationCenter.shared.addObserver(self, selector: #selector(changedGoals(_:)),
+                                                name: SNNotificationCenter.didChangeGoals.name,
+                                                object: nil)
+    }
+    
+    @objc private func changedGoals(_ notification: NSNotification) {
+        if notification.userInfo?.keys.contains("goals") ?? false {
+            guard let goals = notification.userInfo?["goals"] as? GoalsModel else { return }
+            if !(group?.uuid?.isEmpty ?? true) && group?.uuid == goals.uuid {
+                self.group = goals
+                delegate?.didChangeGoals(goals)
+                configureFromGoal()
+            }
+        }
     }
     
     private func mock() {
         dataBase = MockHelper.createGoal()
+        tableGoal.reloadData()
+    }
+    
+    private func configureFromGoal() {
+        self.title = group?.name ?? ""
+        self.color = group?.color ?? ""
         tableGoal.reloadData()
     }
     

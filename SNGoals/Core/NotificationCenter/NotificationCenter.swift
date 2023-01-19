@@ -10,7 +10,7 @@ import Foundation
 public class SNNotificationCenter: NSObject {
     static public let shared = NotificationCenter.init()
     
-    static public let goals = SNNotificationModel(notification: "Firestore.fetch.goals")
+    static public let didChangeGoals = SNNotificationModel(notification: "Firestore.update.goals")
     
     public static func post(notification: Notification, arguments: [String: Any]) {
         SNNotificationCenter.shared.post(name: notification.name,

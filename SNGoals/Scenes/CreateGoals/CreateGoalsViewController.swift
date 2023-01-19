@@ -90,8 +90,8 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
     
     override func render(states: CreateGoalsStates) {
         switch states {
-        case .success(let string):
-            Sanada.print(string)
+        case .success:
+            delegate?.dismiss()
         case .loading(let loading):
             view.isUserInteractionEnabled = !loading
             buttonIsLoading(loading)

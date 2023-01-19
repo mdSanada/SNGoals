@@ -61,8 +61,10 @@ extension GoalsCoordinator: GoalsProtocol {
     }
     
     func presentEditGoal(goal: GoalsModel) {
-        guard let navigation = navigation else { return }
-        let coordinator = CreateGoalsCoordinator(type: .edit, navigation: navigation, goals: goal)
+        guard let navigation = navigation, let uuid = goal.uuid else { return }
+        let coordinator = CreateGoalsCoordinator(type: .edit(uuid: uuid),
+                                                             navigation: navigation,
+                                                             goals: goal)
         child = coordinator
         child?.start()
     }

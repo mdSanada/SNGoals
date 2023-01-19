@@ -32,8 +32,7 @@ class GoalCoordinator: SNCoordinator {
             presenter = UINavigationController()
             return
         }
-        viewController.title = groupGoals?.name ?? ""
-        viewController.color = groupGoals?.color ?? ""
+        viewController.group = groupGoals
         viewController.set(viewModel: viewModel)
         viewController.delegate = self
         if let tintColor = groupGoals?.color {
@@ -55,8 +54,8 @@ extension GoalCoordinator: GoalProtocol {
     }
     
     func presentEditGroup() {
-        guard let navigation = navigation else { return }
-        let coordinator = CreateGoalsCoordinator(type: .edit, navigation: navigation, goals: groupGoals)
+        guard let navigation = navigation, let uuid = groupGoals?.uuid else { return }
+        let coordinator = CreateGoalsCoordinator(type: .edit(uuid: uuid), navigation: navigation, goals: groupGoals)
         child = coordinator
         child?.start()
     }
@@ -69,5 +68,12 @@ extension GoalCoordinator: GoalProtocol {
                                                 navigation: navigation)
         child = coordinator
         child?.start()
+    }
+    
+    func didChangeGoals(_ goals: GoalsModel) {
+        self.groupGoals = goals
+        if let tintColor = groupGoals?.color {
+            navigation?.navigationBar.tintColor = UIColor.fromHex(tintColor)
+        }
     }
 }

@@ -12,7 +12,7 @@ extension Data {
         do {
             let decoder = JSONDecoder()
             let dateFormater = DateFormatter()
-            dateFormater.dateFormat = "dd/MM/YYYY"
+            dateFormater.dateFormat = "YYYY-MM-dd"
             decoder.dateDecodingStrategy = .formatted(dateFormater)
             let response = try decoder.decode(type.self, from: self)
             

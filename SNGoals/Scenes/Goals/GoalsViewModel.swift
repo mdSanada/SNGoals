@@ -24,7 +24,6 @@ class GoalsViewModel: SNViewModel<GoalsStates> {
     deinit {
         Sanada.print("Deinitializing: \(self)")
         viewState.onCompleted()
-        SNNotificationCenter.shared.removeObserver(self, name: SNNotificationCenter.goals.name, object: nil)
     }
 
     override func configure() {

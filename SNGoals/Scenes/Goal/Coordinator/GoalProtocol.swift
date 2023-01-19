@@ -11,4 +11,5 @@ protocol GoalProtocol: AnyObject {
     func addGoal()
     func presentEditGroup()
     func detail(goal: GoalModel)
+    func didChangeGoals(_ goals: GoalsModel)
 }

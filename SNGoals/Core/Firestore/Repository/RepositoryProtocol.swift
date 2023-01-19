@@ -8,6 +8,20 @@
 import Foundation
 import FirebaseFirestore
 
+private class SNDataBase {
+    static let shared = SNDataBase()
+    let firestore: Firestore
+    
+    init() {
+        let settings = FirestoreSettings()
+        let db = Firestore.firestore()
+        settings.isPersistenceEnabled = true
+        settings.cacheSizeBytes = FirestoreCacheSizeUnlimited
+        db.settings = settings
+        firestore = db
+    }
+}
+
 internal protocol RepositoryProtocol {
     var colletion: String { get }
     var dataBase: Firestore { get }
@@ -25,7 +39,7 @@ internal protocol RepositoryProtocol {
                                       onLoading: @escaping ((Bool) -> ()),
                                       onSuccess: @escaping (([T]) -> ()),
                                       onError: @escaping ((Error) -> ()))
-
+    
     /// Makes a `GET` Collection request.
     ///
     /// - parameter onLoading: Returns the request state `Bool`.
@@ -62,10 +76,12 @@ internal protocol RepositoryProtocol {
     /// - parameter onMapError: Returns an `Data`, when tryied to map an failured.
     ///
     /// - Returns: `Void`.
-    func save<T: Decodable>(collection: CollectionReference,
-                            onLoading: @escaping ((Bool) -> ()),
-                            onSuccess: @escaping ((T) -> ()),
-                            onError: @escaping ((Error) -> ()))
+    func save<T: Codable, M: Codable>(document: T,
+                                      in collection: CollectionReference,
+                                      map to: M.Type,
+                                      onLoading: @escaping ((Bool) -> ()),
+                                      onSuccess: @escaping ((M) -> ()),
+                                      onError: @escaping ((Error) -> ()))
     
     /// Makes a `PUT` request.
     ///
@@ -75,10 +91,13 @@ internal protocol RepositoryProtocol {
     /// - parameter onMapError: Returns an `Data`, when tryied to map an failured.
     ///
     /// - Returns: `Void`.
-    func update<T: Decodable>(document: DocumentReference,
-                              onLoading: @escaping ((Bool) -> ()),
-                              onSuccess: @escaping ((T) -> ()),
-                              onError: @escaping ((Error) -> ()))
+    func update<T: Codable, M: Codable>(document: T,
+                                        with uuid: FirestoreId,
+                                        in collection: CollectionReference,
+                                        map to: M.Type,
+                                        onLoading: @escaping ((Bool) -> ()),
+                                        onSuccess: @escaping ((M) -> ()),
+                                        onError: @escaping ((Error) -> ()))
     
     /// Makes a `DELETE` request.
     ///
@@ -98,9 +117,9 @@ extension RepositoryProtocol {
     var auth: AuthRepository {
         return AuthRepository()
     }
-
+    
     var dataBase: Firestore {
-        return Firestore.firestore()
+        return SNDataBase.shared.firestore
     }
     
     func readCollection<T>(query: Query,
@@ -126,7 +145,7 @@ extension RepositoryProtocol {
             }
         }
     }
-
+    
     
     func readCollection<T>(collection: CollectionReference,
                            map: T.Type,
@@ -156,15 +175,83 @@ extension RepositoryProtocol {
         
     }
     
-    func save<T>(collection: CollectionReference, onLoading: @escaping ((Bool) -> ()), onSuccess: @escaping ((T) -> ()), onError: @escaping ((Error) -> ())) where T : Decodable {
-        
+    func save<T: Codable, M: Codable>(document: T,
+                                      in collection: CollectionReference,
+                                      map to: M.Type,
+                                      onLoading: @escaping ((Bool) -> ()),
+                                      onSuccess: @escaping ((M) -> ()),
+                                      onError: @escaping ((Error) -> ())) where T : Decodable {
+        onLoading(true)
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(document), let dict = data.dictionary {
+            var listener: ListenerRegistration? = nil
+            listener = collection
+                .addDocument(data: dict)
+                .addSnapshotListener(includeMetadataChanges: true) { (_document, error) in
+                    listener?.remove()
+                    onLoading(false)
+                    if let _document = _document {
+                        var dict = _document.data()
+                        dict?["uuid"] = _document.documentID
+                        if let response = dict?.data?.map(to: M.self) {
+                            onSuccess(response)
+                        } else {
+                            onError(error ?? NSError.defaultError())
+                        }
+                    } else {
+                        onError(error ?? NSError.defaultError())
+                    }
+                }
+        } else {
+            onLoading(false)
+            onError(NSError.defaultError())
+        }
     }
     
-    func update<T>(document: DocumentReference, onLoading: @escaping ((Bool) -> ()), onSuccess: @escaping ((T) -> ()), onError: @escaping ((Error) -> ())) where T : Decodable {
-        
+    func update<T: Codable, M: Codable>(document: T,
+                                        with uuid: FirestoreId,
+                                        in collection: CollectionReference,
+                                        map to: M.Type,
+                                        onLoading: @escaping ((Bool) -> ()),
+                                        onSuccess: @escaping ((M) -> ()),
+                                        onError: @escaping ((Error) -> ())) where T : Decodable {
+        onLoading(true)
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(document), let dict = data.dictionary {
+            collection
+                .document(uuid)
+                .setData(dict, merge: true)
+            
+            var listener: ListenerRegistration? = nil
+            listener = collection.document(uuid)
+                .addSnapshotListener(includeMetadataChanges: true) { (_document, error) in
+                    listener?.remove()
+                    onLoading(false)
+                    if let _document = _document {
+                        var dict = _document.data()
+                        dict?["uuid"] = uuid
+                        if let response = dict?.data?.map(to: M.self) {
+                            onSuccess(response)
+                        } else {
+                            onError(error ?? NSError.defaultError())
+                        }
+                    } else {
+                        onError(error ?? NSError.defaultError())
+                    }
+                }
+        } else {
+            onLoading(false)
+            onError(NSError.defaultError())
+        }
     }
     
     func delete<T>(document: DocumentReference, onLoading: @escaping ((Bool) -> ()), onSuccess: @escaping ((T) -> ()), onError: @escaping ((Error) -> ())) where T : Decodable {
         
+    }
+}
+
+extension NSError {
+    static func defaultError() -> Error {
+        return NSError(domain: "", code: 1, userInfo: [:]) as Error
     }
 }

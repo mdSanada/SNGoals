@@ -89,4 +89,32 @@ internal class GoalRepository {
                        onSuccess: onSuccess,
                        onError: onError)
     }
+    
+    func editValue(at collectionUUID: FirestoreId,
+                   value: Double,
+                   with editedUUID: FirestoreId,
+                   onLoading: @escaping ((Bool) -> ()),
+                   onSuccess: @escaping ((GoalModel) -> ()),
+                   onError: @escaping ((Error) -> ())) {
+        let collection = collectionPath(at: collectionUUID)
+        manager.edit(update: ["value": value],
+                     with: editedUUID,
+                     in: collection,
+                     onLoading: onLoading,
+                     onSuccess: onSuccess,
+                     onError: onError)
+    }
+    
+    func deleteGoal(at collectionUUID: FirestoreId,
+                    with editedUUID: FirestoreId,
+                    onLoading: @escaping ((Bool) -> ()),
+                    onSuccess: @escaping (() -> ()),
+                    onError: @escaping ((Error) -> ())) {
+         let collection = collectionPath(at: collectionUUID)
+         manager.delete(delete: editedUUID,
+                        in: collection,
+                        onLoading: onLoading,
+                        onSuccess: onSuccess,
+                        onError: onError)
+     }
 }

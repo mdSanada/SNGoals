@@ -19,13 +19,14 @@ enum GoalDetailStates: SNStateful {
 }
 
 class GoalDetailViewModel: SNViewModel<GoalDetailStates> {
+    let repository = GoalRepository()
     let save = PublishSubject<(uuid: FirestoreId, group: GoalsModel, value: Double)>()
     let didChangeTextValue = PublishSubject<Double?>()
     let didChangeStepper = PublishSubject<Double?>()
     let goalType = PublishSubject<GoalType?>()
     let goal = PublishSubject<GoalModel?>()
     var disposeBag = DisposeBag()
-    let delete = PublishSubject<FirestoreId>()
+    let delete = PublishSubject<(uuid: FirestoreId, group: GoalsModel)>()
 
 
     override func configure() {
@@ -37,6 +38,13 @@ class GoalDetailViewModel: SNViewModel<GoalDetailStates> {
             })
             .disposed(by: disposeBag)
         
+        delete
+            .subscribe(onNext: { [weak self] (value) in
+                self?.delete(uuid: value.uuid,
+                             group: value.group)
+            })
+            .disposed(by: disposeBag)
+
         didChangeTextValue
             .filter { ($0 ?? 0) > 0 }
             .subscribe(onNext: { [weak self] number in
@@ -86,11 +94,35 @@ class GoalDetailViewModel: SNViewModel<GoalDetailStates> {
 
 extension GoalDetailViewModel {
     fileprivate func saveRequest(uuid: FirestoreId, group: GoalsModel, value: Double) {
+        guard let groupUUID = group.uuid else {
+            emit(.error("Algo inesperado aconteceu!"))
+            return
+        }
         emit(.loading(true))
-        DispatchQueue.main.asyncAfter(deadline: .now() + 2) { [weak self] in
-            self?.emit(.loading(false))
+        repository.editValue(at: groupUUID,
+                             value: value,
+                             with: uuid) { [weak self] loading in
+            self?.emit(.loading(loading))
+        } onSuccess: { [weak self] goals in
             self?.emit(.success)
+        } onError: { [weak self] error in
+            self?.emit(.error("Algo inesperado aconteceu!"))
         }
     }
 
+    fileprivate func delete(uuid: FirestoreId, group: GoalsModel) {
+        guard let groupUUID = group.uuid else {
+            emit(.error("Algo inesperado aconteceu!"))
+            return
+        }
+        emit(.loading(true))
+        repository.deleteGoal(at: groupUUID,
+                              with: uuid) { [weak self] loading in
+            self?.emit(.loading(loading))
+        } onSuccess: { [weak self] in
+            self?.emit(.success)
+        } onError: { [weak self] error in
+            self?.emit(.error("Algo inesperado aconteceu!"))
+        }
+    }
 }

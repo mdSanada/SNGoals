@@ -102,6 +102,21 @@ internal protocol RepositoryProtocol {
                                         onSuccess: @escaping ((M) -> ()),
                                         onError: @escaping ((Error) -> ()))
     
+    /// Makes a `PUT` request.
+    ///
+    /// - parameter onLoading: Returns the request state `Bool`.
+    /// - parameter onSuccess: Returns the `object` mapped.
+    /// - parameter onError: Returns an `Error` on request.
+    /// - parameter onMapError: Returns an `Data`, when tryied to map an failured.
+    ///
+    /// - Returns: `Void`.
+    func edit<M: Codable>(update data: [AnyHashable : Any],
+                          with uuid: FirestoreId,
+                          in collection: CollectionReference,
+                          onLoading: @escaping ((Bool) -> ()),
+                          onSuccess: @escaping ((M) -> ()),
+                          onError: @escaping ((Error) -> ()))
+    
     /// Makes a `DELETE` request.
     ///
     /// - parameter onLoading: Returns the request state `Bool`.
@@ -264,6 +279,36 @@ extension RepositoryProtocol {
             onLoading(false)
             onError(NSError.defaultError())
         }
+    }
+    
+    func edit<M: Codable>(update data: [AnyHashable : Any],
+                          with uuid: FirestoreId,
+                          in collection: CollectionReference,
+                          onLoading: @escaping ((Bool) -> ()),
+                          onSuccess: @escaping ((M) -> ()),
+                          onError: @escaping ((Error) -> ())) where M : Codable {
+        onLoading(true)
+        collection
+            .document(uuid)
+            .updateData(data)
+        
+        var listener: ListenerRegistration? = nil
+        listener = collection.document(uuid)
+            .addSnapshotListener(includeMetadataChanges: true) { (_document, error) in
+                listener?.remove()
+                onLoading(false)
+                if let _document = _document {
+                    var dict = _document.data()
+                    dict?["uuid"] = uuid
+                    if let response = dict?.data?.map(to: M.self) {
+                        onSuccess(response)
+                    } else {
+                        onError(error ?? NSError.defaultError())
+                    }
+                } else {
+                    onError(error ?? NSError.defaultError())
+                }
+            }
     }
     
     func delete(delete uuid: FirestoreId,

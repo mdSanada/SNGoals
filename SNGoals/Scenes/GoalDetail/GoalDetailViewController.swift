@@ -141,7 +141,6 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
     
     private func configureStepper() {
         guard let goal = goal, let type = goal.type else { return }
-        stepper.value = goal.value ?? 0
         switch type {
         case .number:
             stepper.maximumValue = (goal.goal ?? 0).rounded(.down)
@@ -150,6 +149,7 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
             stepper.maximumValue = goal.goal ?? 0
             stepper.minimumValue = 0
         }
+        stepper.value = goal.value ?? 0
     }
     
     private func buttonIsLoading(_ loading: Bool) {
@@ -228,8 +228,8 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
         case .edit:
             delegate?.edit()
         case .delete:
-            guard let uuid = group?.uuid else { return }
-            viewModel?.delete.onNext(uuid)
+            guard let uuid = goal?.uuid, let group = group else { return }
+            viewModel?.delete.onNext((uuid: uuid, group: group))
         case .share:
             break
         }

@@ -13,7 +13,9 @@ class CreateGoalCoordinator: SNCoordinator {
     var child: SNCoordinator?
     var group: GoalsModel
     var actions: CreateActions
-    
+    weak var dismissable: SNCoordinatorDismissable?
+    var presentNavigation: UINavigationController?
+
     lazy var storyboard: UIStoryboard = {
         return .init(name: "MainStoryboard", bundle: nil)
     }()
@@ -44,7 +46,9 @@ class CreateGoalCoordinator: SNCoordinator {
             sheet.prefersGrabberVisible = true
         }
         
-        navigation?.present(viewController, animated: true)
+        presentNavigation = UINavigationController(rootViewController: viewController)
+        guard let presentNavigation = presentNavigation else { return }
+        navigation?.present(presentNavigation, animated: true)
     }
     
     func present(animated: Bool) {
@@ -73,6 +77,12 @@ class CreateGoalCoordinator: SNCoordinator {
 }
 extension CreateGoalCoordinator: CreateGoalProtocol {
     func dismiss() {
-        navigation?.dismiss(animated: true)
+        navigation?.dismiss(animated: true, completion: { [weak self] in
+            self?.dismissable?.dismissing()
+        })
+    }
+    
+    func clear() {
+        dismissable?.dismissing()
     }
 }

@@ -123,6 +123,9 @@
 		167C484F296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C484E296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift */; };
 		1681B37129801F1900CA68C2 /* TextFieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1681B37029801F1900CA68C2 /* TextFieldTypes.swift */; };
 		1681B37429801F9600CA68C2 /* SNTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1681B37329801F9600CA68C2 /* SNTextField.swift */; };
+		168955F729816BA400BC2411 /* TODO.md in Resources */ = {isa = PBXBuildFile; fileRef = 168955F629816BA400BC2411 /* TODO.md */; };
+		168955F929816BAB00BC2411 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 168955F829816BAB00BC2411 /* README.md */; };
+		16A077D7298186830093D2F1 /* SNTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A077D6298186830093D2F1 /* SNTextFieldDelegate.swift */; };
 		16A7D5102970A25700C64350 /* TextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7D50B2970A23A00C64350 /* TextFieldCollectionViewCell.swift */; };
 		16A7D5112970A25E00C64350 /* CollectionTextFieldProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7D50A2970A23A00C64350 /* CollectionTextFieldProtocol.swift */; };
 		16B5561F296ED51400F79A7A /* CreateGoalsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5561E296ED51400F79A7A /* CreateGoalsCollectionView.swift */; };
@@ -268,6 +271,9 @@
 		167C484E296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNGoalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		1681B37029801F1900CA68C2 /* TextFieldTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTypes.swift; sourceTree = "<group>"; };
 		1681B37329801F9600CA68C2 /* SNTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNTextField.swift; sourceTree = "<group>"; };
+		168955F629816BA400BC2411 /* TODO.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = TODO.md; sourceTree = "<group>"; };
+		168955F829816BAB00BC2411 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		16A077D6298186830093D2F1 /* SNTextFieldDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNTextFieldDelegate.swift; sourceTree = "<group>"; };
 		16A7D50A2970A23A00C64350 /* CollectionTextFieldProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTextFieldProtocol.swift; sourceTree = "<group>"; };
 		16A7D50B2970A23A00C64350 /* TextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		16A7D50D2970A23A00C64350 /* SegmentedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -859,6 +865,8 @@
 		167C481F296740C6009861B3 = {
 			isa = PBXGroup;
 			children = (
+				168955F829816BAB00BC2411 /* README.md */,
+				168955F629816BA400BC2411 /* TODO.md */,
 				167C482A296740C6009861B3 /* SNGoals */,
 				167C4841296740C8009861B3 /* SNGoalsTests */,
 				167C484B296740C8009861B3 /* SNGoalsUITests */,
@@ -930,6 +938,7 @@
 			isa = PBXGroup;
 			children = (
 				1681B37329801F9600CA68C2 /* SNTextField.swift */,
+				16A077D6298186830093D2F1 /* SNTextFieldDelegate.swift */,
 			);
 			path = SNTextField;
 			sourceTree = "<group>";
@@ -1086,6 +1095,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				168955F729816BA400BC2411 /* TODO.md in Resources */,
 				16306CB4296894C00076FC72 /* ColorCollectionViewCell.xib in Resources */,
 				167C4838296740C8009861B3 /* LaunchScreen.storyboard in Resources */,
 				1604D8382970A2BF0042EE36 /* SegmentedCollectionViewCell.xib in Resources */,
@@ -1095,6 +1105,7 @@
 				16306CB8296894D60076FC72 /* IconCollectionViewCell.xib in Resources */,
 				167C4833296740C6009861B3 /* Login.storyboard in Resources */,
 				16306C7029686A160076FC72 /* GoalCell.xib in Resources */,
+				168955F929816BAB00BC2411 /* README.md in Resources */,
 				16306CBA2968A0050076FC72 /* TextFieldCollectionViewCell.xib in Resources */,
 				16306CBC2968A2E60076FC72 /* DateCollectionViewCell.xib in Resources */,
 				16306C6329677DD90076FC72 /* GoalsCell.xib in Resources */,
@@ -1234,6 +1245,7 @@
 				166F02692976C0ED004102C8 /* Vibration.swift in Sources */,
 				16306BFA2967580A0076FC72 /* SNCoordinator.swift in Sources */,
 				160D55C1296E3D1800BA385A /* CreateGoalsRequest.swift in Sources */,
+				16A077D7298186830093D2F1 /* SNTextFieldDelegate.swift in Sources */,
 				16306C0E296758290076FC72 /* Extension + String.swift in Sources */,
 				1604D87C297233110042EE36 /* Storage.swift in Sources */,
 				16306C23296759470076FC72 /* Listeners.swift in Sources */,

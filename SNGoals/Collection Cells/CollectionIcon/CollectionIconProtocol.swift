@@ -9,4 +9,5 @@ import UIKit
 
 protocol CollectionIconProtocol: AnyObject {
     func collectionViewCell(_ cell: IconCollectionViewCell, changed icon: String?, from indexPath: IndexPath)
+    func collectionViewCell(_ cell: IconCollectionViewCell, isValid: Bool, from indexPath: IndexPath)
 }

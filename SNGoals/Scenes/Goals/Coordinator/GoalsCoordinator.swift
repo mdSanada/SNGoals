@@ -45,7 +45,7 @@ class GoalsCoordinator: SNCoordinator {
         self.navigation?.popViewController(animated: true)
     }
 }
-extension GoalsCoordinator: GoalsProtocol {
+extension GoalsCoordinator: GoalsProtocol, SNCoordinatorDismissable {
     func pushGoal(from group: GoalsModel) {
         guard let navigation = navigation else { return }
         let coordinator = GoalCoordinator(from: group, navigation: navigation)
@@ -56,6 +56,7 @@ extension GoalsCoordinator: GoalsProtocol {
     func presentCreateNewGoals() {
         guard let navigation = navigation else { return }
         let coordinator = CreateGoalsCoordinator(type: .create, navigation: navigation)
+        coordinator.dismissable = self
         child = coordinator
         child?.start()
     }
@@ -65,7 +66,12 @@ extension GoalsCoordinator: GoalsProtocol {
         let coordinator = CreateGoalsCoordinator(type: .edit(uuid: uuid),
                                                              navigation: navigation,
                                                              goals: goal)
+        coordinator.dismissable = self
         child = coordinator
         child?.start()
+    }
+    
+    func dismissing() {
+        child = nil
     }
 }

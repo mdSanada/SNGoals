@@ -15,10 +15,13 @@ class ColorCollectionViewCell: UICollectionViewCell {
     
     private weak var delegate: CollectionColorProtocol?
     private var indexPath: IndexPath?
-    private var isSelectedCell: Bool? {
+    public var isSelectedCell: Bool? {
         didSet {
             if let isSelectedCell = isSelectedCell {
                 isSelected(isSelectedCell)
+                if let indexPath = indexPath {
+                    delegate?.collectionViewCell(self, isValid: isSelectedCell, from: indexPath)
+                }
             }
         }
     }
@@ -26,6 +29,11 @@ class ColorCollectionViewCell: UICollectionViewCell {
     private var indexPathSubject = PublishSubject<IndexPath>()
     private var colorSubject = PublishSubject<String>()
     private var disposeBag = DisposeBag()
+    
+    deinit {
+        disposeBag = DisposeBag()
+        Sanada.print("Deinit: \(self)")
+    }
 
     override func awakeFromNib() {
         super.awakeFromNib()

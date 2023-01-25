@@ -9,17 +9,18 @@ import UIKit
 import RxCocoa
 import RxSwift
 
-protocol SNTextFieldDelegate: AnyObject {
-    func textField(_ textField: SNTextField?, didChange value: Any?, with type: TextFieldTypes)
-}
-
 class SNTextField: UITextField, UITextFieldDelegate {
     private var textFieldType: TextFieldTypes = .percent
     private weak var interactor: SNTextFieldDelegate? = nil
     private var validateSubject = PublishSubject<Validator>()
-    private var isValidSubject = PublishSubject<Bool>()
+    public var isValidSubject = PublishSubject<Bool>()
     private var disposeBag = DisposeBag()
     public var isValid: Bool = false
+    
+    deinit {
+        disposeBag = DisposeBag()
+        Sanada.print("Deinit: \(self)")
+    }
     
     private let padding = UIEdgeInsets(top: 0, left: 10, bottom: 0, right: 10)
     

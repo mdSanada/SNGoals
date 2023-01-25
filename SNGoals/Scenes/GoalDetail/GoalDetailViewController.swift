@@ -76,6 +76,13 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
         configureProgress(percentage: percentage)
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if (self.navigationController?.isBeingDismissed ?? false) {
+            delegate?.clear()
+        }
+    }
+    
     override func configureViews() {
         configureColor()
         configureLabels()

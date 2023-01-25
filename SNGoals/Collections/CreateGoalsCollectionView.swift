@@ -6,12 +6,24 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class CreateGoalsCollectionView: UICollectionView {
     private var dataBase: [CreateModel] = []
     private let sectionInsets = UIEdgeInsets(top: 0, left: 20.0, bottom: 20.0, right: 20.0)
     public weak var interactor: CreateGoalsCollectionInteractor?
     private(set) var selectionColor: HEXColor? = nil
+    private let validIndexesBehavior = BehaviorRelay<[Int: Bool]>(value: [:])
+    private let accumulatorSubject = PublishSubject<[Bool]>()
+    private var disposeBag = DisposeBag()
+    public let isValidSubject = PublishSubject<Bool>()
+    public let isValid: Bool = false
+    
+    deinit {
+        disposeBag = DisposeBag()
+        Sanada.print("Deinit: \(self)")
+    }
 
     private func configureCollection() {
         self.delegate = self
@@ -31,6 +43,24 @@ class CreateGoalsCollectionView: UICollectionView {
         self.register(CollectionHeader.self,
                       forSupplementaryViewOfKind: CreateGroupCollection.Header.element,
                       withReuseIdentifier: CreateGroupCollection.Header.identifier)
+        
+        configureBindings()
+    }
+    
+    private func configureBindings() {
+        validIndexesBehavior
+            .map { (dict) in
+                dict.keys.compactMap { dict [$0 ]}
+            }
+            .bind(to: accumulatorSubject)
+            .disposed(by: disposeBag)
+
+        accumulatorSubject
+            .compactMap { [weak self] accumulated in
+                accumulated.allSatisfy({ $0 }) && accumulated.count == (self?.dataBase.count ?? -1)
+            }
+            .bind(to: isValidSubject)
+            .disposed(by: disposeBag)
     }
     
     public func register() {
@@ -129,7 +159,6 @@ extension CreateGoalsCollectionView: UICollectionViewDelegate, UICollectionViewD
         switch item {
         case .text(let text):
             let cell: TextFieldCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: CreateGroupCollection.Text.identifier, for: indexPath) as! TextFieldCollectionViewCell
-            Sanada.print(text)
             cell.configure(delegate: self,
                            indexPath: indexPath,
                            text: text.text,
@@ -218,21 +247,33 @@ extension CreateGoalsCollectionView: UICollectionViewDelegateFlowLayout {
 }
 
 extension CreateGoalsCollectionView: CollectionTextFieldProtocol {
-    func collectionViewCell(changed value: String?, from indexPath: IndexPath) {
+    func collectionViewCell(_ cell: TextFieldCollectionViewCell, changed value: String?, from indexPath: IndexPath) {
         guard let value = value else { return }
         dataBase[indexPath.section].type.change(text: value, at: indexPath)
+    }
+    
+    func collectionViewCell(_ cell: TextFieldCollectionViewCell, isValid: Bool, from indexPath: IndexPath) {
+        var dict = validIndexesBehavior.value
+        dict[indexPath.section] = isValid
+        validIndexesBehavior.accept(dict)
     }
 }
 
 extension CreateGoalsCollectionView: CollectionDateProtocol {
-    func collectionViewCell(changed date: Date?, from indexPath: IndexPath) {
+    func collectionViewCell(_ cell: DateCollectionViewCell, changed date: Date?, from indexPath: IndexPath) {
         guard let date = date else { return }
         dataBase[indexPath.section].type.change(date: date, at: indexPath)
+    }
+    
+    func collectionViewCell(_ cell: DateCollectionViewCell, isValid: Bool, from indexPath: IndexPath) {
+        var dict = validIndexesBehavior.value
+        dict[indexPath.section] = isValid
+        validIndexesBehavior.accept(dict)
     }
 }
 
 extension CreateGoalsCollectionView: CollectionSegmentedProtocol {
-    func collectionViewCell(changed segment: Int?, from indexPath: IndexPath) {
+    func collectionViewCell(_ cell: SegmentedCollectionViewCell, changed segment: Int?, from indexPath: IndexPath) {
         guard let segment = segment else { return }
         dataBase[indexPath.section].type.change(segmented: segment, at: indexPath)
         switch dataBase[indexPath.section].type {
@@ -241,6 +282,12 @@ extension CreateGoalsCollectionView: CollectionSegmentedProtocol {
         default:
             break
         }
+    }
+    
+    func collectionViewCell(_ cell: SegmentedCollectionViewCell, isValid: Bool, from indexPath: IndexPath) {
+        var dict = validIndexesBehavior.value
+        dict[indexPath.section] = isValid
+        validIndexesBehavior.accept(dict)
     }
 }
 
@@ -251,6 +298,12 @@ extension CreateGoalsCollectionView: CollectionColorProtocol {
         interactor?.collectionView(self, didChange: color)
         self.reloadData()
     }
+    
+    func collectionViewCell(_ cell: ColorCollectionViewCell, isValid: Bool, from indexPath: IndexPath) {
+        var dict = validIndexesBehavior.value
+        dict[indexPath.section] = isValid
+        validIndexesBehavior.accept(dict)
+    }
 }
 
 extension CreateGoalsCollectionView: CollectionIconProtocol {
@@ -260,6 +313,12 @@ extension CreateGoalsCollectionView: CollectionIconProtocol {
         UIView.performWithoutAnimation { [weak self] in
             self?.reloadSections(IndexSet(integer: indexPath.section))
         }
+    }
+    
+    func collectionViewCell(_ cell: IconCollectionViewCell, isValid: Bool, from indexPath: IndexPath) {
+        var dict = validIndexesBehavior.value
+        dict[indexPath.section] = isValid
+        validIndexesBehavior.accept(dict)
     }
 }
 

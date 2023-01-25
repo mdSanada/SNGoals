@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import RxSwift
+import RxCocoa
 
 class DateCollectionViewCell: UICollectionViewCell {
     
@@ -13,6 +15,12 @@ class DateCollectionViewCell: UICollectionViewCell {
 
     private weak var delegate: CollectionDateProtocol?
     private var indexPath: IndexPath?
+    private var disposeBag = DisposeBag()
+    
+    deinit {
+        disposeBag = DisposeBag()
+        Sanada.print("Deinit: \(self)")
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -23,11 +31,21 @@ class DateCollectionViewCell: UICollectionViewCell {
     
     private func configureBindings() {
         datePicker.addTarget(self, action: #selector(datePickerChanged(picker:)), for: .valueChanged)
+        
+        datePicker.rx
+            .value
+            .changed
+            .subscribe(onNext: { [weak self] _ in
+                guard let dateCell = self, let indexPath = dateCell.indexPath else { return }
+                dateCell.delegate?.collectionViewCell(dateCell, isValid: true, from: indexPath)
+            })
+            .disposed(by: disposeBag)
     }
     
     @objc func datePickerChanged(picker: UIDatePicker) {
         guard let indexPath = indexPath else { return }
-        delegate?.collectionViewCell(changed: picker.date, from: indexPath)
+        delegate?.collectionViewCell(self, changed: picker.date, from: indexPath)
+        delegate?.collectionViewCell(self, isValid: true, from: indexPath)
     }
         
     func configure(delegate: CollectionDateProtocol, indexPath: IndexPath, date: Date?, tint color: HEXColor?) {

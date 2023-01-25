@@ -21,6 +21,7 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
     
     var actions: CreateActions?
     var goals: GoalsModel?
+    private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,6 +39,7 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillChangeFrameNotification)
+        delegate?.clear()
     }
     
     @objc func keyboardWillChange(notification: Notification) {
@@ -74,7 +76,17 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
         navigationItem.largeTitleDisplayMode = .automatic
     }
     
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if (self.navigationController?.isBeingDismissed ?? false) {
+            delegate?.clear()
+        }
+    }
+    
     override func configureBindings() {
+        collectionCreateGoals.isValidSubject
+            .bind(to: buttonSave.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
     
     override func configureViews() {

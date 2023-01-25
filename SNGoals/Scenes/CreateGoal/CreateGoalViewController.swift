@@ -20,13 +20,14 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     
     var actions: CreateActions?
     var group: GoalsModel?
+    private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         configureBindings()
         configureCollection()
         mock()
-        
+    
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
@@ -37,6 +38,7 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillShowNotification)
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillHideNotification)
         NotificationCenter.default.removeObserver(UIResponder.keyboardWillChangeFrameNotification)
+        delegate?.clear()
     }
     
     @objc func keyboardWillChange(notification: Notification) {
@@ -63,24 +65,32 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationItem.largeTitleDisplayMode = .never
-        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
-        navigationController?.setNavigationBarHidden(true, animated: false)
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        navigationController?.setNavigationBarHidden(false, animated: animated)
         navigationItem.largeTitleDisplayMode = .automatic
+    }
+    
+    override func viewDidDisappear(_ animated: Bool) {
+        super.viewDidDisappear(animated)
+        if (self.navigationController?.isBeingDismissed ?? false) {
+            delegate?.clear()
+        }
     }
     
     override func configureBindings() {
         if let uuid = group?.uuid {
             viewModel?.groupUUID.onNext(uuid)
         }
+        
+        collectionCreateGoal.isValidSubject
+            .bind(to: buttonSave.rx.isEnabled)
+            .disposed(by: disposeBag)
     }
     
     override func configureViews() {

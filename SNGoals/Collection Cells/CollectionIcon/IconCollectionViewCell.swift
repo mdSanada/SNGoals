@@ -19,7 +19,7 @@ class IconCollectionViewCell: UICollectionViewCell {
     private var indexPathSubject = PublishSubject<IndexPath>()
     private var iconSubject = PublishSubject<String>()
     private var disposeBag = DisposeBag()
-    private var isSelectedCell: Bool? {
+    public var isSelectedCell: Bool? {
         didSet {
             if let isSelectedCell = isSelectedCell {
                 isSelected(isSelectedCell)
@@ -28,6 +28,11 @@ class IconCollectionViewCell: UICollectionViewCell {
     }
     private let cornerRadius: CGFloat = 25
     private var color: UIColor = .tintColor
+    
+    deinit {
+        disposeBag = DisposeBag()
+        Sanada.print("Deinit: \(self)")
+    }
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -58,6 +63,9 @@ class IconCollectionViewCell: UICollectionViewCell {
     private func isSelected(_ selected: Bool) {
         if selected {
             imageCell.tintColor = color
+            if let indexPath = indexPath {
+                delegate?.collectionViewCell(self, isValid: selected, from: indexPath)
+            }
         } else {
             imageCell.tintColor = .darkGray
         }

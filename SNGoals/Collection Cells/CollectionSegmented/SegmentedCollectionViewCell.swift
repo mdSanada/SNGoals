@@ -18,10 +18,17 @@ class SegmentedCollectionViewCell: UICollectionViewCell {
     private var selectedSegment: Int?
     private var segments: [(name: String, id: GoalType)]?
     
+    deinit {
+        Sanada.print("Deinit: \(self)")
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         contentView.frame = bounds
         contentView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        if let indexPath = indexPath {
+            delegate?.collectionViewCell(self, isValid: true, from: indexPath)
+        }
     }
     
     func configure(delegate: CollectionSegmentedProtocol,
@@ -43,7 +50,8 @@ class SegmentedCollectionViewCell: UICollectionViewCell {
     }
     @IBAction func didChange(_ sender: UISegmentedControl) {
         guard let indexPath = indexPath else { return }
-        delegate?.collectionViewCell(changed: sender.selectedSegmentIndex, from: indexPath)
+        delegate?.collectionViewCell(self, changed: sender.selectedSegmentIndex, from: indexPath)
+        delegate?.collectionViewCell(self, isValid: true, from: indexPath)
     }
 }
 

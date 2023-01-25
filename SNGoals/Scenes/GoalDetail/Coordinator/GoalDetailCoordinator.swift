@@ -15,7 +15,8 @@ class GoalDetailCoordinator: SNCoordinator {
     var goal: GoalModel
     var actions: CreateActions
     var presentNavigation: UINavigationController?
-    
+    weak var dismissable: SNCoordinatorDismissable?
+
     lazy var storyboard: UIStoryboard = {
         return .init(name: "MainStoryboard", bundle: nil)
     }()
@@ -47,6 +48,8 @@ class GoalDetailCoordinator: SNCoordinator {
             navigation?.navigationBar.tintColor = UIColor.fromHex(tintColor)
         }
         
+        viewController.modalPresentationStyle = .overCurrentContext
+        
         if let sheet = viewController.sheetPresentationController {
             sheet.prefersGrabberVisible = true
         }
@@ -62,7 +65,9 @@ class GoalDetailCoordinator: SNCoordinator {
 }
 extension GoalDetailCoordinator: GoalDetailProtocol {
     func dismiss() {
-        navigation?.dismiss(animated: true)
+        navigation?.dismiss(animated: true, completion: { [weak self] in
+            self?.dismissable?.dismissing()
+        })
     }
     
     func edit() {
@@ -72,5 +77,10 @@ extension GoalDetailCoordinator: GoalDetailProtocol {
                                                 navigation: navigation)
         child = coordinator
         coordinator.present(animated: true)
+    }
+    
+    
+    func clear() {
+        dismissable?.dismissing()
     }
 }

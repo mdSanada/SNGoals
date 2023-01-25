@@ -9,4 +9,5 @@ import Foundation
 
 protocol CreateGoalProtocol: AnyObject {
     func dismiss()
+    func clear()
 }

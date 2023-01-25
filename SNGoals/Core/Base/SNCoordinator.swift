@@ -15,6 +15,10 @@ public protocol SNCoordinator: AnyObject {
     func start()
 }
 
+public protocol SNCoordinatorDismissable: AnyObject {
+    func dismissing()
+}
+
 public extension SNCoordinator {
     var navigation: UINavigationController? {
         let nav = presenter as? UINavigationController

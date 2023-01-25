@@ -42,13 +42,15 @@ class GoalCoordinator: SNCoordinator {
     }
 
     func back() {
+        self.child = nil
         self.navigation?.popViewController(animated: true)
     }
 }
-extension GoalCoordinator: GoalProtocol {
+extension GoalCoordinator: GoalProtocol, SNCoordinatorDismissable {
     func addGoal() {
         guard let groupGoals = groupGoals, let navigation = navigation else { return }
         let coordinator = CreateGoalCoordinator(group: groupGoals, action: .create, navigation: navigation)
+        coordinator.dismissable = self
         child = coordinator
         child?.start()
     }
@@ -56,6 +58,7 @@ extension GoalCoordinator: GoalProtocol {
     func presentEditGroup() {
         guard let navigation = navigation, let uuid = groupGoals?.uuid else { return }
         let coordinator = CreateGoalsCoordinator(type: .edit(uuid: uuid), navigation: navigation, goals: groupGoals)
+        coordinator.dismissable = self
         child = coordinator
         child?.start()
     }
@@ -66,6 +69,7 @@ extension GoalCoordinator: GoalProtocol {
                                                 goal: goal,
                                                 action: .create,
                                                 navigation: navigation)
+        coordinator.dismissable = self
         child = coordinator
         child?.start()
     }
@@ -75,5 +79,9 @@ extension GoalCoordinator: GoalProtocol {
         if let tintColor = groupGoals?.color {
             navigation?.navigationBar.tintColor = UIColor.fromHex(tintColor)
         }
+    }
+    
+    func dismissing() {
+        child = nil
     }
 }

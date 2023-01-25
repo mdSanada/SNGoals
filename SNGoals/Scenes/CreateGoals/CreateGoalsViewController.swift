@@ -120,6 +120,9 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
 }
 
 extension CreateGoalsViewController: CreateGoalsCollectionInteractor {
+    func collectionView(_ collectionView: CreateGoalsCollectionView, didChange segmented: GoalType, at indexPath: IndexPath) {
+    }
+    
     func collectionView(_ collectionView: CreateGoalsCollectionView, didChange color: HEXColor) {
         buttonSave.tintColor = UIColor.fromHex(color)
     }

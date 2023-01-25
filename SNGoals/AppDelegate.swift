@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseCore
+import FirebaseAuth
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -19,9 +20,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         guard #available(iOS 13.0, *) else {
             debugPrint(">>> 12-")
-            let coordinator = LoginCoordinator(with: .init())
+            var coordinator: SNCoordinator!
+            if Auth.auth().currentUser != nil {
+                coordinator = MainCoordinator(with: .init())
+            } else {
+                coordinator = LoginCoordinator(with: .init())
+            }
             coordinator.start()
-            
+
             window = UIWindow(frame: UIScreen.main.bounds)
             window?.rootViewController = coordinator.presenter
             window?.makeKeyAndVisible()

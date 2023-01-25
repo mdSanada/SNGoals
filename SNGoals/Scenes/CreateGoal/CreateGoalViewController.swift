@@ -55,6 +55,7 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     
     private func configureCollection() {
         collectionCreateGoal.register()
+        collectionCreateGoal.interactor = self
         collectionCreateGoal.force(selection: group?.color)
         collectionCreateGoal.set(CreateModel.createGoal())
     }
@@ -77,6 +78,9 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     }
     
     override func configureBindings() {
+        if let uuid = group?.uuid {
+            viewModel?.groupUUID.onNext(uuid)
+        }
     }
     
     override func configureViews() {
@@ -87,8 +91,8 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     
     override func render(states: CreateGoalStates) {
         switch states {
-        case .success(let string):
-            Sanada.print(string)
+        case .success:
+            delegate?.dismiss()
         case .loading(let loading):
             view.isUserInteractionEnabled = !loading
             buttonIsLoading(loading)
@@ -112,5 +116,19 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     @IBAction func actionSave(_ sender: UIButton) {
         guard let action = actions else { return }
         viewModel?.save.onNext((action: action, data: collectionCreateGoal.getData()))
+    }
+}
+
+extension CreateGoalViewController: CreateGoalsCollectionInteractor {
+    func collectionView(_ collectionView: CreateGoalsCollectionView, didChange color: HEXColor) {
+    }
+    
+    func collectionView(_ collectionView: CreateGoalsCollectionView, didChange segmented: GoalType, at indexPath: IndexPath) {
+        switch segmented {
+        case .number:
+            collectionCreateGoal.change(textField: "VALUE", type: .number, at: indexPath)
+        case .money:
+            collectionCreateGoal.change(textField: "VALUE", type: .currency, at: indexPath)
+        }
     }
 }

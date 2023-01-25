@@ -10,10 +10,11 @@ import Foundation
 // MARK: - GoalModel
 struct GoalModel: Codable {
     let uuid: FirestoreId?
-    let name, type: String?
+    let name: String?
+    let type: GoalType?
     let value, goal: Double?
     let iconGroup, icon: String?
-    let creationDate: Date?
+    let creationDate: String?
 
     enum CodingKeys: String, CodingKey {
         case uuid, name, type, value, goal
@@ -25,23 +26,36 @@ struct GoalModel: Codable {
 
 extension GoalModel {
     func stringValue() -> String? {
-        if self.type == "MONEY" {
-            return self.value?.asString(digits: 0)
-        } else {
+        switch type {
+        case .money:
             return self.value?.asMoney(digits: 2)
+        case .number:
+            return self.value?.asString(digits: 0)
+        case .none:
+            return nil
         }
     }
     
     func stringGoal() -> String? {
-        if self.type == "MONEY" {
-            return self.goal?.asString(digits: 0)
-        } else {
+        switch type {
+        case .money:
             return self.goal?.asMoney(digits: 2)
+        case .number:
+            return self.goal?.asString(digits: 0)
+        case .none:
+            return nil
         }
     }
     
     func percentage() -> Double {
-        return (self.value ?? 0) / (self.goal ?? 1)
+        switch type {
+        case .number:
+            return (self.value ?? 0) / (self.goal ?? 1).rounded(.down)
+        case .money:
+            return (self.value ?? 0) / (self.goal ?? 1)
+        default:
+            return .greatestFiniteMagnitude
+        }
     }
     
     func stringPercentage() -> String {

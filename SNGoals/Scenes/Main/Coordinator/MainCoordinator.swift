@@ -36,9 +36,7 @@ class MainCoordinator: SNCoordinator {
         self.navigation?.pushViewController(tabController, animated: false)
     }
 
-    func start() {
-        fatalError("You should restarStack to start MainCoordinator")
-    }
+    func start() { }
     
     static func restartStack(navigation: UINavigationController = .init() ) {
         let coordinator = MainCoordinator(with: navigation)

@@ -41,6 +41,24 @@ class CreateGoalsCollectionView: UICollectionView {
         selectionColor = colorHex
     }
     
+    public func change(textField fromId: String, type: TextFieldTypes, at indexPath: IndexPath) {
+        let index = dataBase.firstIndex { model in
+            switch model.type {
+            case .text(let text):
+                return text.id == fromId
+            default:
+                return false
+            }
+        }
+        guard let index = index else { return }
+        dataBase[index].type.change(type: type)
+        guard let cell = self.cellForItem(at: IndexPath(item: 0, section: index)) as? TextFieldCollectionViewCell else { return }
+        cell.change(type: type)
+        UIView.performWithoutAnimation { [weak self] in
+            self?.reloadSections(IndexSet(integer: index))
+        }
+    }
+    
     public func set(_ dataBase: [CreateModel]) {
         self.dataBase = dataBase
         let accent = UIColor.accent.toHex()
@@ -111,9 +129,12 @@ extension CreateGoalsCollectionView: UICollectionViewDelegate, UICollectionViewD
         switch item {
         case .text(let text):
             let cell: TextFieldCollectionViewCell = collectionView.dequeueReusableCell(withReuseIdentifier: CreateGroupCollection.Text.identifier, for: indexPath) as! TextFieldCollectionViewCell
+            Sanada.print(text)
             cell.configure(delegate: self,
                            indexPath: indexPath,
                            text: text.text,
+                           placeholder: text.placeholder,
+                           type: text.type,
                            tint: selectionColor ?? dataBase.selectedColor())
             return cell
         case .date(let date):
@@ -214,6 +235,12 @@ extension CreateGoalsCollectionView: CollectionSegmentedProtocol {
     func collectionViewCell(changed segment: Int?, from indexPath: IndexPath) {
         guard let segment = segment else { return }
         dataBase[indexPath.section].type.change(segmented: segment, at: indexPath)
+        switch dataBase[indexPath.section].type {
+        case .segmented(let segmented):
+            interactor?.collectionView(self, didChange: segmented.segmenteds[segment].id, at: indexPath)
+        default:
+            break
+        }
     }
 }
 

@@ -16,7 +16,7 @@ class SegmentedCollectionViewCell: UICollectionViewCell {
     private weak var delegate: CollectionSegmentedProtocol?
     private var indexPath: IndexPath?
     private var selectedSegment: Int?
-    private var segments: [String]?
+    private var segments: [(name: String, id: GoalType)]?
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -26,7 +26,7 @@ class SegmentedCollectionViewCell: UICollectionViewCell {
     
     func configure(delegate: CollectionSegmentedProtocol,
                    indexPath: IndexPath,
-                   segments: [GoalType],
+                   segments: [(name: String, id: GoalType)],
                    selected segment: Int,
                    tint color: HEXColor?) {
         self.delegate = delegate
@@ -35,7 +35,7 @@ class SegmentedCollectionViewCell: UICollectionViewCell {
         self.segments = segments
         guard let color = color else { return }
         self.segmentedControl.selectedSegmentTintColor = UIColor.fromHex(color)
-        self.segmentedControl.replaceSegments(segments: segments)
+        self.segmentedControl.replaceSegments(segments: segments.map { $0.name })
         if segment <= segments.count {
             segmentedControl.selectedSegmentIndex = segment
             segmentedControl.sendActions(for: .valueChanged)

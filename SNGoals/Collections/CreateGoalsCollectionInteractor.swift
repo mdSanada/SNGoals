@@ -9,4 +9,5 @@ import Foundation
 
 protocol CreateGoalsCollectionInteractor: AnyObject {
     func collectionView(_ collectionView: CreateGoalsCollectionView, didChange color: HEXColor)
+    func collectionView(_ collectionView: CreateGoalsCollectionView, didChange segmented: GoalType, at indexPath: IndexPath)
 }

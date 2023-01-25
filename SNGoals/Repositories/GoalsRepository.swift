@@ -9,7 +9,7 @@ import Foundation
 import FirebaseFirestore
 
 internal class GoalsRepository {
-    private let manager = Repository(service: .goals)
+    private let manager = Repository(service: .goals, source: .default)
     private var listeners: [ListenerRegistration] = [] {
         didSet {
             Sanada.print("Add New Listener: \(listeners)")
@@ -37,9 +37,7 @@ internal class GoalsRepository {
         manager.readCollection(query: filteredCollection,
                                map: GoalsModel.self,
                                onLoading: onLoading,
-                               onSuccess: { [weak self] goals in
-            onSuccess(goals)
-        },
+                               onSuccess: onSuccess,
                                onError: onError)
     }
     
@@ -88,6 +86,18 @@ internal class GoalsRepository {
                        with: uuid,
                        in: collection,
                        map: GoalsModel.self,
+                       onLoading: onLoading,
+                       onSuccess: onSuccess,
+                       onError: onError)
+    }
+    
+    func delete(with uuid: FirestoreId,
+                onLoading: @escaping ((Bool) -> ()),
+                onSuccess: @escaping (() -> ()),
+                onError: @escaping ((Error) -> ())) {
+        let collection = manager.dataBase.collection(manager.colletion)
+        manager.delete(delete: uuid,
+                       in: collection,
                        onLoading: onLoading,
                        onSuccess: onSuccess,
                        onError: onError)

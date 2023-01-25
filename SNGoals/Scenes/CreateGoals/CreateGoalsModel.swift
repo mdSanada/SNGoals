@@ -29,6 +29,17 @@ enum CreateType: Equatable {
         }
     }
     
+    mutating func change(type: TextFieldTypes) {
+        switch self {
+        case .text(var text):
+            text.type = type
+            text.text = nil
+            self = .text(text)
+        default:
+            return
+        }
+    }
+    
     mutating func change(text value: String, at index: IndexPath) {
         switch self {
         case .text(var text):
@@ -106,13 +117,38 @@ enum CreateType: Equatable {
     }
 }
 
+enum GoalType: String, Codable, CaseIterable {
+    case number = "NUMBER"
+    case money = "MONEY"
+
+    enum CodingKeys: String, CodingKey {
+        case number = "NUMBER"
+        case money = "MONEY"
+    }
+    
+    init(from decoder: Decoder) throws {
+       let label = try decoder.singleValueContainer().decode(String.self)
+       switch label {
+       case "NUMBER": self = .number
+       case "MONEY": self = .money
+       default: self = .number
+       }
+    }
+
+}
+
 struct TextStateful {
+    let id: String
+    let placeholder: String?
+    var type: TextFieldTypes
     var text: String?
 }
 
 struct SegmentedStateful {
-    var segment: GoalType?
-    var segmenteds: [String]
+    var segment: (name: String,
+                  id: GoalType)?
+    var segmenteds: [(name: String,
+                      id: GoalType)]
     var selected: Int
 }
 
@@ -162,7 +198,10 @@ extension CreateModel {
     static func create(goals: GoalsModel?) -> [CreateModel] {
         var models: [CreateModel] = []
         models.append(CreateModel(section: "Nome",
-                                  type: .text(TextStateful(text: goals?.name))))
+                                  type: .text(TextStateful(id: "NAME",
+                                                           placeholder: "Digite o seu nome",
+                                                           type: .text,
+                                                           text: goals?.name))))
         models.append(CreateModel(section: "Data",
                                   type: .date(DateStateful(date: goals?.date))))
         
@@ -213,14 +252,21 @@ extension CreateModel {
     static func createGoal() -> [CreateModel] {
         var models: [CreateModel] = []
         models.append(CreateModel(section: "Nome",
-                                  type: .text(TextStateful())))
+                                  type: .text(TextStateful(id: "NAME",
+                                                           placeholder: "Digite o seu nome",
+                                                           type: .text))))
         
         models.append(CreateModel(section: "Tipo",
-                                  type: .segmented(SegmentedStateful(segmenteds: ["Número", "Valor"],
+                                  type: .segmented(SegmentedStateful(segmenteds: [(name: "Número",
+                                                                                   id: .number),
+                                                                                  (name: "Valor",
+                                                                                   id: .money)],
                                                                      selected: 0))))
         
         models.append(CreateModel(section: "Valor",
-                                  type: .text(TextStateful())))
+                                  type: .text(TextStateful(id: "VALUE",
+                                                           placeholder: "Digite sua meta",
+                                                           type: .number))))
         
         var typeIcons: [IconsStateful] = []
         let icons = MockHelper.getIcons()

@@ -14,6 +14,7 @@ class GoalDetailCoordinator: SNCoordinator {
     var group: GoalsModel
     var goal: GoalModel
     var actions: CreateActions
+    var presentNavigation: UINavigationController?
     
     lazy var storyboard: UIStoryboard = {
         return .init(name: "MainStoryboard", bundle: nil)
@@ -42,11 +43,17 @@ class GoalDetailCoordinator: SNCoordinator {
         viewController.action = actions
         viewController.delegate = self
         
+        if let tintColor = group.color {
+            navigation?.navigationBar.tintColor = UIColor.fromHex(tintColor)
+        }
+        
         if let sheet = viewController.sheetPresentationController {
             sheet.prefersGrabberVisible = true
         }
         
-        navigation?.present(viewController, animated: true)
+        presentNavigation = UINavigationController(rootViewController: viewController)
+        guard let presentNavigation = presentNavigation else { return }
+        navigation?.present(presentNavigation, animated: true)
     }
 
     func back() {
@@ -56,5 +63,14 @@ class GoalDetailCoordinator: SNCoordinator {
 extension GoalDetailCoordinator: GoalDetailProtocol {
     func dismiss() {
         navigation?.dismiss(animated: true)
+    }
+    
+    func edit() {
+        guard let navigation = presentNavigation, let uuid = group.uuid else { return }
+        let coordinator = CreateGoalCoordinator(group: group,
+                                                action: .edit(uuid: uuid),
+                                                navigation: navigation)
+        child = coordinator
+        coordinator.present(animated: true)
     }
 }

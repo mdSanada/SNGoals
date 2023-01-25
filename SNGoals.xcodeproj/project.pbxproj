@@ -107,6 +107,7 @@
 		16306CB8296894D60076FC72 /* IconCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16306CB6296894D60076FC72 /* IconCollectionViewCell.xib */; };
 		16306CBA2968A0050076FC72 /* TextFieldCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16306CB929689FDE0076FC72 /* TextFieldCollectionViewCell.xib */; };
 		16306CBC2968A2E60076FC72 /* DateCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 16306CBB2968A2D00076FC72 /* DateCollectionViewCell.xib */; };
+		1647D2B3297B62290099C7D4 /* CreateGoalRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1647D2B2297B62290099C7D4 /* CreateGoalRequest.swift */; };
 		166F02652976C0BB004102C8 /* NotificationCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166F02642976C0BB004102C8 /* NotificationCenter.swift */; };
 		166F02692976C0ED004102C8 /* Vibration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166F02682976C0ED004102C8 /* Vibration.swift */; };
 		166F026E2976C21E004102C8 /* ServiceProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 166F026D2976C21E004102C8 /* ServiceProtocol.swift */; };
@@ -120,6 +121,8 @@
 		167C4843296740C8009861B3 /* SNGoalsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C4842296740C8009861B3 /* SNGoalsTests.swift */; };
 		167C484D296740C8009861B3 /* SNGoalsUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C484C296740C8009861B3 /* SNGoalsUITests.swift */; };
 		167C484F296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 167C484E296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift */; };
+		1681B37129801F1900CA68C2 /* TextFieldTypes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1681B37029801F1900CA68C2 /* TextFieldTypes.swift */; };
+		1681B37429801F9600CA68C2 /* SNTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1681B37329801F9600CA68C2 /* SNTextField.swift */; };
 		16A7D5102970A25700C64350 /* TextFieldCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7D50B2970A23A00C64350 /* TextFieldCollectionViewCell.swift */; };
 		16A7D5112970A25E00C64350 /* CollectionTextFieldProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16A7D50A2970A23A00C64350 /* CollectionTextFieldProtocol.swift */; };
 		16B5561F296ED51400F79A7A /* CreateGoalsCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B5561E296ED51400F79A7A /* CreateGoalsCollectionView.swift */; };
@@ -245,6 +248,7 @@
 		16306CB6296894D60076FC72 /* IconCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = IconCollectionViewCell.xib; sourceTree = "<group>"; };
 		16306CB929689FDE0076FC72 /* TextFieldCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = TextFieldCollectionViewCell.xib; sourceTree = "<group>"; };
 		16306CBB2968A2D00076FC72 /* DateCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DateCollectionViewCell.xib; sourceTree = "<group>"; };
+		1647D2B2297B62290099C7D4 /* CreateGoalRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalRequest.swift; sourceTree = "<group>"; };
 		166F02642976C0BB004102C8 /* NotificationCenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NotificationCenter.swift; sourceTree = "<group>"; };
 		166F02682976C0ED004102C8 /* Vibration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Vibration.swift; sourceTree = "<group>"; };
 		166F026D2976C21E004102C8 /* ServiceProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ServiceProtocol.swift; sourceTree = "<group>"; };
@@ -262,6 +266,8 @@
 		167C4848296740C8009861B3 /* SNGoalsUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SNGoalsUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		167C484C296740C8009861B3 /* SNGoalsUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNGoalsUITests.swift; sourceTree = "<group>"; };
 		167C484E296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNGoalsUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		1681B37029801F1900CA68C2 /* TextFieldTypes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldTypes.swift; sourceTree = "<group>"; };
+		1681B37329801F9600CA68C2 /* SNTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SNTextField.swift; sourceTree = "<group>"; };
 		16A7D50A2970A23A00C64350 /* CollectionTextFieldProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionTextFieldProtocol.swift; sourceTree = "<group>"; };
 		16A7D50B2970A23A00C64350 /* TextFieldCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCollectionViewCell.swift; sourceTree = "<group>"; };
 		16A7D50D2970A23A00C64350 /* SegmentedCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedCollectionViewCell.swift; sourceTree = "<group>"; };
@@ -520,8 +526,8 @@
 				16306C3F296768810076FC72 /* Goals */,
 				16306C81296880340076FC72 /* CreateGoals */,
 				16306C64296869F60076FC72 /* Goal */,
-				1604D84329719C8B0042EE36 /* GoalDetail */,
 				16306C90296881190076FC72 /* CreateGoal */,
+				1604D84329719C8B0042EE36 /* GoalDetail */,
 				16306C48296768810076FC72 /* Settings */,
 			);
 			path = Scenes;
@@ -550,6 +556,8 @@
 		16306C3529675A990076FC72 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				1681B37229801F7500CA68C2 /* SNTextField */,
+				1681B36F29801F0700CA68C2 /* TextFieldType */,
 				1604D84029718C0E0042EE36 /* CreateActions */,
 				1604D83A297184CB0042EE36 /* NavMenuActions */,
 				16306C7E29686CF00076FC72 /* Alias */,
@@ -692,6 +700,7 @@
 			isa = PBXGroup;
 			children = (
 				16306C7C29686C910076FC72 /* GoalModel.swift */,
+				1647D2B2297B62290099C7D4 /* CreateGoalRequest.swift */,
 			);
 			path = Goal;
 			sourceTree = "<group>";
@@ -907,6 +916,22 @@
 				167C484E296740C8009861B3 /* SNGoalsUITestsLaunchTests.swift */,
 			);
 			path = SNGoalsUITests;
+			sourceTree = "<group>";
+		};
+		1681B36F29801F0700CA68C2 /* TextFieldType */ = {
+			isa = PBXGroup;
+			children = (
+				1681B37029801F1900CA68C2 /* TextFieldTypes.swift */,
+			);
+			path = TextFieldType;
+			sourceTree = "<group>";
+		};
+		1681B37229801F7500CA68C2 /* SNTextField */ = {
+			isa = PBXGroup;
+			children = (
+				1681B37329801F9600CA68C2 /* SNTextField.swift */,
+			);
+			path = SNTextField;
 			sourceTree = "<group>";
 		};
 		16A7D5092970A23A00C64350 /* CollectionSegmented */ = {
@@ -1292,12 +1317,15 @@
 				16306BFC2967580A0076FC72 /* SNViewController.swift in Sources */,
 				16306C3829675AA70076FC72 /* LoginModel.swift in Sources */,
 				1604D84729719CB00042EE36 /* GoalDetailViewModel.swift in Sources */,
+				1681B37429801F9600CA68C2 /* SNTextField.swift in Sources */,
 				16306C4F296768810076FC72 /* MainCoordinator.swift in Sources */,
+				1681B37129801F1900CA68C2 /* TextFieldTypes.swift in Sources */,
 				1604D8372970A2BB0042EE36 /* SegmentedCollectionViewCell.swift in Sources */,
 				16306C3A29675AC10076FC72 /* Extension + UIView.swift in Sources */,
 				16306C50296768810076FC72 /* MainProtocol.swift in Sources */,
 				1604D874297212A00042EE36 /* Service.swift in Sources */,
 				166F02652976C0BB004102C8 /* NotificationCenter.swift in Sources */,
+				1647D2B3297B62290099C7D4 /* CreateGoalRequest.swift in Sources */,
 				16306BF12967580A0076FC72 /* SNRefresher.swift in Sources */,
 				16306C3429675A670076FC72 /* LoginViewModel.swift in Sources */,
 				16306C0A296758290076FC72 /* Extension + Data.swift in Sources */,

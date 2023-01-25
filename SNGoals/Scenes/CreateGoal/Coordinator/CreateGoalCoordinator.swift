@@ -46,6 +46,26 @@ class CreateGoalCoordinator: SNCoordinator {
         
         navigation?.present(viewController, animated: true)
     }
+    
+    func present(animated: Bool) {
+        let viewModel = CreateGoalViewModel()
+        guard let viewController = storyboard.instantiateViewController(withIdentifier: "CreateGoal") as? CreateGoalViewController else {
+            return
+        }
+        viewController.set(viewModel: viewModel)
+        
+        viewController.group = group
+        viewController.delegate = self
+        viewController.title = "Criar nova meta"
+        viewController.actions = actions
+        
+        viewController.modalPresentationStyle = .overCurrentContext
+        if let sheet = viewController.sheetPresentationController {
+            sheet.prefersGrabberVisible = true
+        }
+        
+        navigation?.present(viewController, animated: animated)
+    }
 
     func back() {
         self.navigation?.popViewController(animated: true)

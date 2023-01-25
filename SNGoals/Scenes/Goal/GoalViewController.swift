@@ -33,11 +33,64 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
         super.viewDidLoad()
         searchController.searchResultsUpdater = self
         navigationItem.searchController = searchController
+        if let uuid = group?.uuid {
+            viewModel?.uuid.onNext(uuid)
+        }
         addNotification()
         configureBindings()
         configureTable()
         configureFromGoal()
-        mock()
+    }
+        
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        navigationItem.largeTitleDisplayMode = .never
+    }
+    
+    override func configureViews() {
+        configureNavigationButton()
+        if let color = color {
+            buttonNewGoal.tintColor = UIColor.fromHex(color)
+            buttonNewGoal.imageView?.contentMode = .scaleAspectFit
+        }
+    }
+    
+    override func configureBindings() {
+        searchText
+            .distinctUntilChanged()
+            .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
+            .subscribe(onNext: { [weak self] text in
+                self?.filter(text: text)
+            })
+            .disposed(by: disposeBag)
+    }
+
+    override func render(states: GoalStates) {
+        switch states {
+        case .goals(let goals):
+            self.dataBase = goals
+            self.tableGoal.reloadData()
+        case .refresh(let goals):
+            self.dataBase = goals
+            self.tableGoal.reloadData()
+        case .loading(let loading):
+            Sanada.print(loading)
+        case .error(let message):
+            Sanada.print(message)
+        case .delete:
+            delegate?.back()
+        case .deleteLoading(let loading):
+            Sanada.print("Loading Delete: \(loading)")
+        }
+    }
+    
+    @IBAction func actionAddGoal(_ sender: UIButton) {
+        delegate?.addGoal()
     }
     
     private func addNotification() {
@@ -57,11 +110,6 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
         }
     }
     
-    private func mock() {
-        dataBase = MockHelper.createGoal()
-        tableGoal.reloadData()
-    }
-    
     private func configureFromGoal() {
         self.title = group?.name ?? ""
         self.color = group?.color ?? ""
@@ -72,24 +120,6 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
         tableGoal.delegate = self
         tableGoal.dataSource = self
         tableGoal.register(type: GoalCell.self)
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationItem.largeTitleDisplayMode = .never
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationItem.largeTitleDisplayMode = .never
-    }
-    
-    override func configureViews() {
-        configureNavigationButton()
-        if let color = color {
-            buttonNewGoal.tintColor = UIColor.fromHex(color)
-            buttonNewGoal.imageView?.contentMode = .scaleAspectFit
-        }
     }
     
     private func configureNavigationButton() {
@@ -123,31 +153,17 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
         case .share:
             break
         case .delete:
-            break
+            guard let uuid = group?.uuid else { return }
+            viewModel?.delete.onNext(uuid)
         }
     }
-    
-    override func configureBindings() {
-        searchText
-            .distinctUntilChanged()
-            .debounce(.milliseconds(300), scheduler: MainScheduler.instance)
-            .subscribe(onNext: { [weak self] text in
-                self?.filter(text: text)
-            })
-            .disposed(by: disposeBag)
-    }
-
-    
+        
     private func filter(text: String) {
         if text.isEmpty {
             print("Will not filter")
         } else {
             print("Will filter: \(text)")
         }
-    }
-    
-    @IBAction func actionAddGoal(_ sender: UIButton) {
-        delegate?.addGoal()
     }
 }
 

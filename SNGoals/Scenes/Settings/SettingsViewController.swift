@@ -8,6 +8,7 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import FirebaseAuth
 
 class SettingsViewController: UIViewController {
     weak var delegate: SettingsProtocol?
@@ -20,7 +21,12 @@ class SettingsViewController: UIViewController {
         buttonSignOut.rx
             .tap
             .subscribe(onNext: { [weak self] _ in
-                self?.delegate?.signout()
+                do {
+                    try Auth.auth().signOut()
+                    self?.delegate?.signout()
+                } catch {
+                    Sanada.print("Something Happens")
+                }
             })
             .disposed(by: disposeBag)
         // Do any additional setup after loading the view.

@@ -20,7 +20,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="US7-OS-NVM">
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" id="US7-OS-NVM" customClass="SNTextField" customModule="SNGoals" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="384" height="40"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES"/>
                                 <constraints>
@@ -28,9 +28,6 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
-                                <connections>
-                                    <action selector="didChange:" destination="gTV-IL-0wX" eventType="editingChanged" id="ghU-dW-miD"/>
-                                </connections>
                             </textField>
                         </subviews>
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

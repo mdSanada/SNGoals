@@ -34,10 +34,11 @@ class GoalCell: UITableViewCell {
     }
     
     private func configureLabels(type: GoalType, value: Double, goal: Double) {
-        if type == "MONEY" {
+        switch type {
+        case .money:
             labelValue.text = value.asMoney()
             labelGoal.text = "/ \(goal.asMoney())"
-        } else {
+        case .number:
             labelValue.text = value.asString(digits: 0, minimum: 0)
             labelGoal.text = "/ \(goal.asString(digits: 0, minimum: 0))"
         }

@@ -47,7 +47,7 @@ struct MockHelper {
                                  goal: randomGoal,
                                  iconGroup: "Weather",
                                  icon: "sun.min",
-                                 creationDate: Date())
+                                 creationDate: "2023-01-01")
             result.append(goal)
         }
 
@@ -59,9 +59,9 @@ struct MockHelper {
         return Double(goals.randomElement() ?? 10)
     }
     
-    static func randomType() -> String {
-        let types = ["NUMBER", "MONEY"]
-        return types.randomElement() ?? "NUMBER"
+    static func randomType() -> GoalType {
+        let types = GoalType.allCases
+        return types.randomElement() ?? .money
     }
     
     static func randomColor() -> String {

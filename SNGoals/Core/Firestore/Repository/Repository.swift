@@ -10,9 +10,11 @@ import FirebaseFirestore
 
 public class Repository: RepositoryProtocol {
     var colletion: String
+    var source: FirestoreSource
     
-    init(service: Service) {
+    init(service: Service, source: FirestoreSource) {
         self.colletion = service.collection
+        self.source = source
     }
 
     deinit {

@@ -6,6 +6,8 @@
 //
 
 import UIKit
+import FirebaseAuth
+
 class LoginCoordinator: SNCoordinator {
     var presenter: UIViewController
     var child: SNCoordinator?
@@ -23,6 +25,10 @@ class LoginCoordinator: SNCoordinator {
     }
 
     func start() {
+        startLogin()
+    }
+    
+    private func startLogin() {
         let viewModel = LoginViewModel()
         guard let viewController = storyboard.instantiateInitialViewController() as? LoginViewController else { return }
         viewController.set(viewModel: viewModel)

@@ -18,6 +18,7 @@ private class SNDataBase {
         settings.isPersistenceEnabled = true
         settings.cacheSizeBytes = FirestoreCacheSizeUnlimited
         db.settings = settings
+//        db.disableNetwork()
         firestore = db
     }
 }
@@ -25,6 +26,7 @@ private class SNDataBase {
 internal protocol RepositoryProtocol {
     var colletion: String { get }
     var dataBase: Firestore { get }
+    var source: FirestoreSource { get }
     
     /// Makes a `GET` Query request.
     ///
@@ -62,11 +64,12 @@ internal protocol RepositoryProtocol {
     /// - parameter onMapError: Returns an `Data`, when tryied to map an failured.
     ///
     /// - Returns: `Void`.
-    func read<T: Decodable>(document: DocumentReference,
-                            map: T.Type,
-                            onLoading: @escaping ((Bool) -> ()),
-                            onSuccess: @escaping ((T) -> ()),
-                            onError: @escaping ((Error) -> ()))
+    func read<T: Codable>(collection: CollectionReference,
+                          with uuid: FirestoreId,
+                          map: T.Type,
+                          onLoading: @escaping ((Bool) -> ()),
+                          onSuccess: @escaping ((T) -> ()),
+                          onError: @escaping ((Error) -> ()))
     
     /// Makes a `POST` request.
     ///
@@ -107,10 +110,11 @@ internal protocol RepositoryProtocol {
     /// - parameter onMapError: Returns an `Data`, when tryied to map an failured.
     ///
     /// - Returns: `Void`.
-    func delete<T: Decodable>(document: DocumentReference,
-                              onLoading: @escaping ((Bool) -> ()),
-                              onSuccess: @escaping ((T) -> ()),
-                              onError: @escaping ((Error) -> ()))
+    func delete(delete uuid: FirestoreId,
+                in collection: CollectionReference,
+                onLoading: @escaping ((Bool) -> ()),
+                onSuccess: @escaping (() -> ()),
+                onError: @escaping ((Error) -> ()))
 }
 
 extension RepositoryProtocol {
@@ -128,7 +132,7 @@ extension RepositoryProtocol {
                            onSuccess: @escaping (([T]) -> ()),
                            onError: @escaping ((Error) -> ())) where T : Decodable {
         onLoading(true)
-        query.getDocuments(source: .default) { query, error in
+        query.getDocuments(source: source) { query, error in
             if let query = query {
                 let data = query.documents.compactMap { response -> T? in
                     var dict = response.data()
@@ -153,7 +157,7 @@ extension RepositoryProtocol {
                            onSuccess: @escaping (([T]) -> ()),
                            onError: @escaping ((Error) -> ())) where T : Decodable {
         onLoading(true)
-        collection.getDocuments(source: .default) { query, error in
+        collection.getDocuments(source: source) { query, error in
             if let query = query {
                 let data = query.documents.compactMap { response -> T? in
                     var dict = response.data()
@@ -166,13 +170,30 @@ extension RepositoryProtocol {
                 onSuccess(data)
             } else {
                 onLoading(false)
-                onError(NSError(domain: "", code: 1, userInfo: [:]) as! Error)
+                onError(NSError.defaultError())
             }
         }
     }
     
-    func read<T>(document: DocumentReference, map: T.Type, onLoading: @escaping ((Bool) -> ()), onSuccess: @escaping ((T) -> ()), onError: @escaping ((Error) -> ())) where T : Decodable {
-        
+    func read<T: Codable>(collection: CollectionReference,
+                          with uuid: FirestoreId,
+                          map: T.Type,
+                          onLoading: @escaping ((Bool) -> ()),
+                          onSuccess: @escaping ((T) -> ()),
+                          onError: @escaping ((Error) -> ())) where T : Codable {
+        collection.document(uuid).getDocument(source: source) { document, error in
+            if let document = document {
+                var dict = document.data()
+                dict?["uuid"] = document.documentID
+                if let response = dict?.data?.map(to: T.self) {
+                    onSuccess(response)
+                } else {
+                    onError(error ?? NSError.defaultError())
+                }
+            } else {
+                onError(error ?? NSError.defaultError())
+            }
+        }
     }
     
     func save<T: Codable, M: Codable>(document: T,
@@ -245,8 +266,20 @@ extension RepositoryProtocol {
         }
     }
     
-    func delete<T>(document: DocumentReference, onLoading: @escaping ((Bool) -> ()), onSuccess: @escaping ((T) -> ()), onError: @escaping ((Error) -> ())) where T : Decodable {
-        
+    func delete(delete uuid: FirestoreId,
+                in collection: CollectionReference,
+                onLoading: @escaping ((Bool) -> ()),
+                onSuccess: @escaping (() -> ()),
+                onError: @escaping ((Error) -> ())) {
+        onLoading(true)
+        collection.document(uuid).delete() { error in
+            onLoading(false)
+            if let error = error {
+                onError(error)
+                return
+            }
+            onSuccess()
+        }
     }
 }
 

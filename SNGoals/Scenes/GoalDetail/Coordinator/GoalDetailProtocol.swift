@@ -9,4 +9,5 @@ import Foundation
 
 protocol GoalDetailProtocol: AnyObject {
     func dismiss()
+    func edit()
 }

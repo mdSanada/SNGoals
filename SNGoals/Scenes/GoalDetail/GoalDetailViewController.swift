@@ -47,6 +47,7 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillHideNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillChange(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        addNotification()
     }
     
     @objc func keyboardWillChange(notification: Notification) {
@@ -137,6 +138,27 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
     
     @IBAction func actionCancel(_ sender: Any) {
         delegate?.dismiss()
+    }
+    
+    private func addNotification() {
+        SNNotificationCenter.shared.addObserver(self, selector: #selector(changedGoals(_:)),
+                                                name: SNNotificationCenter.didChangeGoal.name,
+                                                object: nil)
+    }
+    
+    @objc private func changedGoals(_ notification: NSNotification) {
+        if notification.userInfo?.keys.contains("goal") ?? false {
+            guard let _goal = notification.userInfo?["goal"] as? GoalModel else { return }
+            if !(goal?.uuid?.isEmpty ?? true) && goal?.uuid == _goal.uuid {
+                self.goal = _goal
+                configureViews()
+                viewModel?.goal.onNext(_goal)
+                viewModel?.goalType.onNext(_goal.type)
+                let percentage = goal?.percentage() ?? 0
+                configureProgress(percentage: percentage)
+                delegate?.new(goal: _goal)
+            }
+        }
     }
     
     private func configureStepper() {

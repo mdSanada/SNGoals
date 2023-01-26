@@ -249,34 +249,67 @@ extension CreateModel {
         return models
     }
     
-    static func createGoal() -> [CreateModel] {
+    static func createGoal(goal: GoalModel?) -> [CreateModel] {
         var models: [CreateModel] = []
         models.append(CreateModel(section: "Nome",
                                   type: .text(TextStateful(id: "NAME",
                                                            placeholder: "Digite o seu nome",
-                                                           type: .text))))
-        
+                                                           type: .text,
+                                                           text: goal?.name))))
+        var segmented: [(name: String, id: GoalType)] = [(name: "Número",
+                                                          id: .number),
+                                                         (name: "Valor",
+                                                          id: .money)]
+        let selected = segmented.firstIndex { (name, id) in
+            id == goal?.type
+        }
         models.append(CreateModel(section: "Tipo",
-                                  type: .segmented(SegmentedStateful(segmenteds: [(name: "Número",
-                                                                                   id: .number),
-                                                                                  (name: "Valor",
-                                                                                   id: .money)],
-                                                                     selected: 0))))
+                                  type: .segmented(SegmentedStateful(segmenteds: segmented,
+                                                                     selected: selected ?? 0))))
+        
+        var valueText: String? = nil
+        var fielType: TextFieldTypes = .number
+        switch goal?.type {
+        case .number:
+            valueText = goal?.goal?.asString(digits: 0, minimum: 0).digits
+            fielType = .number
+        case .money:
+            valueText = goal?.goal?.asMoney(digits: 2, minimum: 2)
+            fielType = .currency
+        case .none:
+            valueText = nil
+            fielType = .number
+        }
         
         models.append(CreateModel(section: "Valor",
                                   type: .text(TextStateful(id: "VALUE",
                                                            placeholder: "Digite sua meta",
-                                                           type: .number))))
+                                                           type: fielType,
+                                                           text: valueText))))
         
         var typeIcons: [IconsStateful] = []
         let icons = MockHelper.getIcons()
+        let enumeratedIconGroup = icons.enumerated()
+        let selectedGroupIndex = enumeratedIconGroup.first(where: { element in
+            return element.element.section == goal?.iconGroup
+        }).map { $0.offset } ?? 0
         icons.enumerated().forEach { (index, icon) in
+            let enumeratedIcon = icon.items.enumerated()
+            let selectedIconIndex = enumeratedIcon.first(where: { element in
+                return element.element == goal?.icon
+            }).map { $0.offset } ?? 0
+            
+            let icons = enumeratedIcon.map { IconStateful(icon: $0.element,
+                                                          isSelected: goal == nil
+                                                          ? ($0.offset == 0)
+                                                          : ($0.offset == selectedIconIndex))}
             typeIcons.append(IconsStateful(group: icon.section,
-                                           icons: icon.items.enumerated().map { IconStateful(icon: $0.element,
-                                                                                             isSelected: $0.offset == 0)},
-                                           isSelected: index == 0))
+                                           icons: icons,
+                                           isSelected: goal == nil
+                                           ? (index == 0)
+                                           : (index == selectedGroupIndex)))
         }
-        
+
         
         models.append(CreateModel(section: "Ícone",
                                   type: .icon(typeIcons)))

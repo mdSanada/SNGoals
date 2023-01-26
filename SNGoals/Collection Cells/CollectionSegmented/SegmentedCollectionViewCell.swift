@@ -45,13 +45,26 @@ class SegmentedCollectionViewCell: UICollectionViewCell {
         self.segmentedControl.replaceSegments(segments: segments.map { $0.name })
         if segment <= segments.count {
             segmentedControl.selectedSegmentIndex = segment
-            segmentedControl.sendActions(for: .valueChanged)
+            delegate.collectionViewCell(self,
+                                        isValid: true,
+                                        from: indexPath)
+            delegate.collectionViewCell(self,
+                                        changed: segment,
+                                        from: indexPath,
+                                        force: false)
         }
     }
+    
     @IBAction func didChange(_ sender: UISegmentedControl) {
         guard let indexPath = indexPath else { return }
-        delegate?.collectionViewCell(self, changed: sender.selectedSegmentIndex, from: indexPath)
-        delegate?.collectionViewCell(self, isValid: true, from: indexPath)
+        delegate?.collectionViewCell(self,
+                                     changed: sender.selectedSegmentIndex,
+                                     from: indexPath,
+                                     force: true)
+        
+        delegate?.collectionViewCell(self,
+                                     isValid: true,
+                                     from: indexPath)
     }
 }
 

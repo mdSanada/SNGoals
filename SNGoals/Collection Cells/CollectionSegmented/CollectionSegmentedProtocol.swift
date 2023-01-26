@@ -8,7 +8,7 @@
 import UIKit
 
 protocol CollectionSegmentedProtocol: AnyObject {
-    func collectionViewCell(_ cell: SegmentedCollectionViewCell, changed segment: Int?, from indexPath: IndexPath)
+    func collectionViewCell(_ cell: SegmentedCollectionViewCell, changed segment: Int?, from indexPath: IndexPath, force reload: Bool)
     func collectionViewCell(_ cell: SegmentedCollectionViewCell, isValid: Bool, from indexPath: IndexPath)
 
 }

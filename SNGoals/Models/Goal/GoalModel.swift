@@ -14,12 +14,14 @@ struct GoalModel: Codable {
     let type: GoalType?
     let value, goal: Double?
     let iconGroup, icon: String?
+    var updatedDate: String? = nil
     let creationDate: String?
 
     enum CodingKeys: String, CodingKey {
         case uuid, name, type, value, goal
         case iconGroup = "icon-group"
         case creationDate = "creation-date"
+        case updatedDate = "updated-date"
         case icon
     }
 }

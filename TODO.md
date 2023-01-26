@@ -2,6 +2,7 @@
 
 ### Todo
 - [ ] Add share goals with friends
+- [ ] Fix Color validation
 
 ### In Progress
 - [ ] Add request edit goal

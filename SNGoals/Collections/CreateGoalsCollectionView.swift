@@ -273,14 +273,16 @@ extension CreateGoalsCollectionView: CollectionDateProtocol {
 }
 
 extension CreateGoalsCollectionView: CollectionSegmentedProtocol {
-    func collectionViewCell(_ cell: SegmentedCollectionViewCell, changed segment: Int?, from indexPath: IndexPath) {
+    func collectionViewCell(_ cell: SegmentedCollectionViewCell, changed segment: Int?, from indexPath: IndexPath, force reload: Bool) {
         guard let segment = segment else { return }
         dataBase[indexPath.section].type.change(segmented: segment, at: indexPath)
-        switch dataBase[indexPath.section].type {
-        case .segmented(let segmented):
-            interactor?.collectionView(self, didChange: segmented.segmenteds[segment].id, at: indexPath)
-        default:
-            break
+        if reload {
+            switch dataBase[indexPath.section].type {
+            case .segmented(let segmented):
+                interactor?.collectionView(self, didChange: segmented.segmenteds[segment].id, at: indexPath)
+            default:
+                break
+            }
         }
     }
     

@@ -219,8 +219,9 @@ extension RepositoryProtocol {
                                       onError: @escaping ((Error) -> ())) where T : Decodable {
         onLoading(true)
         let encoder = JSONEncoder()
-        if let data = try? encoder.encode(document), let dict = data.dictionary {
+        if let data = try? encoder.encode(document), var dict = data.dictionary {
             var listener: ListenerRegistration? = nil
+            dict["updated-date"] = Date().string(pattern: .expanded_api)
             listener = collection
                 .addDocument(data: dict)
                 .addSnapshotListener(includeMetadataChanges: true) { (_document, error) in
@@ -253,7 +254,8 @@ extension RepositoryProtocol {
                                         onError: @escaping ((Error) -> ())) where T : Decodable {
         onLoading(true)
         let encoder = JSONEncoder()
-        if let data = try? encoder.encode(document), let dict = data.dictionary {
+        if let data = try? encoder.encode(document), var dict = data.dictionary {
+            dict["updated-date"] = Date().string(pattern: .expanded_api)
             collection
                 .document(uuid)
                 .setData(dict, merge: true)
@@ -288,9 +290,11 @@ extension RepositoryProtocol {
                           onSuccess: @escaping ((M) -> ()),
                           onError: @escaping ((Error) -> ())) where M : Codable {
         onLoading(true)
+        var dict = data
+        dict["updated-date"] = Date().string(pattern: .expanded_api)
         collection
             .document(uuid)
-            .updateData(data)
+            .updateData(dict)
         
         var listener: ListenerRegistration? = nil
         listener = collection.document(uuid)

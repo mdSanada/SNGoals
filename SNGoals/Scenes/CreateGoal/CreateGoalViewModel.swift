@@ -18,7 +18,7 @@ enum CreateGoalStates: SNStateful {
 class CreateGoalViewModel: SNViewModel<CreateGoalStates> {
     let repository = GoalRepository()
     let groupUUID = PublishSubject<FirestoreId>()
-    let save = PublishSubject<(action: CreateActions, data: [CreateModel])>()
+    let save = PublishSubject<(action: CreateActions, data: [CreateModel], oldGoal: GoalModel?)>()
     var disposeBag = DisposeBag()
 
     override func configure() {
@@ -27,7 +27,8 @@ class CreateGoalViewModel: SNViewModel<CreateGoalStates> {
             .subscribe(onNext: { [weak self] result in
                 self?.saveRequest(at: result.groupUUID,
                                   action: result.data.action,
-                                  data: result.data.data)
+                                  data: result.data.data,
+                                  oldGoal: result.data.oldGoal)
             })
             .disposed(by: disposeBag)
     }
@@ -75,7 +76,10 @@ extension CreateGoalViewModel {
         return result
     }
     
-    fileprivate func saveRequest(at uuid: FirestoreId, action: CreateActions, data: [CreateModel]) {
+    fileprivate func saveRequest(at uuid: FirestoreId,
+                                 action: CreateActions,
+                                 data: [CreateModel],
+                                 oldGoal: GoalModel?) {
         emit(.loading(true))
         switch action {
         case .create:
@@ -87,14 +91,18 @@ extension CreateGoalViewModel {
             } onError: { [weak self] error in
                 self?.emit(.error("Algo inesperado aconteceu!"))
             }
-        case .edit(let uuid):
+        case .edit(let itemUUID):
+            var _goal = createRequest(data: data)
+            let value = ((oldGoal?.value ?? 0) > (_goal.goal ?? 0)) ? _goal.goal : oldGoal?.value
+            _goal.value = value
             repository.edit(at: uuid,
-                            goal: createRequest(data: data), with: uuid) { [weak self] loading in
+                            goal: _goal,
+                            with: itemUUID) { [weak self] loading in
                 self?.emit(.loading(loading))
-            } onSuccess: { [weak self] goals in
+            } onSuccess: { [weak self] goal in
                 self?.emit(.success)
-                SNNotificationCenter.post(notification: SNNotificationCenter.didChangeGoals.notification,
-                                          arguments: ["goals": goals])
+                SNNotificationCenter.post(notification: SNNotificationCenter.didChangeGoal.notification,
+                                          arguments: ["goal": goal])
             } onError: { [weak self] error in
                 self?.emit(.error("Algo inesperado aconteceu!"))
             }

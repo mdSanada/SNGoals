@@ -76,11 +76,13 @@ class SNTextField: UITextField, UITextFieldDelegate {
         guard let text = text else { return }
         let newString = numberfy(string: text, type: textFieldType)
         self.rx.text.onNext(newString)
+        self.sendActions(for: .allEditingEvents)
     }
     
     public func change(type: TextFieldTypes) {
         self.textFieldType = type
-        self.rx.text.onNext("")
+        self.rx.text.onNext(nil)
+        self.sendActions(for: .allEditingEvents)
     }
     
     public func placeholder(_ text: String?) {

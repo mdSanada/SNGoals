@@ -20,6 +20,7 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     
     var actions: CreateActions?
     var group: GoalsModel?
+    var goal: GoalModel?
     private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -59,7 +60,7 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
         collectionCreateGoal.register()
         collectionCreateGoal.interactor = self
         collectionCreateGoal.force(selection: group?.color)
-        collectionCreateGoal.set(CreateModel.createGoal())
+        collectionCreateGoal.set(CreateModel.createGoal(goal: goal))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -97,6 +98,15 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
         if let color = group?.color {
             buttonSave.tintColor = UIColor.fromHex(color)
         }
+        
+        if let actions = actions {
+            switch actions {
+            case .create:
+                buttonSave.setTitle("Salvar", for: .normal)
+            case .edit:
+                buttonSave.setTitle("Editar", for: .normal)
+            }
+        }
     }
     
     override func render(states: CreateGoalStates) {
@@ -125,7 +135,7 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     
     @IBAction func actionSave(_ sender: UIButton) {
         guard let action = actions else { return }
-        viewModel?.save.onNext((action: action, data: collectionCreateGoal.getData()))
+        viewModel?.save.onNext((action: action, data: collectionCreateGoal.getData(), oldGoal: goal))
     }
 }
 

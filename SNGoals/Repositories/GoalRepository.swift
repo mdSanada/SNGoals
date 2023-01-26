@@ -82,7 +82,7 @@ internal class GoalRepository {
               onError: @escaping ((Error) -> ())) {
         let collection = collectionPath(at: uuid)
         manager.update(document: goal,
-                       with: uuid,
+                       with: editedUUID,
                        in: collection,
                        map: GoalModel.self,
                        onLoading: onLoading,

@@ -13,6 +13,7 @@ class CreateGoalCoordinator: SNCoordinator {
     var child: SNCoordinator?
     var group: GoalsModel
     var actions: CreateActions
+    var goal: GoalModel?
     weak var dismissable: SNCoordinatorDismissable?
     var presentNavigation: UINavigationController?
 
@@ -24,10 +25,11 @@ class CreateGoalCoordinator: SNCoordinator {
         Sanada.print("Deinitializing \(self)")
     }
 
-    init(group model: GoalsModel, action: CreateActions, navigation: UINavigationController) {
+    init(group model: GoalsModel, action: CreateActions, navigation: UINavigationController, goal: GoalModel? = nil) {
         self.group = model
         self.presenter = navigation
         self.actions = action
+        self.goal = goal
     }
 
     func start() {
@@ -38,6 +40,7 @@ class CreateGoalCoordinator: SNCoordinator {
         viewController.set(viewModel: viewModel)
         
         viewController.group = group
+        viewController.goal = goal
         viewController.delegate = self
         viewController.title = "Criar nova meta"
         viewController.actions = actions
@@ -60,6 +63,7 @@ class CreateGoalCoordinator: SNCoordinator {
         
         viewController.group = group
         viewController.delegate = self
+        viewController.goal = goal
         viewController.title = "Criar nova meta"
         viewController.actions = actions
         

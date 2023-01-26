@@ -17,12 +17,14 @@ struct GoalsModel: FIRResponse {
     let shared: [FirestoreId]?
     let creationDate, date: Date?
     let goals: [FirestoreId]?
+    var updatedDate: String? = nil
 
     enum CodingKeys: String, CodingKey {
         case uuid, name, color, date
         case iconGroup = "icon-group"
         case icon, owner, shared
         case creationDate = "creation-date"
+        case updatedDate = "updated-date"
         case goals
     }
 }

@@ -71,10 +71,11 @@ extension GoalDetailCoordinator: GoalDetailProtocol {
     }
     
     func edit() {
-        guard let navigation = presentNavigation, let uuid = group.uuid else { return }
+        guard let navigation = presentNavigation, let uuid = goal.uuid else { return }
         let coordinator = CreateGoalCoordinator(group: group,
                                                 action: .edit(uuid: uuid),
-                                                navigation: navigation)
+                                                navigation: navigation,
+                                                goal: goal)
         child = coordinator
         coordinator.present(animated: true)
     }
@@ -82,5 +83,9 @@ extension GoalDetailCoordinator: GoalDetailProtocol {
     
     func clear() {
         dismissable?.dismissing()
+    }
+    
+    func new(goal: GoalModel) {
+        self.goal = goal
     }
 }

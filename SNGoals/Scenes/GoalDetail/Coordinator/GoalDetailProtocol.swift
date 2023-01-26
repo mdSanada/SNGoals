@@ -11,4 +11,5 @@ protocol GoalDetailProtocol: AnyObject {
     func dismiss()
     func edit()
     func clear()
+    func new(goal: GoalModel)
 }

@@ -11,6 +11,7 @@ public class SNNotificationCenter: NSObject {
     static public let shared = NotificationCenter.init()
     
     static public let didChangeGoals = SNNotificationModel(notification: "Firestore.update.goals")
+    static public let didChangeGoal = SNNotificationModel(notification: "Firestore.update.goal")
     
     public static func post(notification: Notification, arguments: [String: Any]) {
         SNNotificationCenter.shared.post(name: notification.name,

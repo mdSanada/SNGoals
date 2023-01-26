@@ -19,9 +19,6 @@ class ColorCollectionViewCell: UICollectionViewCell {
         didSet {
             if let isSelectedCell = isSelectedCell {
                 isSelected(isSelectedCell)
-                if let indexPath = indexPath {
-                    delegate?.collectionViewCell(self, isValid: isSelectedCell, from: indexPath)
-                }
             }
         }
     }
@@ -74,6 +71,9 @@ class ColorCollectionViewCell: UICollectionViewCell {
                                   withAlpha: 0.4,
                                   withThickness: 5,
                                   cornerRadius: cornerRadius)
+            if let indexPath = indexPath {
+                delegate?.collectionViewCell(self, isValid: selected, from: indexPath)
+            }
         } else {
             viewCircle.addBorders(withEdges: .all,
                                   withColor: .secondarySystemBackground,

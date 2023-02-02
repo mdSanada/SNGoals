@@ -2,6 +2,12 @@
 
 ### Todo
 - [ ] Add share goals with friends
+- [ ] Add goal type BOOL
+- [ ] Add Completed tab
+- [ ] See Progress of a Goal Group
+- [ ] Add Goal Group Info in Goal
+- [ ] Finished Goals Group without completing all goals inside (its finished but not completed)
+- [ ] Complete Goals Group when all goal is finished
 
 ### In Progress
 - [ ] Add request edit goal

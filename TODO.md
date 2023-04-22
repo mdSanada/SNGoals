@@ -1,12 +1,14 @@
 # TODO
 
-### Todo
+### Backlog
 - [ ] Create tab to Goals without Group
 - [ ] Create tab to Shared Goals
+
+### Todo
 - [ ] Create Profile
-- [ ] Add share goals with friends
 
 ### In Progress
+- [ ] Add share goals with friends
 
 ### Done ✓
 

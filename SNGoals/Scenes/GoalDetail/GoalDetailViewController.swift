@@ -103,6 +103,7 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
             .value
             .distinctUntilChanged()
             .subscribe(onNext: { [weak self] step in
+                Vibration.light.vibrate()
                 self?.viewModel?.didChangeStepper.onNext(step)
             })
             .disposed(by: disposeBag)
@@ -122,6 +123,7 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
         case .didChangeProgress(let progress):
             configureProgress(percentage: progress)
         case .error(let string):
+            Vibration.error.vibrate()
             Sanada.print(string)
         }
     }
@@ -150,6 +152,7 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
         if notification.userInfo?.keys.contains("goal") ?? false {
             guard let _goal = notification.userInfo?["goal"] as? GoalModel else { return }
             if !(goal?.uuid?.isEmpty ?? true) && goal?.uuid == _goal.uuid {
+                Vibration.success.vibrate()
                 self.goal = _goal
                 configureViews()
                 viewModel?.goal.onNext(_goal)
@@ -169,6 +172,9 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
             stepper.minimumValue = 0
         case .money:
             stepper.maximumValue = goal.goal ?? 0
+            stepper.minimumValue = 0
+        case .simple:
+            stepper.maximumValue = 1
             stepper.minimumValue = 0
         }
         stepper.value = goal.value ?? 0
@@ -210,6 +216,8 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
             textFieldValue.configure(delegate: self, type: .currency)
             textFieldValue.configureError(validate: .equalMore(count: 1))
             textFieldValue.placeholder(1.asMoney(digits: 2, minimum: 2))
+        case .simple:
+            break
         }
         stepper.value = 1
     }
@@ -248,9 +256,11 @@ class GoalDetailViewController: SNViewController<GoalDetailStates, GoalDetailVie
     private func handlerMenu(action: NavMenuActions) {
         switch action {
         case .edit:
+            Vibration.light.vibrate()
             delegate?.edit()
         case .delete:
             guard let uuid = goal?.uuid, let group = group else { return }
+            Vibration.error.vibrate()
             viewModel?.delete.onNext((uuid: uuid, group: group))
         case .share:
             break

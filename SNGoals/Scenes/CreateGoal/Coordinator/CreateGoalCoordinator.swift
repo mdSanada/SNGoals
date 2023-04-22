@@ -14,6 +14,7 @@ class CreateGoalCoordinator: SNCoordinator {
     var group: GoalsModel
     var actions: CreateActions
     var goal: GoalModel?
+    var goalType: GoalType?
     weak var dismissable: SNCoordinatorDismissable?
     var presentNavigation: UINavigationController?
 
@@ -25,11 +26,16 @@ class CreateGoalCoordinator: SNCoordinator {
         Sanada.print("Deinitializing \(self)")
     }
 
-    init(group model: GoalsModel, action: CreateActions, navigation: UINavigationController, goal: GoalModel? = nil) {
+    init(group model: GoalsModel,
+         action: CreateActions,
+         goalType: GoalType,
+         navigation: UINavigationController,
+         goal: GoalModel? = nil) {
         self.group = model
         self.presenter = navigation
         self.actions = action
         self.goal = goal
+        self.goalType = goalType
     }
 
     func start() {
@@ -44,6 +50,7 @@ class CreateGoalCoordinator: SNCoordinator {
         viewController.delegate = self
         viewController.title = "Criar nova meta"
         viewController.actions = actions
+        viewController.type = goalType
         
         if let sheet = viewController.sheetPresentationController {
             sheet.prefersGrabberVisible = true
@@ -66,7 +73,8 @@ class CreateGoalCoordinator: SNCoordinator {
         viewController.goal = goal
         viewController.title = "Criar nova meta"
         viewController.actions = actions
-        
+        viewController.type = goalType
+
         viewController.modalPresentationStyle = .overCurrentContext
         if let sheet = viewController.sheetPresentationController {
             sheet.prefersGrabberVisible = true

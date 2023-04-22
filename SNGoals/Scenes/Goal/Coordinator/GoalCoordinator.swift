@@ -47,9 +47,9 @@ class GoalCoordinator: SNCoordinator {
     }
 }
 extension GoalCoordinator: GoalProtocol, SNCoordinatorDismissable {
-    func addGoal() {
+    func addGoal(goalType: GoalType) {
         guard let groupGoals = groupGoals, let navigation = navigation else { return }
-        let coordinator = CreateGoalCoordinator(group: groupGoals, action: .create, navigation: navigation)
+        let coordinator = CreateGoalCoordinator(group: groupGoals, action: .create, goalType: goalType, navigation: navigation)
         coordinator.dismissable = self
         child = coordinator
         child?.start()

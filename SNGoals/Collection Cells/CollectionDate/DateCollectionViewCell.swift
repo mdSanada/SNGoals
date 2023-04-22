@@ -57,5 +57,6 @@ class DateCollectionViewCell: UICollectionViewCell {
         }
         guard let date = date else { return }
         self.datePicker.date = date
+        delegate.collectionViewCell(self, isValid: true, from: indexPath)
     }
 }

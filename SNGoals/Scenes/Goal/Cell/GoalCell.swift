@@ -41,6 +41,9 @@ class GoalCell: UITableViewCell {
         case .number:
             labelValue.text = value.asString(digits: 0, minimum: 0)
             labelGoal.text = "/ \(goal.asString(digits: 0, minimum: 0))"
+        case .simple:
+            labelValue.text = nil
+            labelGoal.text = nil
         }
     }
     

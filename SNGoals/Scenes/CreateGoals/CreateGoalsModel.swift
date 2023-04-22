@@ -118,10 +118,12 @@ enum CreateType: Equatable {
 }
 
 enum GoalType: String, Codable, CaseIterable {
+    case simple = "SIMPLE"
     case number = "NUMBER"
     case money = "MONEY"
 
     enum CodingKeys: String, CodingKey {
+        case simple = "SIMPLE"
         case number = "NUMBER"
         case money = "MONEY"
     }
@@ -129,6 +131,7 @@ enum GoalType: String, Codable, CaseIterable {
     init(from decoder: Decoder) throws {
        let label = try decoder.singleValueContainer().decode(String.self)
        switch label {
+       case "SIMPLE": self = .simple
        case "NUMBER": self = .number
        case "MONEY": self = .money
        default: self = .number
@@ -249,43 +252,39 @@ extension CreateModel {
         return models
     }
     
-    static func createGoal(goal: GoalModel?) -> [CreateModel] {
+    static func createGoal(goal: GoalModel?, type: GoalType) -> [CreateModel] {
         var models: [CreateModel] = []
         models.append(CreateModel(section: "Nome",
                                   type: .text(TextStateful(id: "NAME",
                                                            placeholder: "Digite o seu nome",
                                                            type: .text,
                                                            text: goal?.name))))
-        var segmented: [(name: String, id: GoalType)] = [(name: "Número",
-                                                          id: .number),
-                                                         (name: "Valor",
-                                                          id: .money)]
-        let selected = segmented.firstIndex { (name, id) in
-            id == goal?.type
+        let goalType = goal?.type ?? type
+
+        switch goalType {
+        case .simple:
+            break
+        case .number, .money:
+            var valueText: String? = nil
+            var fielType: TextFieldTypes = .number
+            switch goalType {
+            case .number:
+                valueText = goal?.goal?.asString(digits: 0, minimum: 0).digits
+                fielType = .number
+            case .money:
+                valueText = goal?.goal?.asMoney(digits: 2, minimum: 2)
+                fielType = .currency
+            case .simple:
+                valueText = nil
+                fielType = .number
+            }
+            
+            models.append(CreateModel(section: "Valor",
+                                      type: .text(TextStateful(id: "VALUE",
+                                                               placeholder: "Digite sua meta",
+                                                               type: fielType,
+                                                               text: valueText))))
         }
-        models.append(CreateModel(section: "Tipo",
-                                  type: .segmented(SegmentedStateful(segmenteds: segmented,
-                                                                     selected: selected ?? 0))))
-        
-        var valueText: String? = nil
-        var fielType: TextFieldTypes = .number
-        switch goal?.type {
-        case .number:
-            valueText = goal?.goal?.asString(digits: 0, minimum: 0).digits
-            fielType = .number
-        case .money:
-            valueText = goal?.goal?.asMoney(digits: 2, minimum: 2)
-            fielType = .currency
-        case .none:
-            valueText = nil
-            fielType = .number
-        }
-        
-        models.append(CreateModel(section: "Valor",
-                                  type: .text(TextStateful(id: "VALUE",
-                                                           placeholder: "Digite sua meta",
-                                                           type: fielType,
-                                                           text: valueText))))
         
         var typeIcons: [IconsStateful] = []
         let icons = MockHelper.getIcons()

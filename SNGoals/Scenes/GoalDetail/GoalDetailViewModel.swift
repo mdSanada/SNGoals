@@ -57,7 +57,7 @@ class GoalDetailViewModel: SNViewModel<GoalDetailStates> {
             .compactMap { (value, type) in
                 var result: String? = nil
                 switch type {
-                case .number:
+                case .number, .simple:
                     let number = (value)?.asString(digits: 2, minimum: 0)
                     result = number
                 case .money:
@@ -79,7 +79,7 @@ class GoalDetailViewModel: SNViewModel<GoalDetailStates> {
                 switch result.goal?.type {
                 case .money:
                     return (result.value ?? 0) / (result.goal?.goal ?? 0)
-                case .number:
+                case .number, .simple:
                     return (result.value ?? 0) / (result.goal?.goal ?? 0).rounded(.down)
                 case .none:
                     return .greatestFiniteMagnitude

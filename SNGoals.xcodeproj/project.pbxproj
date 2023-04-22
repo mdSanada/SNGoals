@@ -132,6 +132,7 @@
 		16B55622296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B55621296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift */; };
 		16B55624296EFFD600F79A7A /* Extension + UINavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B55623296EFFD600F79A7A /* Extension + UINavigationController.swift */; };
 		16B55626296F028D00F79A7A /* CreateGroupCollectionStatic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16B55625296F028D00F79A7A /* CreateGroupCollectionStatic.swift */; };
+		16C72FC129A8E88500BDFD59 /* GoalTypeMenuActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 16C72FC029A8E88500BDFD59 /* GoalTypeMenuActions.swift */; };
 		17E0080240FACAC3F99C1F69 /* Pods_SNGoals.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9FF6EBB8C9EE6DDE33EB8EFB /* Pods_SNGoals.framework */; };
 		4BC6CD738B5C01A845BD5F33 /* Pods_SNGoalsTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 71D113BE28A175FCBE063A1B /* Pods_SNGoalsTests.framework */; };
 		4D3E0E69F802F0EFE6F91849 /* Pods_SNGoals_SNGoalsUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7E0371891239EC80BF497998 /* Pods_SNGoals_SNGoalsUITests.framework */; };
@@ -283,6 +284,7 @@
 		16B55621296EDC5F00F79A7A /* CreateGoalsCollectionInteractor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGoalsCollectionInteractor.swift; sourceTree = "<group>"; };
 		16B55623296EFFD600F79A7A /* Extension + UINavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Extension + UINavigationController.swift"; sourceTree = "<group>"; };
 		16B55625296F028D00F79A7A /* CreateGroupCollectionStatic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateGroupCollectionStatic.swift; sourceTree = "<group>"; };
+		16C72FC029A8E88500BDFD59 /* GoalTypeMenuActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GoalTypeMenuActions.swift; sourceTree = "<group>"; };
 		1E99F5BD76A616D8B95EEE1F /* Pods-SNGoalsTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNGoalsTests.debug.xcconfig"; path = "Target Support Files/Pods-SNGoalsTests/Pods-SNGoalsTests.debug.xcconfig"; sourceTree = "<group>"; };
 		5C058C4DE3BDB3D9966CC6B1 /* Pods-SNGoals.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SNGoals.debug.xcconfig"; path = "Target Support Files/Pods-SNGoals/Pods-SNGoals.debug.xcconfig"; sourceTree = "<group>"; };
 		71D113BE28A175FCBE063A1B /* Pods_SNGoalsTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SNGoalsTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -565,6 +567,7 @@
 				1681B37229801F7500CA68C2 /* SNTextField */,
 				1681B36F29801F0700CA68C2 /* TextFieldType */,
 				1604D84029718C0E0042EE36 /* CreateActions */,
+				16C72FBF29A8E86F00BDFD59 /* GoalTypeMenuActions */,
 				1604D83A297184CB0042EE36 /* NavMenuActions */,
 				16306C7E29686CF00076FC72 /* Alias */,
 				16306C7B29686C7F0076FC72 /* Goal */,
@@ -963,6 +966,14 @@
 			path = Collections;
 			sourceTree = "<group>";
 		};
+		16C72FBF29A8E86F00BDFD59 /* GoalTypeMenuActions */ = {
+			isa = PBXGroup;
+			children = (
+				16C72FC029A8E88500BDFD59 /* GoalTypeMenuActions.swift */,
+			);
+			path = GoalTypeMenuActions;
+			sourceTree = "<group>";
+		};
 		3CE8E85E346846A639924A19 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1255,6 +1266,7 @@
 				16306C55296768810076FC72 /* GoalsViewController.swift in Sources */,
 				16306C6F29686A160076FC72 /* GoalCell.swift in Sources */,
 				16306BF62967580A0076FC72 /* SNNetworkManager.swift in Sources */,
+				16C72FC129A8E88500BDFD59 /* GoalTypeMenuActions.swift in Sources */,
 				16B55624296EFFD600F79A7A /* Extension + UINavigationController.swift in Sources */,
 				16306C6E29686A160076FC72 /* GoalViewController.swift in Sources */,
 				160D55B8296C9A0A00BA385A /* CollectionColorProtocol.swift in Sources */,

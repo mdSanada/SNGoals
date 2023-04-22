@@ -9,6 +9,11 @@ import UIKit
 import RxSwift
 import RxCocoa
 
+fileprivate enum GoalMenuType {
+    case nav
+    case add
+}
+
 class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
     @IBOutlet weak var buttonNewGoal: UIButton!
     @IBOutlet weak var tableGoal: UITableView!
@@ -54,6 +59,8 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
     
     override func configureViews() {
         configureNavigationButton()
+        buttonNewGoal.menu = createMenu(type: .add)
+        buttonNewGoal.showsMenuAsPrimaryAction = true
         if let color = color {
             buttonNewGoal.tintColor = UIColor.fromHex(color)
             buttonNewGoal.imageView?.contentMode = .scaleAspectFit
@@ -81,6 +88,7 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
         case .loading(let loading):
             Sanada.print(loading)
         case .error(let message):
+            Vibration.error.vibrate()
             Sanada.print(message)
         case .delete:
             delegate?.back()
@@ -90,7 +98,7 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
     }
     
     @IBAction func actionAddGoal(_ sender: UIButton) {
-        delegate?.addGoal()
+        
     }
     
     private func addNotification() {
@@ -103,6 +111,7 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
         if notification.userInfo?.keys.contains("goals") ?? false {
             guard let goals = notification.userInfo?["goals"] as? GoalsModel else { return }
             if !(group?.uuid?.isEmpty ?? true) && group?.uuid == goals.uuid {
+                Vibration.success.vibrate()
                 self.group = goals
                 delegate?.didChangeGoals(goals)
                 configureFromGoal()
@@ -124,37 +133,73 @@ class GoalViewController: SNViewController<GoalStates, GoalViewModel> {
     
     private func configureNavigationButton() {
         self.navigationItem.rightBarButtonItems = [rightButton]
-        rightButton.menu = createMenu()
+        rightButton.menu = createMenu(type: .nav)
     }
     
-    private func createMenu() -> UIMenu {
-        let menu = UIMenu(options: .destructive, children: createMenuActions())
+    private func createMenu(type: GoalMenuType) -> UIMenu {
+        let menu = UIMenu(options: .destructive, children: createMenuActions(type: type))
         return menu
     }
     
-    private func createMenuActions() -> [UIAction] {
-        let stringActions = NavMenuActions.allCases
-        var actions: [UIAction] = []
-        stringActions.forEach { action in
-            let newElement = UIAction(title: action.title(),
-                                      image: action.image(),
-                                      attributes: action.attributes()) { [weak self] _ in
-                self?.handlerMenu(action: action)
+    private func createMenuActions(type: GoalMenuType) -> [UIAction] {
+        switch type {
+        case .nav:
+            let stringActions = NavMenuActions.allCases
+            var actions: [UIAction] = []
+            stringActions.forEach { action in
+                let newElement = UIAction(title: action.title(),
+                                          image: action.image(),
+                                          attributes: action.attributes()) { [weak self] _ in
+                    self?.handlerMenu(type: type, navAction: action)
+                }
+                actions.append(newElement)
             }
-            actions.append(newElement)
+            return actions
+        case .add:
+            let stringActions = GoalTypeMenuActions.allCases
+            var actions: [UIAction] = []
+            stringActions.forEach { action in
+                let newElement = UIAction(title: action.title(),
+                                          image: action.image(),
+                                          attributes: action.attributes()) { [weak self] _ in
+                    self?.handlerMenu(type: type, goalAction: action)
+                }
+                actions.append(newElement)
+            }
+            return actions
         }
-        return actions
     }
     
-    private func handlerMenu(action: NavMenuActions) {
-        switch action {
-        case .edit:
-            delegate?.presentEditGroup()
-        case .share:
-            break
-        case .delete:
-            guard let uuid = group?.uuid else { return }
-            viewModel?.delete.onNext(uuid)
+    private func handlerMenu(type: GoalMenuType,
+                             navAction: NavMenuActions? = nil,
+                             goalAction: GoalTypeMenuActions? = nil) {
+        switch type {
+        case .nav:
+            guard let action = navAction else { return }
+            switch action {
+            case .edit:
+                Vibration.light.vibrate()
+                delegate?.presentEditGroup()
+            case .share:
+                Vibration.light.vibrate()
+            case .delete:
+                guard let uuid = group?.uuid else { return }
+                Vibration.error.vibrate()
+                viewModel?.delete.onNext(uuid)
+            }
+        case .add:
+            guard let action = goalAction else { return }
+            switch action {
+            case .simple:
+                Vibration.light.vibrate()
+                delegate?.addGoal(goalType: .simple)
+            case .currency:
+                Vibration.light.vibrate()
+                delegate?.addGoal(goalType: .money)
+            case .number:
+                Vibration.light.vibrate()
+                delegate?.addGoal(goalType: .number)
+            }
         }
     }
         

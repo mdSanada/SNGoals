@@ -74,6 +74,7 @@ extension GoalDetailCoordinator: GoalDetailProtocol {
         guard let navigation = presentNavigation, let uuid = goal.uuid else { return }
         let coordinator = CreateGoalCoordinator(group: group,
                                                 action: .edit(uuid: uuid),
+                                                goalType: goal.type ?? .simple,
                                                 navigation: navigation,
                                                 goal: goal)
         child = coordinator

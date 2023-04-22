@@ -33,6 +33,8 @@ extension GoalModel {
             return self.value?.asMoney(digits: 2)
         case .number:
             return self.value?.asString(digits: 0)
+        case .simple:
+            return self.value?.asString(digits: 0)
         case .none:
             return nil
         }
@@ -44,6 +46,8 @@ extension GoalModel {
             return self.goal?.asMoney(digits: 2)
         case .number:
             return self.goal?.asString(digits: 0)
+        case .simple:
+            return self.goal?.asString(digits: 0)
         case .none:
             return nil
         }
@@ -54,6 +58,8 @@ extension GoalModel {
         case .number:
             return (self.value ?? 0) / (self.goal ?? 1).rounded(.down)
         case .money:
+            return (self.value ?? 0) / (self.goal ?? 1)
+        case .simple:
             return (self.value ?? 0) / (self.goal ?? 1)
         default:
             return .greatestFiniteMagnitude

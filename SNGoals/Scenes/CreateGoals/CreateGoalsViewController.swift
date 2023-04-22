@@ -103,11 +103,13 @@ class CreateGoalsViewController: SNViewController<CreateGoalsStates, CreateGoals
     override func render(states: CreateGoalsStates) {
         switch states {
         case .success:
+            Vibration.light.vibrate()
             delegate?.dismiss()
         case .loading(let loading):
             view.isUserInteractionEnabled = !loading
             buttonIsLoading(loading)
         case .error(let string):
+            Vibration.error.vibrate()
             Sanada.print(string)
         }
     }

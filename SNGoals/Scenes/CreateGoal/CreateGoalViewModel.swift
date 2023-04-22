@@ -18,7 +18,10 @@ enum CreateGoalStates: SNStateful {
 class CreateGoalViewModel: SNViewModel<CreateGoalStates> {
     let repository = GoalRepository()
     let groupUUID = PublishSubject<FirestoreId>()
-    let save = PublishSubject<(action: CreateActions, data: [CreateModel], oldGoal: GoalModel?)>()
+    let save = PublishSubject<(action: CreateActions,
+                               type: GoalType,
+                               data: [CreateModel],
+                               oldGoal: GoalModel?)>()
     var disposeBag = DisposeBag()
 
     override func configure() {
@@ -27,6 +30,7 @@ class CreateGoalViewModel: SNViewModel<CreateGoalStates> {
             .subscribe(onNext: { [weak self] result in
                 self?.saveRequest(at: result.groupUUID,
                                   action: result.data.action,
+                                  type: result.data.type,
                                   data: result.data.data,
                                   oldGoal: result.data.oldGoal)
             })
@@ -35,11 +39,11 @@ class CreateGoalViewModel: SNViewModel<CreateGoalStates> {
 }
 
 extension CreateGoalViewModel {
-    private func createRequest(data: [CreateModel]) -> CreateGoalRequest {
+    private func createRequest(data: [CreateModel], type: GoalType) -> CreateGoalRequest {
         var result = CreateGoalRequest(name: nil,
-                                       type: nil,
+                                       type: type.rawValue,
                                        value: 0,
-                                       goal: nil,
+                                       goal: type == .simple ? 1 : nil,
                                        iconGroup: nil,
                                        icon: nil)
         data.forEach { goal in
@@ -78,13 +82,14 @@ extension CreateGoalViewModel {
     
     fileprivate func saveRequest(at uuid: FirestoreId,
                                  action: CreateActions,
+                                 type: GoalType,
                                  data: [CreateModel],
                                  oldGoal: GoalModel?) {
         emit(.loading(true))
         switch action {
         case .create:
             repository.save(at: uuid,
-                            goal: createRequest(data: data)) { [weak self] loading in
+                            goal: createRequest(data: data, type: type)) { [weak self] loading in
                 self?.emit(.loading(loading))
             } onSuccess: { [weak self] goals in
                 self?.emit(.success)
@@ -92,7 +97,7 @@ extension CreateGoalViewModel {
                 self?.emit(.error("Algo inesperado aconteceu!"))
             }
         case .edit(let itemUUID):
-            var _goal = createRequest(data: data)
+            var _goal = createRequest(data: data, type: type)
             let value = ((oldGoal?.value ?? 0) > (_goal.goal ?? 0)) ? _goal.goal : oldGoal?.value
             _goal.value = value
             repository.edit(at: uuid,

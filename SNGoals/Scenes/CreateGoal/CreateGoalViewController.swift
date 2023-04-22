@@ -21,6 +21,7 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     var actions: CreateActions?
     var group: GoalsModel?
     var goal: GoalModel?
+    var type: GoalType?
     private var disposeBag = DisposeBag()
     
     override func viewDidLoad() {
@@ -60,7 +61,7 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
         collectionCreateGoal.register()
         collectionCreateGoal.interactor = self
         collectionCreateGoal.force(selection: group?.color)
-        collectionCreateGoal.set(CreateModel.createGoal(goal: goal))
+        collectionCreateGoal.set(CreateModel.createGoal(goal: goal, type: type ?? .simple))
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -112,11 +113,13 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     override func render(states: CreateGoalStates) {
         switch states {
         case .success:
+            Vibration.light.vibrate()
             delegate?.dismiss()
         case .loading(let loading):
             view.isUserInteractionEnabled = !loading
             buttonIsLoading(loading)
         case .error(let string):
+            Vibration.error.vibrate()
             Sanada.print(string)
         }
     }
@@ -134,8 +137,11 @@ class CreateGoalViewController: SNViewController<CreateGoalStates, CreateGoalVie
     }
     
     @IBAction func actionSave(_ sender: UIButton) {
-        guard let action = actions else { return }
-        viewModel?.save.onNext((action: action, data: collectionCreateGoal.getData(), oldGoal: goal))
+        guard let action = actions, let type = type else { return }
+        viewModel?.save.onNext((action: action,
+                                data: collectionCreateGoal.getData(),
+                                type: type,
+                                oldGoal: goal))
     }
 }
 
@@ -144,11 +150,13 @@ extension CreateGoalViewController: CreateGoalsCollectionInteractor {
     }
     
     func collectionView(_ collectionView: CreateGoalsCollectionView, didChange segmented: GoalType, at indexPath: IndexPath) {
-        switch segmented {
-        case .number:
-            collectionCreateGoal.change(textField: "VALUE", type: .number, at: indexPath)
-        case .money:
-            collectionCreateGoal.change(textField: "VALUE", type: .currency, at: indexPath)
-        }
+//        switch segmented {
+//        case .number:
+//            collectionCreateGoal.change(textField: "VALUE", type: .number, at: indexPath)
+//        case .money:
+//            collectionCreateGoal.change(textField: "VALUE", type: .currency, at: indexPath)
+//        case .simple:
+//
+//        }
     }
 }

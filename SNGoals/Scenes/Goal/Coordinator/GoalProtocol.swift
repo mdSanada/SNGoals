@@ -8,7 +8,7 @@
 import UIKit
 
 protocol GoalProtocol: AnyObject {
-    func addGoal()
+    func addGoal(goalType: GoalType)
     func presentEditGroup()
     func detail(goal: GoalModel)
     func didChangeGoals(_ goals: GoalsModel)

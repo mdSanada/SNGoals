@@ -49,6 +49,7 @@ class GoalsViewController: SNViewController<GoalsStates, GoalsViewModel> {
     }
     
     @objc private func refresh(_ sender: Any) {
+        Vibration.medium.vibrate()
         viewModel?.refresh.onNext(())
     }
     
@@ -95,6 +96,7 @@ class GoalsViewController: SNViewController<GoalsStates, GoalsViewModel> {
             self.dataBase = goals
             self.tableGoals.reloadData()
         case .refresh(let goals):
+            Vibration.success.vibrate()
             dataBase = goals
             tableGoals.reloadData()
         case .loading(let loading):
@@ -102,6 +104,7 @@ class GoalsViewController: SNViewController<GoalsStates, GoalsViewModel> {
                 tableGoals.refreshControl?.endRefreshing()
             }
         case .error(let message):
+            Vibration.error.vibrate()
             Sanada.print(message)
         }
     }
@@ -134,6 +137,7 @@ extension GoalsViewController: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        Vibration.light.vibrate()
         delegate?.pushGoal(from: dataBase[indexPath.row])
     }
 }
